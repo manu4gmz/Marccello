@@ -11,6 +11,10 @@ Product.init({
             notEmpty: true
         }
     },
+    price: {
+        type: Sequelize.DECIMAL,
+        allowNull: false
+    },
     description: {
         type: Sequelize.TEXT,
         allowNull: false,

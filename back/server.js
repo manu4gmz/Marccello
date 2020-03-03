@@ -58,7 +58,7 @@ app.get('/*', (req,res)=> {
 
 
 const port = 3000
-db.sync({force: true})
+db.sync({force: false})
 .then(() => app.listen(port, function () {
     console.log(`Server is listening on port ${port}!`);
 }))
