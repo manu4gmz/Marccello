@@ -1,0 +1,1 @@
+export const FIND_PRODUCTS = 'FIND_PRODUCTS'
