@@ -5,7 +5,7 @@ export default props => {
   return (
     <div>
       <button type="submit" class="buttonPink" href="#">
-        {props.buttonTxt}Botón
+        {props.buttonTxt}
       </button>
     </div>
   );
