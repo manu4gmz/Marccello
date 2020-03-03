@@ -28,7 +28,6 @@ router.get('/', function (req, res, next) {
 
 // te busca un producto
 router.get('/:productId', function (req, res, next) {
-    console.log(req.product)
     res.status(200).json(req.product)
 });
 
