@@ -34,4 +34,5 @@ router.get('/promote', (req, res) => {
     .then((user) => console.log(user))
 })
 
+module.exports = router
 //type: superAdmin, admin, normal
