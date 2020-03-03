@@ -36,7 +36,7 @@ User.init({
         }
 
     },
-    adress: {
+    address: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {

@@ -4,15 +4,18 @@ const passport = require('passport');
 const User = require('../models/user')
 //routes
 
+//registra usuario
 router.post('/register', (req, res) => {
     User.create(req.body)
-    .then((user) => console.log(user))    
+    .then((user) => res.send(user))    
 })
 
+//loguea usuario
 router.post('/login', passport.authenticate('local'), (req, res) => {
     res.send(req.user)
 })
 
+//desloguea usuario
 router.post('/logout', (req, res) => {
     if (req.isAuthenticated()) {
         req.logout();
@@ -22,17 +25,21 @@ router.post('/logout', (req, res) => {
     }
 })
 
-router.get('/checkLog', (req, res) => {
+//devuelve un usuario logueado si existe
+router.get('/checkLogUser', (req, res) => {
     req.isAuthenticated()? res.send(req.user) : res.send('No hay usuario logueado')    
 })
 
-router.get('/promote', (req, res) => {
-    console.log(req)
-    User.update({
-        type: ''
-    })
-    .then((user) => console.log(user))
+//promueve un usuario a "admin"
+router.get('/promote/:id', (req, res) => {
+    User.findByPk(req.params.id)
+    .then(user => {
+        user.update({
+            type: 'admin'
+        })
+        .then((user) => res.send(user))
+    }
+    )
 })
 
 module.exports = router
-//type: superAdmin, admin, normal
