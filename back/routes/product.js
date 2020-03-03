@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
-// const models = require('');
-// const Product = models.Product;
+const models = require('../models');
+const Product = models.Product;
 module.exports = router;
 
 // Middleware que automatiza la busqueda
