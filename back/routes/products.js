@@ -8,14 +8,16 @@ module.exports = router;
 router.param("productId", (req, res, next, id) => {
     Product.findByPk(id)
     .then(product => {
-        if(producto){
+        if(product){
             req.product = product
             next()
         } else {
             res.sendStatus(404)
         }
     })
-    .catch(err =>res.sendStatus(500))
+    .catch(err =>{
+        res.sendStatus(500)
+    })
 });
 
 // te devuelve todos los productos
