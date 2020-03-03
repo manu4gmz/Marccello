@@ -49,7 +49,7 @@ passport.deserializeUser(function(id, done) {
         .then(user => done(null, user))
 });
 
-app.use('/', routes)
+app.use('/api', routes)
 
 app.get('/*', (req,res)=> {
     res.sendFile(__dirname + '/public/' + 'index.html')
