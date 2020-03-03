@@ -5,29 +5,29 @@ class Flavor extends Sequelize.Model { }
 
 Flavor.init({
     name: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
         }
     },
     description: {
-        type: sequelize.TEXT,
+        type: Sequelize.TEXT,
         allowNull: false,
         validate: {
             notEmpty: true
         }
     },
     rating: {
-        type: sequelize.DECIMAL,
+        type: Sequelize.DECIMAL,
         allowNull: false
     },
     stock: {
-        type: sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     visible: {
-        type: sequelize.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false
     }
 }, {

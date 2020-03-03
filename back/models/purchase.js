@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 
 
-class Purchase extends Model { }
+class Purchase extends Sequelize.Model { }
 Purchase.init({
     total: {
         type: Sequelize.INTEGER,

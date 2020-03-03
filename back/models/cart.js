@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 
 
-class Cart extends Model { }
+class Cart extends Sequelize.Model { }
 Cart.init({
     total: {
         type: Sequelize.INTEGER,

@@ -1,4 +1,4 @@
-const db = require ('./config/db')
+const { db } = require ('./models')
 const express = require ('express');
 const app = express()
 const routes = require ('./routes/index')
@@ -55,8 +55,10 @@ app.get('/*', (req,res)=> {
     res.sendFile(__dirname + '/public/' + 'index.html')
 })
 
+
+
 const port = 3000
-db.sync({force: false})
+db.sync({force: true})
 .then(() => app.listen(port, function () {
     console.log(`Server is listening on port ${port}!`);
 }))

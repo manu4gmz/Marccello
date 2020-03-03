@@ -4,26 +4,26 @@ const sequelize = require('../config/db');
 class Product extends Sequelize.Model { }
 
 Product.init({
-    productName: {
-        type: sequelize.STRING,
+    name: {
+        type: Sequelize.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
         }
     },
     description: {
-        type: sequelize.TEXT,
+        type: Sequelize.TEXT,
         allowNull: false,
         validate: {
             notEmpty: true
         }
     },
     rating: {
-        type: sequelize.DECIMAL,
+        type: Sequelize.DECIMAL,
         allowNull: false
     },
     stock: {
-        type: sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     imgURL: {
@@ -32,7 +32,7 @@ Product.init({
     },
 
     visible: {
-        type: sequelize.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false
     }
 }, {
