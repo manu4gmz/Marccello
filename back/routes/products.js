@@ -15,8 +15,8 @@ router.param("productId", (req, res, next, id) => {
             res.sendStatus(404)
         }
     })
-    .catch(err =>{console.log(err)
-    res.sendStatus(500)
+    .catch(err =>{
+        res.sendStatus(500)
     })
 });
 
