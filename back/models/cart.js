@@ -3,8 +3,8 @@ const sequelize = require('../config/db');
 
 
 
-class Purchase extends Model { }
-Purchase.init({
+class Cart extends Model { }
+Cart.init({
     total: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -17,6 +17,4 @@ Purchase.init({
 
 }, { sequelize, modelName: 'purchase' });
 
-module.exports = Purchase
-
-
+module.exports = Cart

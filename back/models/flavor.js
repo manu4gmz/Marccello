@@ -4,7 +4,7 @@ const sequelize = require('../config/db');
 class Flavor extends Sequelize.Model { }
 
 Flavor.init({
-    flavorName: {
+    name: {
         type: sequelize.STRING,
         allowNull: false,
         validate: {
@@ -32,8 +32,10 @@ Flavor.init({
     }
 }, {
         sequelize,
-        modelName: 'flavors'
+        modelName: 'flavor'
     });
+
+
 
 
 module.exports = Flavor

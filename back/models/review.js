@@ -10,8 +10,12 @@ Review.init({
 
 }, {
         sequelize,
-        modelName: 'reviews'
+        modelName: 'review'
     });
+
+
+
+
 
 
 

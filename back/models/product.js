@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/db');
-const User = require('./user')
-
 
 class Product extends Sequelize.Model { }
 
@@ -28,16 +26,18 @@ Product.init({
         type: sequelize.INTEGER,
         allowNull: false
     },
+    imgURL: {
+        type: Sequelize.STRING,
+        defaultValue: 'http://via.placeholder.com/300'
+    },
+
     visible: {
         type: sequelize.BOOLEAN,
         allowNull: false
     }
 }, {
         sequelize,
-        modelName: 'products'
+        modelName: 'product'
     });
-
-
-
 
 module.exports = Product
