@@ -2,6 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const models = require('../models');
 const Product = models.Product;
+const Review = models.Review;
 module.exports = router;
 
 // Middleware que automatiza la busqueda
@@ -47,4 +48,12 @@ router.put("/:productId", (req, res, next) =>{
 router.delete("/:productId", (req,res,next) =>{
     req.product.destroy()
     .then(() => res.sendStatus(204))
+});
+
+router.post("/:productId", function (req, res, next) {
+    Review.create(req.body)
+    .then(nuevoReview => {
+        nuevoReview.setProduct(req.product) 
+        res.status(201).json(nuevoReview)}
+    )
 });

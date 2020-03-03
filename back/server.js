@@ -55,8 +55,6 @@ app.get('/*', (req,res)=> {
     res.sendFile(__dirname + '/public/' + 'index.html')
 })
 
-
-
 const port = 3000
 db.sync({force: false})
 .then(() => app.listen(port, function () {
