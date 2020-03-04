@@ -63,7 +63,6 @@ class ProductGrid extends React.Component {
           <form>
               <label htmlFor="input">Busca productos</label>
               <input name="name" type="text" id="input" onChange = {this.handleInput} value= {this.state.product}/>
-              <button type="submit">Submit</button>
           </form>
 
           {/* <Row>
