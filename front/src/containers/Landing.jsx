@@ -14,15 +14,22 @@ import Header from "../components/Header";
 
 export default class Landing extends Component {
   render() {
+    const img = {
+      backgroundImage: "url(assets/ice-cream-with-berries-PA9XYSLslide.jpg)",
+      backgroundSize: "100%",
+      backgroundAttachment: "fixed",
+      height: "700px"
+    };
     return (
       <Fragment>
-        <Jumbotron fluid>
+        <Jumbotron fluid style={img}>
           <Container>
             <Col md="5" className="px-0">
               <h1
                 style={{
-                  color: "#6b4856",
-                  fontSize: "45px",
+                  paddingTop: "33%",
+                  color: "#ffffff",
+                  fontSize: "65px",
                   fontWeight: "700"
                 }}
               >
