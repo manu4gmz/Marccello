@@ -5,6 +5,7 @@ import {
   NavDropdown,
   Form,
   Button,
+  Container,
   FormControl
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -14,9 +15,10 @@ export default class MainNavbar extends Component {
   render() {
     return (
       <Navbar bg="light" expand="lg">
+        <Container>
         <Link to="/">
           <img
-            style={{ width: "140px" }}
+            style={{ width: "100px" }}
             src="assets/logo/marccello-logo.svg"
           />
         </Link>
@@ -27,10 +29,11 @@ export default class MainNavbar extends Component {
             <Link to="/productos">Productos</Link>
           </Nav>
           <Form inline>
-            <Input value={""} placeholder="Search" className="mr-sm-2" />
+            <Input value={""} placeholder="Search" search={true} className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
           </Form>
         </Navbar.Collapse>
+        </Container>
       </Navbar>
     );
   }

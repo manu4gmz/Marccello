@@ -9,6 +9,7 @@
 
 .inputContainer input {
   border:none;
+  width: calc(100% - 21px);
   background-color: transparent;
 
 }

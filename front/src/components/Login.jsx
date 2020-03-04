@@ -1,25 +1,47 @@
-import React, { Component } from "react";
-import { Form } from "react-bootstrap";
-import Button from './Button'
+import React from "react";
+import Button from './Button.jsx';
+import Header from "./Header";
+import { Container, Form, Row, Col } from "react-bootstrap";
+import Input from "./Input.jsx";
 
-export default ({ handleChange, handleSubmit }) => (
-    <Form>
-        <Form.Group onSubmit={handleSubmit} controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control onChange={handleChange} name='inputEmail' type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-    </Form.Text>
-        </Form.Group>
+export default class Register extends React.Component {
+    constructor() {
+        super();
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
-        <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control onChange={handleChange} name='inputPassword' type="password" placeholder="Password" />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-            Submit
-  </Button>
-    </Form>
+        this.state = {
+            email: "",
+            password: ""
+        }
+    }
 
-)
-
+    handleChange(e) {
+        this.setState({[e.target.name]:e.target.value})
+    }
+    handleSubmit(e) {
+        e.preventDefault();
+    }
+    render() {
+    return (
+        <Container className="mt-2 mb-5 pb-5">
+            <Header>Iniciar sesión</Header>
+            <Col md={6} className="mx-auto">
+                <p>Iniciá sesión; estás a un click de cambiar tu vida.</p>
+                <hr/>
+                <Form onSubmit={this.handleSubmit} >
+                    <Form.Group>
+                        <label>Email</label>
+                        <Input onChange={this.handleChange} name='email' placeholder="elmascapito@notengoamigos.org" value={this.state.username}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <label>Contraseña</label>
+                        <Input onChange={this.handleChange} name='password' type="password" placeholder="prefierousarnunjucks123" />
+                    </Form.Group>
+                    <Button buttonTxt={'Iniciar sesión'} />
+                </Form>
+            </Col>
+        </Container>
+    )
+    }
+}
