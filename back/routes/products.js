@@ -65,5 +65,5 @@ router.post("/buscar", function (req, res, next) {
         name:req.body.name
     }
     })
-    .then(productos => res.status(201).json(nuevoProducto))
+    .then(productos => res.status(200).json(productos))
 })
