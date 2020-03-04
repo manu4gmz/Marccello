@@ -1,0 +1,20 @@
+.inputContainer {
+  background-color: transparent;
+  font-size: 15px;
+  padding: 2px 12px;
+  border: solid 1px #cecece;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.inputContainer input {
+  border:none;
+  background-color: transparent;
+
+}
+
+.inputContainer img {
+  margin-right: 5px;
+  width: 16px;
+  filter: invert(0.6);
+}

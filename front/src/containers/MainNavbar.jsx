@@ -8,6 +8,7 @@ import {
   FormControl
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Input from "../components/Input";
 
 export default class MainNavbar extends Component {
   render() {
@@ -26,7 +27,7 @@ export default class MainNavbar extends Component {
             <Link to="/productos">Productos</Link>
           </Nav>
           <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <Input value={""} placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
           </Form>
         </Navbar.Collapse>
