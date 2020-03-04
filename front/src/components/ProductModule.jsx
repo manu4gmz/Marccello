@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col, Container, Image, Jumbotron } from "react-bootstrap";
 
-export default ({product}) => {
+export default ({product, onClick}) => {
   return (
     
-    <Col md="3" className="px-5">
+    <Col md="3" className="px-5" onClick = {()=> onClick(product.id)}>
     <Image
       className="mb-4"
       fluid="true"
