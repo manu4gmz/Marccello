@@ -24,7 +24,7 @@ class ProductGrid extends React.Component {
   handleInput (e) {
     this.setState({product : e.target.value})
     const product = e.target.value
-    e.target.value.length >=2? this.props.fetchProducts(product)
+    product.length >=2? this.props.fetchProducts(product)
     : this.props.fetchProducts()
     
   }
