@@ -14,7 +14,6 @@ class ProductGrid extends React.Component {
       product: '',
   }
     this.handleInput = this.handleInput.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
 
@@ -24,13 +23,10 @@ class ProductGrid extends React.Component {
 
   handleInput (e) {
     this.setState({product : e.target.value})
-  }
-
-  handleSubmit (e) {
-    e.preventDefault()
-    const product = e.target[0].value
-    console.log(e.target[0].value)
-    this.props.fetchProducts(product)
+    const product = e.target.value
+    e.target.value.length >=2? this.props.fetchProducts(product)
+    : null
+    
   }
 
   render () {
@@ -64,7 +60,7 @@ class ProductGrid extends React.Component {
         <Container>
           <Header>Productos</Header>
           
-          <form onSubmit = {this.handleSubmit}>
+          <form>
               <label htmlFor="input">Busca productos</label>
               <input name="name" type="text" id="input" onChange = {this.handleInput} value= {this.state.product}/>
               <button type="submit">Submit</button>
