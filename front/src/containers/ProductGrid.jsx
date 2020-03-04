@@ -3,42 +3,39 @@ import { Row, Col, Container, Image, Jumbotron } from "react-bootstrap";
 import Header from "../components/Header";
 import Button1 from "../components/Button";
 import ProductModule from "../components/ProductModule";
-import {connect} from 'react-redux'
-import {fetchProducts} from '../store/actions/products'
+import { connect } from "react-redux";
+import { fetchProducts } from "../store/actions/products";
 
 class ProductGrid extends React.Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      product: '',
-  }
-    this.handleInput = this.handleInput.bind(this)
-  }
-
-
-  componentWillMount () {
-    this.props.fetchProducts()
+      product: ""
+    };
+    this.handleInput = this.handleInput.bind(this);
   }
 
-  handleInput (e) {
-    this.setState({product : e.target.value})
-    const product = e.target.value
-    product.length >=2? this.props.fetchProducts(product)
-    : this.props.fetchProducts()
-    
+  componentWillMount() {
+    this.props.fetchProducts();
   }
 
-  render () {
+  handleInput(e) {
+    this.setState({ product: e.target.value });
+    const product = e.target.value;
+    product.length >= 2
+      ? this.props.fetchProducts(product)
+      : this.props.fetchProducts();
+  }
 
-    const img = {  
-    backgroundImage: "url(https://i.imgur.com/Jl1AI4w.jpg)",
-    backgroundSize: "100%",
-    backgroundAttachment: "fixed",
-    height: "323px",
-  
-  };    
-    const {products} = this.props 
+  render() {
+    const img = {
+      backgroundImage:
+        "url(assets/summer-chocolate-ice-cream-P7YWKEYslide.jpg)",
+      backgroundSize: "100%",
+      backgroundAttachment: "fixed",
+      height: "323px"
+    };
+    const { products } = this.props;
     return (
       <div>
         <Jumbotron style={img}>
@@ -59,10 +56,16 @@ class ProductGrid extends React.Component {
         </Jumbotron>
         <Container>
           <Header>Productos</Header>
-          
+
           <form>
-              <label htmlFor="input">Busca productos</label>
-              <input name="name" type="text" id="input" onChange = {this.handleInput} value= {this.state.product}/>
+            <label htmlFor="input">Busca productos</label>
+            <input
+              name="name"
+              type="text"
+              id="input"
+              onChange={this.handleInput}
+              value={this.state.product}
+            />
           </form>
 
           {/* <Row>
@@ -77,29 +80,29 @@ class ProductGrid extends React.Component {
 
           <Row>
             {/* MAP */}
-            {products.map(product => 
-              <ProductModule product = {product}/>
-            )}
+            {products.map(product => (
+              <ProductModule product={product} />
+            ))}
             {/* MAP */}
           </Row>
         </Container>
       </div>
     );
   }
+}
+
+const mapStateToProps = function(state, ownProps) {
+  console.log(state);
+
+  return {
+    products: state.productReducer.products
+  };
 };
 
-const mapStateToProps = function (state, ownProps) {
-  console.log(state);
-  
+const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-      products: state.productReducer.products
-  }
-}
+    fetchProducts: products => dispatch(fetchProducts(products))
+  };
+};
 
-const mapDispatchToProps = function (dispatch, ownProps) {
-  return {
-    fetchProducts: (products) => dispatch(fetchProducts(products)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductGrid)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductGrid);
