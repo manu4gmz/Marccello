@@ -21,12 +21,17 @@ router.param("productId", (req, res, next, id) => {
     })
 });
 
-// te devuelve todos los productos
+// te devuelve todos los productos o, si hay una busqueda, te devuelve los que coinciden con la búsqueda
 router.get('/', function (req, res, next) {
-    console.log('entre a products');
-    
+    if(req.query.title){
+        Product.findAll({
+            where: {title:req.query.title}
+        })
+        .then(productos => res.status(200).json(productos))
+    } else{
     Product.findAll()
     .then((productos) => {console.log(productos),res.status(200).json(productos)})
+    }
 });
 
 // te busca un producto
@@ -52,6 +57,7 @@ router.delete("/:productId", (req,res,next) =>{
     .then(() => res.sendStatus(204))
 });
 
+// crear un review para un producto
 router.post("/:productId", function (req, res, next) {
     Review.create(req.body)
     .then(nuevoReview => {
