@@ -1,7 +1,7 @@
-const { db } = require ('./models')
-const express = require ('express');
+const { db } = require('./models')
+const express = require('express');
 const app = express()
-const routes = require ('./routes/index')
+const routes = require('./routes/index')
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
@@ -12,10 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'))
 
-app.use(session({ 
-    secret: "bootcamp",
-    resave: true,
-    saveUninitialized: true
+app.use(session({
+  secret: "bootcamp",
+  resave: true,
+  saveUninitialized: true
 }))
 
 app.use(passport.initialize()); // passport init
@@ -24,9 +24,9 @@ app.use(passport.session()); // https://stackoverflow.com/questions/22052258/wha
 
 
 passport.use(new LocalStrategy({ usernameField: 'email' },
-  function(inputEmail, password, done) {
-    
-    User.findOne({ where: {email: inputEmail} })
+  function (inputEmail, password, done) {
+
+    User.findOne({ where: { email: inputEmail } })
       .then(user => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
@@ -40,23 +40,23 @@ passport.use(new LocalStrategy({ usernameField: 'email' },
   }
 ));
 
-passport.serializeUser(function(user, done) {
-    done(null, user.id);
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-    User.findByPk(id)
-        .then(user => done(null, user))
+passport.deserializeUser(function (id, done) {
+  User.findByPk(id)
+    .then(user => done(null, user))
 });
 
 app.use('/api', routes)
 
-app.get('/*', (req,res)=> {
-    res.sendFile(__dirname + '/public/' + 'index.html')
+app.get('/*', (req, res) => {
+  res.sendFile(__dirname + '/public/' + 'index.html')
 })
 
 const port = 3000
-db.sync({force: false})
-.then(() => app.listen(port, function () {
+db.sync({ force: false })
+  .then(() => app.listen(port, function () {
     console.log(`Server is listening on port ${port}!`);
-}))
+  }))

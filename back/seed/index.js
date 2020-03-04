@@ -1,4 +1,4 @@
-const {Product} = require("../models");
+const { Product } = require("../models");
 
 Product.bulkCreate([
 	{
@@ -7,7 +7,7 @@ Product.bulkCreate([
 		stock: 100,
 		imgURL: "https://http2.mlstatic.com/colchoneta-inflable-intex-paleta-helado-191x76-cm-pileta-cuo-D_NQ_NP_711234-MLA28773620570_112018-O.webp",
 		visible: true,
-		price: 8.2
+		price: 8
 	},
 	{
 		name: "Palito bombon helado",
@@ -15,7 +15,7 @@ Product.bulkCreate([
 		stock: 100,
 		imgURL: "https://comercios.tiendakosher.com//Content/UploadDirectory/Products/23834/c10321bf-0170-422f-8d23-94509443b713.jpg",
 		visible: true,
-		price: 12.1
+		price: 12
 	},
 	{
 		name: "Palitos frutilla",
@@ -28,15 +28,15 @@ Product.bulkCreate([
 ])
 
 Product.findAll()
-.then(p => {
-	if (p.length) {
-		console.log(`Se crearon ${p.length} productos.`);
-	}
-	else console.error(new Error("Che creo q se cago el seed"))
+	.then(p => {
+		if (p.length) {
+			console.log(`Se crearon ${p.length} productos.`);
+		}
+		else console.error(new Error("Che creo q se cago el seed"))
 
 
-})
-.catch(err => {
-	console.error(new Error("Che creo q se cago el seed"))
+	})
+	.catch(err => {
+		console.error(new Error("Che creo q se cago el seed"))
 
-}) 
+	}) 
