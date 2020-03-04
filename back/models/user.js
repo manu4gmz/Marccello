@@ -9,7 +9,6 @@ class User extends Sequelize.Model { }
 User.init({
     type: {
         type: Sequelize.ENUM('superAdmin', 'admin', 'normal'),
-        allowNull: false,
         defaultValue: 'normal'
     },
     username: {
@@ -36,7 +35,7 @@ User.init({
         }
 
     },
-    adress: {
+    address: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
@@ -64,5 +63,8 @@ User.prototype.validPassword = function (password) {
     console.log('PASWORDDDDDDDS', newPassword, 'otra', this.password)
     return newPassword === this.password;
 }
+
+
+
 
 module.exports = User;

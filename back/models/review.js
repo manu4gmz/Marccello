@@ -4,9 +4,12 @@ const sequelize = require('../config/db');
 class Review extends Sequelize.Model { }
 
 Review.init({
-    tTitle: Sequelize.STRING,
+    title: Sequelize.STRING,
     content: Sequelize.TEXT,
-    rating: Sequelize.INTEGER
+    rating: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    }
 
 }, {
         sequelize,
