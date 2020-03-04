@@ -27,7 +27,7 @@ class ProductGrid extends React.Component {
     e.preventDefault()
     const product = e.target[0].value
     console.log(e.target[0].value)
-    this.props.fetchProduct(product)
+    this.props.fetchProducts(product)
   }
 
   render () {
