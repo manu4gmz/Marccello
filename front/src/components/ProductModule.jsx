@@ -4,7 +4,7 @@ import { Row, Col, Container, Image, Jumbotron } from "react-bootstrap";
 export default ({product}) => {
   return (
     
-    <Col md="3" className="px-5" key={product.id}>
+    <Col md="3" className="px-5">
     <Image
       className="mb-4"
       fluid="true"
