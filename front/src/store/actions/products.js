@@ -1,4 +1,4 @@
-import {SET_PRODUCTS, SET_PRODUCT} from '../constants'
+import {SET_PRODUCTS} from '../constants'
 import axios from 'axios';
 
 const setProducts = (products) => ({
@@ -12,8 +12,7 @@ export const fetchProducts = (products) => dispatch =>
         .then(data => data.data)
         .then(products => dispatch(setProducts(products)))
     } else {
-        axios.get(`/api/products?s=${product}`)
-        .then(data => data.data
-        )
-        .then(product => dispatch(setProducts(product)))
+        axios.get(`/api/products?s=${products}`)
+        .then(data => data.data)
+        .then(products => dispatch(setProducts(products)))
     }}
