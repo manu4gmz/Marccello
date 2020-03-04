@@ -10,11 +10,12 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
+import Icon from "../components/Icon";
 
 export default class MainNavbar extends Component {
   render() {
     return (
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" className="py-2">
         <Container>
         <Link to="/">
           <img
@@ -29,8 +30,9 @@ export default class MainNavbar extends Component {
             <Link to="/productos">Productos</Link>
           </Nav>
           <Form inline>
-            <Input value={""} placeholder="Search" search={true} className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
+            <Input placeholder="Search" search={true} className="mr-sm-2" />
+            <Icon src="assets/supermarket.svg"/>
+            <Icon src="assets/user.svg"/>
           </Form>
         </Navbar.Collapse>
         </Container>

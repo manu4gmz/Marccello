@@ -5,8 +5,8 @@ import MainNavbar from "../containers/MainNavbar";
 import Footer from "./Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProductGrid from "../containers/ProductGrid";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "../containers/Login";
+import Register from "../containers/Register";
 
 export default function() {
   return (
