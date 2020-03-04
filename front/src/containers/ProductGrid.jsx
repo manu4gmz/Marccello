@@ -4,12 +4,30 @@ import Header from "../components/Header";
 import Button1 from "../components/Button";
 import ProductModule from "../components/ProductModule";
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/actions/products'
+import {fetchProducts, fetchProduct} from '../store/actions/products'
 
 class ProductGrid extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.handleInput = this.handleInput.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+
   componentWillMount () {
     this.props.fetchProducts()
+  }
+
+  handleInput (e) {
+    console.log(e.target.value)
+  }
+
+  handleSubmit (e) {
+    e.preventDefault()
+    const product = e.target[0].value
+    console.log(e.target[0].value)
+    this.props.fetchProduct(product)
   }
 
   render () {
@@ -20,10 +38,8 @@ class ProductGrid extends React.Component {
     backgroundAttachment: "fixed",
     height: "323px",
   
-  };
-    console.log(this.props);
-    
-    const {products} = this.props
+  };    
+    const {products} = this.props 
     return (
       <div>
         <Jumbotron style={img}>
@@ -44,6 +60,13 @@ class ProductGrid extends React.Component {
         </Jumbotron>
         <Container>
           <Header>Productos</Header>
+          
+          <form onSubmit = {this.handleSubmit}>
+              <label for="input">Busca productos</label>
+              <input name="name" type="text" id="input" onChange = {this.handleInput}/>
+              <button type="submit">Submit</button>
+          </form>
+
           {/* <Row>
             <Col md="4">Helados | Paletas | Postres | Todo</Col>
             <Col md="4">

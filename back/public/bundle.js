@@ -55726,8 +55726,7 @@ __webpack_require__.r(__webpack_exports__);
   var product = _ref.product;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     md: "3",
-    className: "px-5",
-    key: product.id
+    className: "px-5"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Image"], {
     className: "mb-4",
     fluid: "true",
@@ -55981,9 +55980,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -56002,16 +56001,34 @@ var ProductGrid =
 function (_React$Component) {
   _inherits(ProductGrid, _React$Component);
 
-  function ProductGrid() {
+  function ProductGrid(props) {
+    var _this;
+
     _classCallCheck(this, ProductGrid);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ProductGrid).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ProductGrid).call(this, props));
+    _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(ProductGrid, [{
     key: "componentWillMount",
     value: function componentWillMount() {
       this.props.fetchProducts();
+    }
+  }, {
+    key: "handleInput",
+    value: function handleInput(e) {
+      console.log(e.target.value);
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var product = e.target[0].value;
+      console.log(e.target[0].value);
+      this.props.fetchProduct(product);
     }
   }, {
     key: "render",
@@ -56022,7 +56039,6 @@ function (_React$Component) {
         backgroundAttachment: "fixed",
         height: "323px"
       };
-      console.log(this.props);
       var products = this.props.products;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Jumbotron"], {
         style: img
@@ -56035,7 +56051,18 @@ function (_React$Component) {
           fontSize: "45px",
           fontWeight: "700"
         }
-      }, "Helados ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "artesanales")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null, "Productos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null, products.map(function (product) {
+      }, "Helados ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "artesanales")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null, "Productos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        "for": "input"
+      }, "Busca productos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "name",
+        type: "text",
+        id: "input",
+        onChange: this.handleInput
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit"
+      }, "Submit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null, products.map(function (product) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProductModule__WEBPACK_IMPORTED_MODULE_4__["default"], {
           product: product
         });
@@ -56105,12 +56132,13 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 /*!***************************************!*\
   !*** ./src/store/actions/products.js ***!
   \***************************************/
-/*! exports provided: fetchProducts */
+/*! exports provided: fetchProducts, fetchProduct */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchProducts", function() { return fetchProducts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchProduct", function() { return fetchProduct; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/store/constants.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
@@ -56124,12 +56152,28 @@ var setProducts = function setProducts(products) {
   };
 };
 
+var setProduct = function setProduct(product) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_0__["SET_PRODUCT"],
+    product: product
+  };
+};
+
 var fetchProducts = function fetchProducts() {
   return function (dispatch) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/products").then(function (data) {
       return data.data;
     }).then(function (products) {
       return dispatch(setProducts(products));
+    });
+  };
+};
+var fetchProduct = function fetchProduct(product) {
+  return function (dispatch) {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/products/?title=".concat(product)).then(function (data) {
+      return data.data;
+    }).then(function (product) {
+      return dispatch(setProduct(product));
     });
   };
 };
@@ -56140,13 +56184,15 @@ var fetchProducts = function fetchProducts() {
 /*!********************************!*\
   !*** ./src/store/constants.js ***!
   \********************************/
-/*! exports provided: SET_PRODUCTS */
+/*! exports provided: SET_PRODUCTS, SET_PRODUCT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PRODUCTS", function() { return SET_PRODUCTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PRODUCT", function() { return SET_PRODUCT; });
 var SET_PRODUCTS = 'SET_PRODUCTS';
+var SET_PRODUCT = 'SET_PRODUCT';
 
 /***/ }),
 
