@@ -37,7 +37,7 @@ User.init({
     },
     address: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true, // EN FASE DE DESARROLLO LO PUSE FALSE YA QUE EN REGISTER NO HAY INPUT PARA ADDRESS, ASI QUE HAY QUE AGREGARLO
         validate: {
             notEmpty: true
         }

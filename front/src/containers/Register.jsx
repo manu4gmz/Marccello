@@ -3,17 +3,19 @@ import Button from '../components/Button.jsx';
 import Header from "../components/Header";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import Input from "../components/Input.jsx";
+import {connect} from 'react-redux'
+import {createUser} from '../store/actions/users'
 
-export default class Register extends React.Component {
+class Register extends React.Component {
     constructor() {
         super();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
+            username: "",
             email: "",
             password: "",
-            username: ""
         }
     }
 
@@ -22,6 +24,13 @@ export default class Register extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
+        let obj = {
+            username: e.target[0].value,
+            email: e.target[1].value,
+            password: e.target[2].value
+        }
+        this.props.createUser(obj)
+        .then(() => this.props.history.push('/login'))
     }
     render() {
     return (
@@ -51,3 +60,11 @@ export default class Register extends React.Component {
     )
     }
 }
+
+const mapDispatchToProps = function (dispatch, ownProps) {
+    return {
+        createUser: (user) => dispatch(createUser(user)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Register)
