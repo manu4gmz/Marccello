@@ -4,12 +4,15 @@ import Header from "../components/Header";
 import Button1 from "../components/Button";
 import ProductModule from "../components/ProductModule";
 import {connect} from 'react-redux'
-import {fetchProducts, fetchProduct} from '../store/actions/products'
+import {fetchProducts} from '../store/actions/products'
 
 class ProductGrid extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      product: '',
+  }
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -20,7 +23,7 @@ class ProductGrid extends React.Component {
   }
 
   handleInput (e) {
-    console.log(e.target.value)
+    this.setState({product : e.target.value})
   }
 
   handleSubmit (e) {
@@ -62,8 +65,8 @@ class ProductGrid extends React.Component {
           <Header>Productos</Header>
           
           <form onSubmit = {this.handleSubmit}>
-              <label for="input">Busca productos</label>
-              <input name="name" type="text" id="input" onChange = {this.handleInput}/>
+              <label htmlFor="input">Busca productos</label>
+              <input name="name" type="text" id="input" onChange = {this.handleInput} value= {this.state.product}/>
               <button type="submit">Submit</button>
           </form>
 
@@ -100,7 +103,7 @@ const mapStateToProps = function (state, ownProps) {
 
 const mapDispatchToProps = function (dispatch, ownProps) {
   return {
-    fetchProducts: () => dispatch(fetchProducts()),
+    fetchProducts: (products) => dispatch(fetchProducts(products)),
   }
 }
 

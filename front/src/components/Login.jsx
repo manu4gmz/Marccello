@@ -32,7 +32,7 @@ export default class Register extends React.Component {
                 <Form onSubmit={this.handleSubmit} >
                     <Form.Group>
                         <label>Email</label>
-                        <Input onChange={this.handleChange} name='email' placeholder="elmascapito@notengoamigos.org" value={this.state.username}/>
+                        <Input onChange={this.handleChange} name='email' placeholder="elmascapito@notengoamigos.org" value={this.state.email}/>
                     </Form.Group>
                     <Form.Group>
                         <label>Contraseña</label>
