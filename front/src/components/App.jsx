@@ -4,7 +4,7 @@ import Landing from "../containers/Landing";
 import MainNavbar from "../containers/MainNavbar";
 import Footer from "./Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ProductGrid from "./ProductGrid";
+import ProductGrid from "../containers/ProductGrid";
 
 export default function() {
   return (

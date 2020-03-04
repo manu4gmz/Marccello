@@ -23,8 +23,10 @@ router.param("productId", (req, res, next, id) => {
 
 // te devuelve todos los productos
 router.get('/', function (req, res, next) {
+    console.log('entre a products');
+    
     Product.findAll()
-    .then((productos) => res.status(200).json(productos))
+    .then((productos) => {console.log(productos),res.status(200).json(productos)})
 });
 
 // te busca un producto
