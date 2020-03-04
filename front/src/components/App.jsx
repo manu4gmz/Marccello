@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ProductGrid from "../containers/ProductGrid";
 import Login from "../containers/Login";
 import Register from "../containers/Register";
+import SingleProduct from "../containers/SingleProduct";
 
 export default function() {
   return (
@@ -16,6 +17,7 @@ export default function() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/productos" component={ProductGrid} />
+        <Route path="/producto" component={SingleProduct} />
         <Route exact path="/" component={Landing} />
       </Switch>
       <Footer />

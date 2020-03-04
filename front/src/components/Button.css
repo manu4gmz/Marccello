@@ -13,3 +13,19 @@
   background-color: #6b4856;
   color: #e2d5da;
 }
+
+.buttonDark {
+  font-family: "Montserrat", sans-serif;
+  background-color: #6b4856;
+  color: #e2d5da;
+  font-size: 15px;
+  padding: 15px 33px;
+  border: none;
+  cursor: pointer;
+  border-radius: 37px;
+  text-align: center;
+}
+.buttonDark:hover {
+  background-color: #ffffff;
+  color: #6b4856;
+}
