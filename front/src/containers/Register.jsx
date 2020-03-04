@@ -1,8 +1,8 @@
 import React from "react";
-import Button from './Button.jsx';
-import Header from "./Header";
+import Button from '../components/Button.jsx';
+import Header from "../components/Header";
 import { Container, Form, Row, Col } from "react-bootstrap";
-import Input from "./Input.jsx";
+import Input from "../components/Input.jsx";
 
 export default class Register extends React.Component {
     constructor() {
@@ -10,7 +10,11 @@ export default class Register extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        this.state = {}
+        this.state = {
+            email: "",
+            password: "",
+            username: ""
+        }
     }
 
     handleChange(e) {
@@ -30,15 +34,15 @@ export default class Register extends React.Component {
                     <Form.Group>
                         <label>Nombre de usuario</label>
                         
-                        <Input onChange={this.handleChange} name='username' placeholder="Pepe Capo" value={this.state.username}/>
+                        <Input onChange={this.handleChange} name='username' placeholder="Pepe Capo" value={this.state.username}  type="text"/>
                     </Form.Group>
                     <Form.Group>
                         <label>Email</label>
-                        <Input onChange={this.handleChange} name='email' type="email" placeholder="pepecrack10220@aguantemessi.com.ar" name="email" />
+                        <Input onChange={this.handleChange} name='email' type="email" placeholder="pepecrack10220@aguantemessi.com.ar" name="email" value={this.state.email} type="text"/>
                     </Form.Group>
                     <Form.Group>
                         <label>Contraseña</label>
-                        <Input onChange={this.handleChange} name='password' type="password" placeholder="angularesmejor327" />
+                        <Input onChange={this.handleChange} name='password' type="password" placeholder="angularesmejor327" value={this.state.password}/>
                     </Form.Group>
                     <Button buttonTxt={'Registrar'} />
                 </Form>

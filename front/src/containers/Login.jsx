@@ -1,8 +1,8 @@
 import React from "react";
-import Button from './Button.jsx';
-import Header from "./Header";
+import Button from '../components/Button.jsx';
+import Header from "../components/Header";
 import { Container, Form, Row, Col } from "react-bootstrap";
-import Input from "./Input.jsx";
+import Input from "../components/Input.jsx";
 
 export default class Register extends React.Component {
     constructor() {
@@ -32,11 +32,11 @@ export default class Register extends React.Component {
                 <Form onSubmit={this.handleSubmit} >
                     <Form.Group>
                         <label>Email</label>
-                        <Input onChange={this.handleChange} name='email' placeholder="elmascapito@notengoamigos.org" value={this.state.username}/>
+                        <Input onChange={this.handleChange} name='email' placeholder="elmascapito@notengoamigos.org" value={this.state.email} type="text"/>
                     </Form.Group>
                     <Form.Group>
                         <label>Contraseña</label>
-                        <Input onChange={this.handleChange} name='password' type="password" placeholder="prefierousarnunjucks123" />
+                        <Input onChange={this.handleChange} name='password' type="password" placeholder="prefierousarnunjucks123" value={this.state.password}/>
                     </Form.Group>
                     <Button buttonTxt={'Iniciar sesión'} />
                 </Form>
