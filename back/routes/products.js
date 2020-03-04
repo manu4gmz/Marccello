@@ -3,6 +3,7 @@ const router = new express.Router();
 const models = require('../models');
 const Product = models.Product;
 const Review = models.Review;
+const Sequelize = require ("sequelize")
 module.exports = router;
 
 // Middleware que automatiza la busqueda
@@ -23,9 +24,10 @@ router.param("productId", (req, res, next, id) => {
 
 // te devuelve todos los productos o, si hay una busqueda, te devuelve los que coinciden con la búsqueda
 router.get('/', function (req, res, next) {
-    if(req.query.title){
+    const Op = Sequelize.Op
+    if(req.query.s){
         Product.findAll({
-            where: {title:req.query.title}
+            where: {name:{[Op.iLike]: `%${req.query.s}%`}}
         })
         .then(productos => res.status(200).json(productos))
     } else{
