@@ -1,1 +1,1 @@
-export const FIND_PRODUCTS = 'FIND_PRODUCTS'
+export const SET_PRODUCTS = 'SET_PRODUCTS'

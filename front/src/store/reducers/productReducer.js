@@ -1,4 +1,4 @@
-import {FIND_PRODUCTS} from '../store/constants'
+import {SET_PRODUCTS} from '../constants'
 
 const initialState = {
     products: [],
@@ -6,7 +6,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FIND_PRODUCTS:
+        case SET_PRODUCTS:
             return Object.assign({}, state, {products: action.products})
         default:
             return state;
