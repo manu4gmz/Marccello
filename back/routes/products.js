@@ -23,15 +23,8 @@ router.param("productId", (req, res, next, id) => {
 
 // te devuelve todos los productos o, si hay una busqueda, te devuelve los que coinciden con la búsqueda
 router.get('/', function (req, res, next) {
-    if(req.query.title){
-        Product.findAll({
-            where: {title:req.query.title}
-        })
-        .then(productos => res.status(200).json(productos))
-    } else{
     Product.findAll()
     .then((productos) => {console.log(productos),res.status(200).json(productos)})
-    }
 });
 
 // te busca un producto
@@ -65,3 +58,12 @@ router.post("/:productId", function (req, res, next) {
         res.status(201).json(nuevoReview)}
     )
 });
+
+// busca un articulo que cuyo nombre coincida con la busqueda
+router.post("/buscar", function (req, res, next) {
+    Product.findAll({where: {
+        name:req.body.name
+    }
+    })
+    .then(productos => res.status(201).json(nuevoProducto))
+})
