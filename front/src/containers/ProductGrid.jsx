@@ -25,7 +25,7 @@ class ProductGrid extends React.Component {
     this.setState({product : e.target.value})
     const product = e.target.value
     e.target.value.length >=2? this.props.fetchProducts(product)
-    : null
+    : this.props.fetchProducts()
     
   }
 
