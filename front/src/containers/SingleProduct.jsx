@@ -26,7 +26,9 @@ class SingleProduct extends Component {
       position: "relative",
       right: "20%"
     };
-    const {product} = this.props    
+    const {product} = this.props
+    console.log(product);
+    
     return (
       <div>
         <Container fluid className="px-0">
@@ -34,7 +36,7 @@ class SingleProduct extends Component {
             <Col md="8" className="px-0">
               <Image
                 src={
-                  "assets/chocolate-ice-cream-popsicle-on-rustic-background.jpg"
+                  product.imgURL
                 }
                 style={{ heigth: "20px" }}
                 fluid
