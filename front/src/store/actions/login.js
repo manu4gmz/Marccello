@@ -14,7 +14,8 @@ export const login = (user) => (dispatch) => {
   .then(data => data.data)
   .then((data) => {
     dispatch(userLogin(data))
-  }).catch(err=>console.log(err))
+  })
+  .catch(error => { throw new Error(error) } )
 }
   
 export const logout = () => {

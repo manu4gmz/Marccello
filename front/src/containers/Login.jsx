@@ -12,6 +12,7 @@ class Login extends React.Component {
         this.state = {
             username: "",
             password: "",
+            error: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,10 +29,20 @@ class Login extends React.Component {
                 username: this.state.username,
                 password: this.state.password
             }
-            this.props.login(obj).then(() => this.props.history.push('/'))
+            this.props.login(obj)
+            .then(()=> {
+                this.setState({error: false})
+             })
+            .then(() => this.props.history.push('/'))
+            .catch(() => this.setState({error: true}))
         }
     }
     render() {
+        const alertStyle = {
+            borderRadius: "30px",
+            marginTop: "17px"
+        }
+
     return (
         <Container className="mt-2 mb-5">
             <Header>Iniciá sesión</Header>
@@ -46,6 +57,7 @@ class Login extends React.Component {
                     <Form.Group>
                         <label>Contraseña</label>
                         <Input onChange={this.handleChange} name='password' type="password" placeholder="prefierousasnunjucks" value={this.state.password}/>
+                        {this.state.error?(<div className="alert alert-danger" style={alertStyle} role="alert">El nombre de usuario o contraseña es incorrecto</div>) : (null)}
                     </Form.Group>
                     <Button type="submit" buttonTxt={'Iniciar sesión'} />
                 </Form>
