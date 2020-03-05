@@ -1,0 +1,73 @@
+.mainHero {
+	background-image: url("../assets/ice-cream-with-berries-PA9XYSLslide.jpg");
+	background-attachment: fixed;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	padding: 143px 0 !important;
+}
+
+.mainHero h1 {
+	padding-top: 9%;
+	color: #ffffff;
+	font-size: 65px;
+	font-weight: 700;
+	line-height: 1em;
+}
+
+
+
+.buttonPink {
+  font-family: "Montserrat", sans-serif;
+  background-color: #e2d5da;
+  color: #6b4856;
+  font-size: 15px;
+  padding: 15px 33px;
+  border: none;
+  cursor: pointer;
+  border-radius: 37px;
+  text-align: center;
+}
+.buttonPink:hover {
+  background-color: #6b4856;
+  color: #e2d5da;
+}
+
+.buttonDark {
+  font-family: "Montserrat", sans-serif;
+  background-color: #6b4856;
+  color: #e2d5da;
+  font-size: 15px;
+  padding: 15px 33px;
+  border: none;
+  cursor: pointer;
+  border-radius: 37px;
+  text-align: center;
+}
+.buttonDark:hover {
+  background-color: #ffffff;
+  color: #6b4856;
+}
+
+
+@media only screen and (max-width: 768px) {
+	.mainHero h1 {
+		text-shadow: black 6px 5px 12px;
+		font-size: 40px;
+
+		padding-top: 12%;
+
+	}
+
+	.mainHero {
+		background-size: 170vw;
+	    background-position-x: -50vw;
+		padding: 35px 0 !important;
+	}
+
+	.buttonPink {
+		margin-top: -4px;
+    	margin-bottom: 31px;
+		font-size: 12px;
+  		padding: 10px 20px;
+	}
+}
