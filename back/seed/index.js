@@ -114,7 +114,71 @@ const productBulkCreate = Product.bulkCreate([
 		imgURL: "https://content-recetas.lecturas.com/medio/2018/11/23/copa_de_helado_con_flan_49ae06de_800x800.jpg",
 		visible: true,
 		price: 200
-	}
+	},
+	{
+		name: "Helado Gris",
+		description: "No tenemos idea de que gusto es, pero su color es gris.",
+		stock: 100,
+		imgURL: "https://s3-media1.fl.yelpcdn.com/bpimgs/MOBs0MgCp8hsWmUyeDSayg/ms.jpg",
+		visible: true,
+		price: 17
+	},
+	{
+		name: "Una bocha de helado",
+		description: "Sólo una bocha de helado. Sin cono. Sin pote. Sólo la bocha",
+		stock: 100,
+		imgURL: "https://cdn.shopify.com/s/files/1/0092/2815/7033/files/Best_Sellers_Collage_Coffee_5_300x300.jpg?v=1578589575",
+		visible: true,
+		price: 2
+	},
+	{
+		name: "2 bowls de helado",
+		description: "ADVERTENCIA: los bowls se venden por separado",
+		stock: 100,
+		imgURL: "https://www.nestleusa.com/sites/g/files/pydnoa536/files/dreyers-button-2019.jpg",
+		visible: true,
+		price: 15
+	},
+	{
+		name: "Tramontana SIN dulce de leche",
+		description: "¿Quién fue el sádico que inventó esto?",
+		stock: 100,
+		imgURL: "https://www.nestleusa.com/sites/g/files/pydnoa536/files/haagen-dazs-button-2019.jpg",
+		visible: true,
+		price: 20
+	},
+	{
+		name: "Helado con Brownies y dulce de leche",
+		description: "No se me ocurre ninguna descripción ingeniosa.",
+		stock: 100,
+		imgURL: "https://img.buzzfeed.com/thumbnailer-prod-us-east-1/fae3502166724b28bda94bae54b3e1d7/BFV21242_Ice_Cream_4_Ways_FB.jpg",
+		visible: true,
+		price: 20
+	},
+	{
+		name: "Un bowl gigante de helado de vainilla",
+		description: "Para ahogar todas tus penas en él.",
+		stock: 100,
+		imgURL: "https://www.williams-sonoma.com/wsimgs/ab/images/dp/recipe/201943/0060/img17l.jpg",
+		visible: true,
+		price: 5.3
+	},
+	{
+		name: "Postre helado de Oreo",
+		description: "Armar este seed me esta dando mucha hambre.",
+		stock: 100,
+		imgURL: "https://pbs.twimg.com/media/Co5z5HyWYAA1eaD.jpg:large",
+		visible: true,
+		price: 11.11
+	},
+	{
+		name: "Postre helado de Bailey's",
+		description: "Para ahogar tus penas en helado Y en alcohol.",
+		stock: 100,
+		imgURL: "https://content-recetas.lecturas.com/medio/2018/07/20/paso-a-paso-para-realizar-minipostre-de-tres-chocolates-y-vasitos-de-baileys-y-chocolate-resultado-final_2b0d12c5_800x800.jpg",
+		visible: true,
+		price: 40
+	},
 ])
 
 const userCreate = 
