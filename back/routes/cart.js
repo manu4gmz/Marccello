@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+
 const {
   User,
   Product,
@@ -9,12 +10,20 @@ const {
   Order
 } = require("../models");
 
+/*
 router.use("/", function(req, res, next) {
   User.findByPk(1).then(data => {
     req.user = data;
     next();
   });
-});
+});*/
+
+function isLoggedIn(req,res,next) {
+  if (req.isAuthenticated()) next();
+  else res.status(401).send({msg: "Anda a loguearte"})
+}
+
+router.use("/", isLoggedIn);
 
 router.post("/:id", function(req, res) {
   Order.create({ productId: req.params.id, userId: req.user.id }).then(data => {

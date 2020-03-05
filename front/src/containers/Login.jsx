@@ -5,6 +5,7 @@ import { Container, Form, Row, Col } from "react-bootstrap";
 import {login} from '../store/actions/login'
 import {connect} from "react-redux";
 import Input from "../components/Input.jsx";
+import { fetchCart } from "../store/actions/cart";
 
 class Login extends React.Component {
     constructor(props) {
@@ -33,7 +34,10 @@ class Login extends React.Component {
             .then(()=> {
                 this.setState({error: false})
              })
-            .then(() => this.props.history.push('/'))
+            .then(() => {
+                this.props.fetchCart();
+                this.props.history.push('/')
+            })
             .catch(() => this.setState({error: true}))
         }
     }
@@ -75,7 +79,8 @@ const mapStateToProps = (state, ownProps)=> {
 const mapDispatchToProps = (dispatch, ownProps) => {
 return {
     login: (user)=> (dispatch(login(user))),
-    logout: ()=>dispatch(logout())
+    logout: ()=>dispatch(logout()),
+    fetchCart: _ => dispatch(fetchCart()),
 }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
