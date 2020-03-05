@@ -42,6 +42,78 @@ const productBulkCreate = Product.bulkCreate([
 		imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHDAnlafrAwCFIPiWe72iwzYeyps15yHaTqKIh_-PTqFk2qkar",
 		visible: true,
 		price: 10
+	},
+	{
+		name: "Cono Abstracto",
+		description: "UN MONTÓN DE ABSTRACCIÓN DE SABOR.",
+		stock: 100,
+		imgURL: "https://www.rocktails.tv/wp-content/uploads/edd/ice-cream-party.jpg",
+		visible: true,
+		price: 9.99
+	},
+	{
+		name: "Helado rico",
+		description: "Esta re rico, te juro",
+		stock: 100,
+		imgURL: "https://www.hola.com/imagenes/cocina/recetas/2013042264513/helado-vainilla-dulce-leche/0-234-424/helado-vainilla-1-m.jpg",
+		visible: true,
+		price: 20.3
+	},
+	{
+		name: "Paletas bañadas de Chocolate",
+		description: "Paletas bañadas con chocolante blanco y negro.",
+		stock: 100,
+		imgURL: "https://hungryhappenings.com/wp-content/uploads/2019/09/cakesicles-recipe-cake-pops-popsicles-2.jpg",
+		visible: true,
+		price: 10
+	},
+	{
+		name: "Sundae de Chocolate",
+		description: "Delicioso Sundae de crema americana bañado de chocolate.",
+		stock: 100,
+		imgURL: "https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/1080/1080/75/dam/disney-springs/dining/vivoli-il-gelato/vivoli-sundae-1x1.jpg?1573230499054",
+		visible: true,
+		price: 18.2
+	},
+	{
+		name: "Render 3D de un Conogol",
+		description: "Saborea las 3 dimensiones con este delicioso render de un helado",
+		stock: 100,
+		imgURL: "https://netrinoimages.s3.eu-west-2.amazonaws.com/2018/04/04/507221/189987/ice_cream_cone_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2014745_o.jpg",
+		visible: true,
+		price: 17
+	},
+	{
+		name: "Conogol que no es un render",
+		description: "Como dice su nombre, este helado no es un render.",
+		stock: 100,
+		imgURL: "https://cdn11.bigcommerce.com/s-p4v5wfxev4/images/stencil/1280x1280/products/859/2564/952745_vanilla_cone_product_packshot-1243141-png__36921.1539108775.png?c=2?imbypass=on",
+		visible: true,
+		price: 10
+	},
+	{
+		name: "Cucurucho de 3 sabores",
+		description: "Viene con chocolate, vainilla y frutilla. Y nada más >:(",
+		stock: 100,
+		imgURL: "https://dijf55il5e0d1.cloudfront.net/images/na/6/9/2/69287_1000.jpg",
+		visible: true,
+		price: 11
+	},
+	{
+		name: "Kilo de helado",
+		description: "mmmmmmmmmm... helado...",
+		stock: 100,
+		imgURL: "https://http2.mlstatic.com/helado-artesanal-por-mayor-x-baldes-p-heladerias-y-restos-D_NQ_NP_660132-MLA31412095474_072019-F.jpg",
+		visible: true,
+		price: 50
+	},
+	{
+		name: "Helado Fancy",
+		description: "No es muy rico, pero es caro.",
+		stock: 100,
+		imgURL: "https://content-recetas.lecturas.com/medio/2018/11/23/copa_de_helado_con_flan_49ae06de_800x800.jpg",
+		visible: true,
+		price: 200
 	}
 ])
 
