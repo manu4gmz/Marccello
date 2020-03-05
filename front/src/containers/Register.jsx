@@ -30,7 +30,7 @@ class Register extends React.Component {
             password: e.target[2].value
         }
         this.props.createUser(obj)
-        .then(() => this.props.history.push('/login'))
+        .then(() => this.props.history.push('/'))
     }
     render() {
     return (

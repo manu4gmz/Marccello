@@ -6,6 +6,8 @@ const User = require('../models/user')
 
 //registra usuario
 router.post('/register', (req, res) => {
+    console.log(req.body);
+    
     User.create(req.body)
     .then((user) => res.send(user))    
 })
