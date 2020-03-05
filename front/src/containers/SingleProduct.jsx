@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Button from "../components/Button";
 import { Jumbotron, Row, Col, Container, Image } from "react-bootstrap";
 import Header from "../components/Header";
+import { connect } from "react-redux";
+
 
 class SingleProduct extends Component {
   constructor(props) {
@@ -24,7 +26,9 @@ class SingleProduct extends Component {
       position: "relative",
       right: "20%"
     };
-
+    const {product} = this.props
+    console.log(product);
+    
     return (
       <div>
         <Container fluid className="px-0">
@@ -32,7 +36,7 @@ class SingleProduct extends Component {
             <Col md="8" className="px-0">
               <Image
                 src={
-                  "assets/chocolate-ice-cream-popsicle-on-rustic-background.jpg"
+                  product.imgURL
                 }
                 style={{ heigth: "20px" }}
                 fluid
@@ -50,7 +54,7 @@ class SingleProduct extends Component {
                       //   paddingTop: "15px"
                     }}
                   >
-                    Helado 1
+                    {product.name}
                   </h2>
                   <p
                     style={{
@@ -59,9 +63,7 @@ class SingleProduct extends Component {
                       //   paddingBottom: "4px"
                     }}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
+                    {product.description}
                   </p>
                   <p
                     style={{
@@ -70,7 +72,7 @@ class SingleProduct extends Component {
                       fontWeight: "600"
                     }}
                   >
-                    $100
+                    ${product.price}
                   </p>
                 </Container>
                 <div
@@ -101,4 +103,12 @@ class SingleProduct extends Component {
   }
 }
 
-export default SingleProduct;
+const mapStateToProps = function(state, ownProps) {
+  console.log(state);
+
+  return {
+    product: state.productReducer.product
+  };
+};
+
+export default connect(mapStateToProps, null)(SingleProduct);

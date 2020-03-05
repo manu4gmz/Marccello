@@ -4,7 +4,8 @@ import Header from "../components/Header";
 import Button1 from "../components/Button";
 import ProductModule from "../components/ProductModule";
 import { connect } from "react-redux";
-import { fetchProducts } from "../store/actions/products";
+import { fetchProducts, fetchProduct } from "../store/actions/products";
+import Input from "../components/Input";
 
 class ProductGrid extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class ProductGrid extends React.Component {
       product: ""
     };
     this.handleInput = this.handleInput.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentWillMount() {
@@ -25,6 +27,11 @@ class ProductGrid extends React.Component {
     product.length >= 2
       ? this.props.fetchProducts(product)
       : this.props.fetchProducts();
+  }
+
+  onClick(id) {
+    this.props.fetchProduct(id);
+    this.props.history.push('/producto')
   }
 
   render() {
@@ -57,16 +64,17 @@ class ProductGrid extends React.Component {
         <Container>
           <Header>Productos</Header>
 
-          <form>
-            <label htmlFor="input">Busca productos</label>
-            <input
-              name="name"
-              type="text"
-              id="input"
-              onChange={this.handleInput}
-              value={this.state.product}
+          <Col md = {3}>
+            <Input
+            name="name" 
+            placeholder="Search" 
+            search={true} 
+            className="mr-sm-2"
+            id="input"
+            onChange={this.handleInput}
+            value={this.state.product} 
             />
-          </form>
+          </Col>
 
           {/* <Row>
             <Col md="4">Helados | Paletas | Postres | Todo</Col>
@@ -81,7 +89,7 @@ class ProductGrid extends React.Component {
           <Row>
             {/* MAP */}
             {products.map(product => (
-              <ProductModule product={product} />
+              <ProductModule product={product} onClick = {this.onClick}/>
             ))}
             {/* MAP */}
           </Row>
@@ -101,7 +109,8 @@ const mapStateToProps = function(state, ownProps) {
 
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    fetchProducts: products => dispatch(fetchProducts(products))
+    fetchProducts: products => dispatch(fetchProducts(products)),
+    fetchProduct: id => dispatch(fetchProduct(id))
   };
 };
 
