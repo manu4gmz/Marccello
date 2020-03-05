@@ -12,9 +12,7 @@ class SingleProduct extends Component {
   }
 
   componentWillMount() {
-    const id = this.props.match.params.id
-    console.log(id);
-    
+    const id = this.props.match.params.id    
     this.props.fetchProduct(id)
   }
   
