@@ -1,26 +1,29 @@
-const { db } = require ('./models')
-const express = require ('express');
-const app = express()
-const routes = require ('./routes/index')
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy
-const User = require("./models/user")
+const { db } = require("./models");
+const express = require("express");
+const app = express();
+const routes = require("./routes/index");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("./models/user");
 app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + "/public"));
 
-app.use(session({ 
+app.use(
+  session({
     secret: "bootcamp",
     resave: true,
     saveUninitialized: true
-}))
+  })
+);
 
 app.use(passport.initialize()); // passport init
 app.use(passport.session()); // https://stackoverflow.com/questions/22052258/what-does-passport-session-middleware-do/28994045#28994045
+
 
 
 
@@ -42,23 +45,23 @@ passport.use(new LocalStrategy({ usernameField: 'username' },
 ));
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-    User.findByPk(id)
-        .then(user => done(null, user))
+  User.findByPk(id).then(user => done(null, user));
 });
 
+app.use("/api", routes);
 
-app.use('/api', routes)
 
-app.get('/*', (req,res)=> {
-    res.sendFile(__dirname + '/public/' + 'index.html')
-})
+app.get("/*", (req, res) => {
+  res.sendFile(__dirname + "/public/" + "index.html");
+});
 
-const port = 3000
-db.sync({force: false})
-.then(() => app.listen(port, function () {
+const port = 3000;
+db.sync({ force: false }).then(() =>
+  app.listen(port, function() {
     console.log(`Server is listening on port ${port}!`);
-}))
+  })
+);
