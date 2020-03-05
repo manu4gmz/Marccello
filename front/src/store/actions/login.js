@@ -1,27 +1,27 @@
 import Axios from "axios";
 
-const userLogin = (email, password) => ({
+const userLogin = (user) => ({
   type: "USER_LOGIN",
-  email: email, 
-  password: password,
+ user
 });
 
 const userLogout = () => ({
   type: "USER_LOGOUT",
 });
 
-export const login= (email, password) =>{
-    return function(dispatch, getstate){
-        console.log(email)
-        console.log(password)
-        Axios.post("api/users/login", {email: email, password: password})
-        .then (res =>{ dispatch(userLogin(email, password))})
-    }
+export const login = (user) => (dispatch) => {
+  return   Axios.post("api/users/login", user)
+  .then(data => data.data)
+  .then((data) => {
+    dispatch(userLogin(data))
+  }).catch(err=>console.log(err))
 }
-
+  
 export const logout = () => {
-  return function(dispatch, getstate){
-      Axios.post("api/users/logout")
-      .then (res =>{ dispatch(userLogout())})
+  return function (dispatch, getstate) {
+    Axios.post("api/users/logout")
+      .then(res => {
+        dispatch(userLogout())
+      })
   }
 }

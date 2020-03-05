@@ -43,6 +43,8 @@ class ProductGrid extends React.Component {
       height: "323px"
     };
     const { products } = this.props;
+    console.log(products);
+    
     return (
       <div>
         <Jumbotron style={img}>

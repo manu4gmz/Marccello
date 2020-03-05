@@ -24,10 +24,10 @@ app.use(passport.session()); // https://stackoverflow.com/questions/22052258/wha
 
 
 
-passport.use(new LocalStrategy({ usernameField: 'email' },
-  function(inputEmail, password, done) {
+passport.use(new LocalStrategy({ usernameField: 'username' },
+  function(inputUsername, password, done) {
     
-    User.findOne({ where: {email: inputEmail} })
+    User.findOne({ where: {username: inputUsername} })
       .then(user => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });

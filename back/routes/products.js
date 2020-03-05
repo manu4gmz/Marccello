@@ -24,6 +24,7 @@ router.param("productId", (req, res, next, id) => {
 
 // te devuelve todos los productos o, si hay una busqueda, te devuelve los que coinciden con la búsqueda
 router.get('/', function (req, res, next) {
+    
     const Op = Sequelize.Op
     if(req.query.s){
         Product.findAll({

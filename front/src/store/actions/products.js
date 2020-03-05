@@ -25,4 +25,4 @@ export const fetchProducts = (products) => dispatch =>
         axios.get(`/api/products?s=${products}`)
         .then(data => data.data)
         .then(products => dispatch(setProducts(products)))
-    }}
+     }}

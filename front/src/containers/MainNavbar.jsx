@@ -17,7 +17,6 @@ import {connect} from 'react-redux'
 class MainNavbar extends Component {
   render() {
     const {user} = this.props
-    console.log(user);
     
     return (
       <Navbar bg="light" expand="lg" className="py-2">
@@ -50,10 +49,9 @@ class MainNavbar extends Component {
 }
 
 const mapStateToProps = function(state, ownProps) {
-  console.log(state);
 
   return {
-    user: state.userReducer.user
+    user: state.user
   };
 };
 export default connect(mapStateToProps, null)(MainNavbar);

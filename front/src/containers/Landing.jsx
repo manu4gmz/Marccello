@@ -25,7 +25,7 @@ export default class Landing extends Component {
               </h1>
             </Col>
             <br />
-            <Link to="/products">
+            <Link to="/productos">
             <Button1 buttonTxt={"Quiero comprar"} />
             </Link>
             {/* <p>Agachate y conocelo</p> */}
