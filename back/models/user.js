@@ -3,6 +3,9 @@ const sequelize = require('../config/db');
 
 const crypto = require('crypto');
 
+const Order = require("./order");
+const Product = require("./product");
+const Purchase = require("./purchase");
 
 class User extends Sequelize.Model { }
 
@@ -64,7 +67,30 @@ User.prototype.validPassword = function (password) {
     return newPassword === this.password;
 }
 
+User.prototype.getCart = function () {
+    return User.findOne({
+        where: {
+            id: this.id
+        },
+        include: [
+            {
+                model: Product
+            }
+        ]
+    })
+}
 
-
+User.prototype.getHistory = function () {
+    return Purchase.findAll({
+        where: {
+            userId: this.id
+        },
+        include: [
+            {
+                model: Product
+            }
+        ]
+    })
+}
 
 module.exports = User;

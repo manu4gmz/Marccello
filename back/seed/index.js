@@ -1,6 +1,24 @@
-const {Product} = require("../models");
+const {Product, User, Order, Purchase, ProductPurchase} = require("../models");
 
-Product.bulkCreate([
+const Promise = require("bluebird");
+
+const logProduct = (cart) => console.log("Cart: ", { name: cart.name })
+const logUser = (user) => console.log("User: ", 
+	{ 
+		username: user.username, 
+		email: user.email,
+		products: user.products.map(product => (
+			{
+				name: product.name,
+				amount: product.order.amount
+			}
+		))
+	
+	})
+const logOrder = (order) => console.log("Order: ", { productId: order.productId, userId: order.userId, amount: order.amount })
+
+
+const productBulkCreate = Product.bulkCreate([
 	{
 		name: "Paleta Tricolor",
 		description: "Paleta con bocha de colores esta buenisima viene con extra azúcar.",
@@ -27,6 +45,71 @@ Product.bulkCreate([
 	}
 ])
 
+const userCreate = 
+User.destroy({where: {email: "pepe@crack.com"}})
+.then(_=>
+	User.create({
+		email: "pepe@crack.com",
+		username: "Pepe Capo",
+		password: "ndeah"
+	})
+)
+
+let _user = null;
+let _products = null;
+
+Promise.all([ productBulkCreate, userCreate])
+.then(([products, user])=> {
+	products.forEach(logProduct)
+	//logUser(user)
+
+	_user = user;
+	_products = products;
+
+	const ordersMap = [
+		{
+			userId: user.id,
+			productId: 1
+		},
+		{
+			userId: user.id,
+			productId: 2
+		}
+	]
+
+	/*products.map(product => 
+		({
+			userId: user.id,
+			productId: product.id
+		})
+	)*/
+
+	return Order.bulkCreate(ordersMap);
+})
+.then(orders => orders.forEach(logOrder))
+.then(_=> {
+	return _user.getCart();
+})
+.then(logUser)
+.then(_ => {
+	return Purchase.create({
+		userId: _user.id,
+		total: 1000
+	})
+	.then(purchase => {
+		return ProductPurchase.create({
+			productId: _products[0].id,
+			buyId: purchase.id
+		})
+		.then(productPurchase => purchase);
+	})
+})
+.then(purchase => {
+	_user.getHistory()
+	.then(data => console.log(data.map(a => a.products.forEach(logProduct))))
+} )
+
+/*
 Product.findAll()
 .then(p => {
 	if (p.length) {
@@ -39,4 +122,40 @@ Product.findAll()
 .catch(err => {
 	console.error(new Error("Che creo q se cago el seed"))
 
-}) 
+}) */
+
+
+/****************
+
+(con user.getCart())
+
+USER: {
+	username: ...
+	email: ...
+	password: ...
+	products: [
+		{
+			name: ...
+			order: {
+				amount: ...
+				createdAt: ...
+			}
+		},
+		{
+			name: ...
+			order: {
+				amount: ...
+				createdAt: ...
+			}
+		},
+		{
+			name: ...
+			order: {
+				amount: ...
+				createdAt: ...
+			}
+		}
+	]
+}
+
+****************/
