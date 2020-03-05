@@ -63,7 +63,6 @@ User.beforeCreate((user) => {
 
 User.prototype.validPassword = function (password) {
     const newPassword = crypto.createHmac('sha1', this.salt).update(password).digest('hex')
-    console.log('PASWORDDDDDDDS', newPassword, 'otra', this.password)
     return newPassword === this.password;
 }
 

@@ -24,25 +24,25 @@ app.use(
 app.use(passport.initialize()); // passport init
 app.use(passport.session()); // https://stackoverflow.com/questions/22052258/what-does-passport-session-middleware-do/28994045#28994045
 
-passport.use(
-  new LocalStrategy({ usernameField: "email" }, function(
-    inputEmail,
-    password,
-    done
-  ) {
-    User.findOne({ where: { email: inputEmail } })
+
+
+
+passport.use(new LocalStrategy({ usernameField: 'username' },
+  function(inputUsername, password, done) {
+    
+    User.findOne({ where: {username: inputUsername} })
       .then(user => {
         if (!user) {
-          return done(null, false, { message: "Incorrect username." });
+          return done(null, false, { message: 'Incorrect username.' });
         }
         if (!user.validPassword(password)) {
-          return done(null, false, { message: "Incorrect password." });
+          return done(null, false, { message: 'Incorrect password.' });
         }
         return done(null, user); //ESTA TODO OK!
       })
       .catch(done);
-  })
-);
+  }
+));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -53,6 +53,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.use("/api", routes);
+
 
 app.get("/*", (req, res) => {
   res.sendFile(__dirname + "/public/" + "index.html");

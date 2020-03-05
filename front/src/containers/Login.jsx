@@ -7,15 +7,14 @@ import {connect} from "react-redux";
 import Input from "../components/Input.jsx";
 
 class Login extends React.Component {
-    constructor() {
-        super();
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
+    constructor(props) {
+        super(props);
         this.state = {
-            email: "",
+            username: "",
             password: "",
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(e) {
@@ -23,8 +22,13 @@ class Login extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.email && this.state.password) {
-            this.props.login(this.state.email, this.state.password)
+        if (this.state.username && this.state.password) {
+
+            let obj = {
+                username: this.state.username,
+                password: this.state.password
+            }
+            this.props.login(obj).then(() => this.props.history.push('/'))
         }
     }
     render() {
@@ -36,8 +40,8 @@ class Login extends React.Component {
                 <hr/>
                 <Form onSubmit={this.handleSubmit} >
                     <Form.Group>
-                        <label>Email</label>
-                        <Input onChange={this.handleChange} name='email' type="email" placeholder="elmas@capito.org" name="email" value={this.state.email} type="text"/>
+                        <label>Username</label>
+                        <Input onChange={this.handleChange} name='username' type="text" placeholder="elmas@capito.org" value={this.state.username} />
                     </Form.Group>
                     <Form.Group>
                         <label>Contraseña</label>
@@ -51,16 +55,15 @@ class Login extends React.Component {
     }
 }
 const mapStateToProps = (state, ownProps)=> {
-    console.log(state);
     return {
-      user: state.loginReducer
+      user: state.user
     }
   }
   
 const mapDispatchToProps = (dispatch, ownProps) => {
 return {
-    login: (email, password)=> {(dispatch(login(email, password)))},
-    logout: ()=>{dispatch(logout())}
+    login: (user)=> (dispatch(login(user))),
+    logout: ()=>dispatch(logout())
 }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
