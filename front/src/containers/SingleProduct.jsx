@@ -37,14 +37,14 @@ class SingleProduct extends Component {
         
     return (
       <div>
-        <Container fluid className="px-0">
+        <Container fluid className="px-0" style={{ maxHeight: "100vh", overflow:"hidden" }}>
           <Row className="m-0 p-0" style={hero}>
             <Col md="8" className="px-0">
               <Image
                 src={
                   product.imgURL
                 }
-                style={{ heigth: "20px" }}
+                style={{ width: "100%" }}
                 fluid
               />
             </Col>
