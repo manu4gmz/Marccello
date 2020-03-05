@@ -4,8 +4,9 @@ import { Row, Col, Container, Image, Jumbotron } from "react-bootstrap";
 export default ({product, onClick}) => {
   return (
     
-    <Col md="3" className="px-5" onClick = {()=> onClick(product.id)}>
+    <Col md="3" className="px-5">
     <Image
+      onClick = {()=> onClick(product.id)}
       className="mb-4"
       fluid="true"
       roundedCircle="true"
@@ -15,7 +16,7 @@ export default ({product, onClick}) => {
     />
     <Row>
       <Col md="9">
-        <h5>{product.name}</h5>
+        <h5 onClick = {()=> onClick(product.id)}>{product.name}</h5>
         <Image
           style={{ width: "15px", display: "inline" }}
           src="../assets/Fstar.svg"
