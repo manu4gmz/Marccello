@@ -1,0 +1,7 @@
+.crop {
+  height: 200px;
+  width: 200px;
+  border-radius: 98px;
+  overflow: hidden;
+  margin-bottom: 10%;
+}
