@@ -14,7 +14,7 @@ export default () => (
       <Row>
         <Col md="4">
           <img
-            src="assets/logo/marccello-logo.svg"
+            src="/assets/logo/marccello-logo.svg"
             style={{ width: "100px", marginBottom: "10px" }}
           />
           <p>Probalo y conoccello</p>

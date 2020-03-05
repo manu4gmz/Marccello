@@ -20,7 +20,7 @@ export default class MainNavbar extends Component {
           <Link to="/">
             <img
               style={{ width: "100px" }}
-              src="assets/logo/marccello-logo.svg"
+              src="/assets/logo/marccello-logo.svg"
             />
           </Link>
 
@@ -31,8 +31,8 @@ export default class MainNavbar extends Component {
             </Nav>
             <Form inline>
               <Input placeholder="Search" search={true} className="mr-sm-2" />
-              <Icon src="assets/supermarket.svg" />
-              <Icon src="assets/user.svg" />
+              <Icon src="/assets/supermarket.svg" />
+              <Icon src="/assets/user.svg" />
             </Form>
           </Navbar.Collapse>
         </Container>

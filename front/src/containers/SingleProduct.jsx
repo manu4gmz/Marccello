@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import { Jumbotron, Row, Col, Container, Image } from "react-bootstrap";
 import Header from "../components/Header";
 import { connect } from "react-redux";
+import { fetchProduct } from "../store/actions/products";
 
 
 class SingleProduct extends Component {
@@ -10,7 +11,14 @@ class SingleProduct extends Component {
     super(props);
   }
 
-  render() {
+  componentWillMount() {
+    const id = this.props.match.params.id
+    console.log(id);
+    
+    this.props.fetchProduct(id)
+  }
+  
+  render() {    
     const hero = {
       backgroundColor: "#E2D5DA",
       heigth: "100px"
@@ -28,7 +36,7 @@ class SingleProduct extends Component {
     };
     const {product} = this.props
     console.log(product);
-    
+        
     return (
       <div>
         <Container fluid className="px-0">
@@ -111,4 +119,9 @@ const mapStateToProps = function(state, ownProps) {
   };
 };
 
-export default connect(mapStateToProps, null)(SingleProduct);
+const mapDispatchToProps = function(dispatch, ownProps) {
+  return {
+    fetchProduct: id => dispatch(fetchProduct(id))
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
