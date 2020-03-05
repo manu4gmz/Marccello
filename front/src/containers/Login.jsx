@@ -2,9 +2,11 @@ import React from "react";
 import Button from '../components/Button.jsx';
 import Header from "../components/Header";
 import { Container, Form, Row, Col } from "react-bootstrap";
+import {login} from '../store/actions/login'
+import {connect} from "react-redux";
 import Input from "../components/Input.jsx";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     constructor() {
         super();
         this.handleChange = this.handleChange.bind(this);
@@ -21,6 +23,9 @@ export default class Login extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
+        if (this.state.email && this.state.password) {
+            this.props.login(this.state.email, this.state.password)
+        }
     }
     render() {
     return (
@@ -38,10 +43,24 @@ export default class Login extends React.Component {
                         <label>Contraseña</label>
                         <Input onChange={this.handleChange} name='password' type="password" placeholder="prefierousasnunjucks" value={this.state.password}/>
                     </Form.Group>
-                    <Button buttonTxt={'Iniciar sesión'} />
+                    <Button type="submit" buttonTxt={'Iniciar sesión'} />
                 </Form>
             </Col>
         </Container>
     )
     }
 }
+const mapStateToProps = (state, ownProps)=> {
+    console.log(state);
+    return {
+      user: state.loginReducer
+    }
+  }
+  
+const mapDispatchToProps = (dispatch, ownProps) => {
+return {
+    login: (email, password)=> {(dispatch(login(email, password)))},
+    logout: ()=>{dispatch(logout())}
+}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
