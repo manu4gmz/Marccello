@@ -8,6 +8,7 @@ import ProductGrid from "../containers/ProductGrid";
 import Login from "../containers/Login";
 import Register from "../containers/Register";
 import SingleProduct from "../containers/SingleProduct";
+import Cart from "../containers/Cart";
 
 export default function() {
   return (
@@ -17,6 +18,7 @@ export default function() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/productos" component={ProductGrid} />
+        <Route path="/carrito" component={Cart} />
         <Route path="/producto" component={SingleProduct} />
         <Route exact path="/" component={Landing} />
       </Switch>
