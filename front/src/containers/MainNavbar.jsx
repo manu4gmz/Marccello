@@ -13,6 +13,8 @@ import Input from "../components/Input";
 import Icon from "../components/Icon";
 
 export default class MainNavbar extends Component {
+
+
   render() {
     return (
       <Navbar bg="light" expand="lg" className="py-2">
