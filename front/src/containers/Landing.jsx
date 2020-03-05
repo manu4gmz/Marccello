@@ -9,35 +9,25 @@ import {
   Image,
   Button
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Button1 from "../components/Button.jsx";
 import Header from "../components/Header";
 
 export default class Landing extends Component {
   render() {
-    const img = {
-      backgroundImage: "url(assets/ice-cream-with-berries-PA9XYSLslide.jpg)",
-      backgroundSize: "100%",
-      backgroundAttachment: "fixed",
-      height: "700px"
-    };
     return (
       <Fragment>
-        <Jumbotron fluid style={img}>
+        <Jumbotron fluid className="mainHero">
           <Container>
-            <Col md="5" className="px-0">
-              <h1
-                style={{
-                  paddingTop: "33%",
-                  color: "#ffffff",
-                  fontSize: "65px",
-                  fontWeight: "700"
-                }}
-              >
+            <Col md="6" className="px-0">
+              <h1>
                 Probalo <br />y conoccello
               </h1>
             </Col>
             <br />
+            <Link to="/products">
             <Button1 buttonTxt={"Quiero comprar"} />
+            </Link>
             {/* <p>Agachate y conocelo</p> */}
           </Container>
         </Jumbotron>
