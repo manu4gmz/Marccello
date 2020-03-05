@@ -15,11 +15,11 @@ export default function() {
     <Fragment>
       <MainNavbar />
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/productos" component={ProductGrid} />
-        <Route path="/carrito" component={Cart} />
-        <Route path="/producto" component={SingleProduct} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/productos" exact component={ProductGrid} />
+        <Route path="/carrito" exact component={Cart} />
+        <Route path="/producto/:id" component={SingleProduct} />
         <Route exact path="/" component={Landing} />
       </Switch>
       <Footer />

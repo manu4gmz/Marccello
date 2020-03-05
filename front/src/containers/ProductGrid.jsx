@@ -31,7 +31,7 @@ class ProductGrid extends React.Component {
 
   onClick(id) {
     this.props.fetchProduct(id);
-    this.props.history.push('/producto')
+    this.props.history.push(`/producto/${id}`)
   }
 
   render() {
