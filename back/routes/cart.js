@@ -35,11 +35,21 @@ router.put("/:id", function(req, res) {
     where: { userId: req.user.id, productId: req.params.id }
   }).then(orden => {
     orden.amount = Number(orden.amount) + Number(req.body.amount);
-    if (orden.amount < 0) {
-      orden.amount = 0;
+    if (orden.amount < 1) {
+      orden.amount = 1;
     }
     orden.save();
     res.send({ msg: "Modificado perfectamente", result: orden.amount });
+  });
+});
+
+router.delete("/:id", function(req, res) {
+  Order.findOne({
+    where: { userId: req.user.id, productId: req.params.id }
+  }).then(data => {
+    data.destroy().then(() => {
+      res.send({ msg: "Eliminado correctamente" });
+    });
   });
 });
 

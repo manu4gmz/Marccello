@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col, Container, Image, Jumbotron } from "react-bootstrap";
+import { addToCart } from "../store/actions/cart";
+import { connect } from "react-redux";
 
-export default ({product, onClick}) => {
+const ProductModule = ({ product, onClick, addToCart, cart }) => {
   return (
-    
     <Col md="3" className="px-5">
     <Image
       onClick = {()=> onClick(product.id)}
@@ -32,5 +33,19 @@ export default ({product, onClick}) => {
     </Row>
   </Col>
   )      
+
 };
 
+const mapStateToProps = function(state, ownProps) {
+  return {
+    cart: state.cart.products
+  };
+};
+
+const mapDispatchToProps = function(dispatch, ownProps) {
+  return {
+    addToCart: productId => dispatch(addToCart(productId))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ProductModule);
