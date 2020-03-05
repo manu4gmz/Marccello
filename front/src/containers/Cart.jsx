@@ -8,6 +8,7 @@ import Header from "../components/Header";
 
 class Cart extends React.Component {
   render() {
+    console.log("deas")
     return (
       <div>
         <Container>

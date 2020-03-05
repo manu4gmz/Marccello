@@ -107,7 +107,7 @@ const mapStateToProps = function(state, ownProps) {
   console.log(state);
 
   return {
-    product: state.productReducer.product
+    product: state.products.product
   };
 };
 

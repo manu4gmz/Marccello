@@ -89,7 +89,7 @@ class ProductGrid extends React.Component {
           <Row>
             {/* MAP */}
             {products.map(product => (
-              <ProductModule product={product} onClick = {this.onClick}/>
+              <ProductModule product={product} onClick = {this.onClick} key={product.id}/>
             ))}
             {/* MAP */}
           </Row>
@@ -103,7 +103,7 @@ const mapStateToProps = function(state, ownProps) {
   console.log(state);
 
   return {
-    products: state.productReducer.products
+    products: state.products.products
   };
 };
 
