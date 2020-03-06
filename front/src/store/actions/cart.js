@@ -9,7 +9,8 @@ export const fetchCart = _ => dispatch => {
   axios
     .get(`/api/cart`)
     .then(data => data.data)
-    .then(products => dispatch(setCart(products)));
+    .then(products => dispatch(setCart(products)))
+    .catch(err => console.log("El usuario no esta logueado!"));
 };
 
 export const incrementOrder = (productId, num) => dispatch => {
