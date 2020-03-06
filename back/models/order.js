@@ -8,6 +8,9 @@ Order.init({
     amount: {
     	type: Sequelize.INTEGER,
     	defaultValue: 1
+    },
+    stock: {
+    	type: Sequelize.INTEGER
     }
 
 }, { sequelize, modelName: 'order' });

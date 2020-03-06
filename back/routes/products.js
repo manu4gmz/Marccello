@@ -22,6 +22,15 @@ router.param("productId", (req, res, next, id) => {
     })
 });
 
+function pageSeparation (productos) {
+    const pages = [];
+    for (let i = 0, x = 0; i < productos.length; i += 8, x++) {
+        console.log(x, i)
+        pages[x] = productos.slice(i, i+8);
+    }
+    return pages;
+}
+
 // te devuelve todos los productos o, si hay una busqueda, te devuelve los que coinciden con la búsqueda
 router.get('/', function (req, res, next) {
     const Op = Sequelize.Op
@@ -29,10 +38,17 @@ router.get('/', function (req, res, next) {
         Product.findAll({
             where: {name:{[Op.iLike]: `%${req.query.s}%`}}
         })
-        .then(productos => res.status(200).json(productos))
+        .then(productos => {
+            //console.log(pageSeparation(productos))
+            res.status(200).json(pageSeparation( productos))
+        })
     } else{
     Product.findAll()
-    .then((productos) => {console.log(productos),res.status(200).json(productos)})
+    .then((productos) => {
+        
+        
+
+        res.status(200).json(pageSeparation(productos))})
     }
 });
 

@@ -11,7 +11,7 @@ class SingleProduct extends Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const id = this.props.match.params.id    
     this.props.fetchProduct(id)
   }
