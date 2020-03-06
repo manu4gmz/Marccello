@@ -28,7 +28,7 @@ const ProductModule = ({ product, onClick, addToCart, cart, setNotification }) =
       </Col>
       <Col md="3">
         <Image
-          style={{ width: "20px", display: "inline" }}
+          style={{ width: "20px", display: "inline", cursor: "pointer" }}
           src="../assets/more.svg"
           onClick={()=>{
             addToCart(product.id);

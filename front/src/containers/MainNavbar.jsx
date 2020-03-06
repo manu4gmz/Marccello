@@ -39,20 +39,18 @@ class MainNavbar extends Component {
   render() {
     const {message, addedCart} = this.props
     return (
-      <Navbar bg="light" expand="lg" className="py-2">
+      <Navbar bg="light" expand="lg" style={{padding: "10px 0"}}>
         <Container>
           <Link to="/">
             <img
-              style={{ width: "100px" }}
+              style={{ width: "120px" }}
               src="/assets/logo/marccello-logo.svg"
             />
           </Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Link to="/productos" className="ml-2">Productos</Link>
-            </Nav>
+            
             {message? 
               (
                 addedCart ?
@@ -64,7 +62,9 @@ class MainNavbar extends Component {
               :
               null
               }
-            <Form inline>
+
+            <Form inline className="ml-auto">
+              <Link to="/productos" className="mr-3 text-muted">Productos</Link>
               <Input placeholder="Search" search={true} className="mr-sm-2" />
               <Link to="carrito"><Icon src="/assets/supermarket.svg" /></Link>
 
