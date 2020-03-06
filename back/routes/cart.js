@@ -47,8 +47,10 @@ router.put("/:id", function(req, res) {
     if (orden.amount < 1) {
       orden.amount = 1;
     }
-    orden.save();
-    res.send({ msg: "Modificado perfectamente", result: orden.amount });
+    orden.save()
+    .then(()=> 
+      res.send({ msg: "Modificado perfectamente", result: orden.amount })
+    )
   });
 });
 
