@@ -77,6 +77,7 @@ class MainNavbar extends Component {
                 <Fragment>
                   <Dropdown.Item>{user.username}</Dropdown.Item>
                   <Dropdown.Item><Link to="/">Compras</Link></Dropdown.Item>
+                  {user.type === "admin"?<Dropdown.Item><Link to="/">Admin</Link></Dropdown.Item>:null}
                   <Dropdown.Divider></Dropdown.Divider> 
                   <Dropdown.Item><Link to="/">Log out</Link></Dropdown.Item> 
                 </Fragment>
