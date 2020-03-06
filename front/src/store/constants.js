@@ -9,3 +9,8 @@ export const SET_USER = 'SET_USER';
 export const USER_LOGIN = 'USER_LOGIN';
 
 export const USER_LOGOUT = 'USER_LOGOUT';
+
+export const SET_NOTIF = 'SET_NOTIF';
+
+
+export const ADDED_TO_CART = "ADDED_TO_CART";
