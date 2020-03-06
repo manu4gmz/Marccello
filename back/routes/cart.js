@@ -33,7 +33,7 @@ router.post("/:id", function(req, res) {
 
 router.get("/", function(req, res) {
   req.user.getCart().then(data => {
-    res.send(data.products);
+    res.send(data.products.sort((a,b)=> (new Date(a)) - (new Date(b))));
   });
 });
 
