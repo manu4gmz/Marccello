@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Navbar,
   Nav,
@@ -37,7 +37,7 @@ class MainNavbar extends Component {
   }
 
   render() {
-    const {message, addedCart} = this.props
+    const {message, addedCart, user} = this.props
     return (
       <Navbar bg="light" expand="lg" style={{padding: "10px 0"}}>
         <Container>
@@ -73,9 +73,19 @@ class MainNavbar extends Component {
               <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components"/>
 
               <Dropdown.Menu>
-
-                <Dropdown.Item><Link to="/login">Inicia sesión</Link></Dropdown.Item>
-                <Dropdown.Item><Link to="/register">Registrate</Link></Dropdown.Item>
+                {user.username?
+                <Fragment>
+                  <Dropdown.Item>{user.username}</Dropdown.Item>
+                  <Dropdown.Item><Link to="/">Compras</Link></Dropdown.Item>
+                  <Dropdown.Divider></Dropdown.Divider> 
+                  <Dropdown.Item><Link to="/">Log out</Link></Dropdown.Item> 
+                </Fragment>
+                :
+                <Fragment>
+                  <Dropdown.Item><Link to="/login">Inicia sesión</Link></Dropdown.Item>
+                  <Dropdown.Item><Link to="/register">Registrate</Link></Dropdown.Item>
+                </Fragment>} 
+                
               </Dropdown.Menu>
             </Dropdown>
             </Form>
@@ -91,7 +101,8 @@ const mapStateToProps = (state, ownProps)=> {
   
   return {
     message: state.notif.message,
-    addedCart: state.notif.cart
+    addedCart: state.notif.cart,
+    user: state.user.user
   }
 }
 
