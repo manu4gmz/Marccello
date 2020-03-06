@@ -7,11 +7,13 @@ import {
   Button,
   Container,
   FormControl,
-  Dropdown
+  Dropdown,
+  Alert
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import Icon from "../components/Icon";
+import {connect} from "react-redux";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -26,26 +28,43 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   </a>
 ));
 
-export default class MainNavbar extends Component {
+class MainNavbar extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
 
   render() {
+    const {message, addedCart} = this.props
     return (
-      <Navbar bg="light" expand="lg" className="py-2">
+      <Navbar bg="light" expand="lg" style={{padding: "10px 0"}}>
         <Container>
           <Link to="/">
             <img
-              style={{ width: "100px" }}
+              style={{ width: "120px" }}
               src="/assets/logo/marccello-logo.svg"
             />
           </Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Link to="/productos" className="ml-2">Productos</Link>
-            </Nav>
-            <Form inline>
+            
+            {message? 
+              (
+                addedCart ?
+                <div  className="navbarAlert">Se agrego un {message} al carrito. <br/><Link to="/carrito">Ver carrito</Link></div>
+                :
+                <div className="navbarAlert">
+                {message}
+              </div>)
+              :
+              null
+              }
+
+            <Form inline className="ml-auto">
+              <Link to="/productos" className="mr-3 text-muted">Productos</Link>
               <Input placeholder="Search" search={true} className="mr-sm-2" />
               <Link to="carrito"><Icon src="/assets/supermarket.svg" /></Link>
 
@@ -66,3 +85,19 @@ export default class MainNavbar extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps)=> {
+  console.log(state)
+  
+  return {
+    message: state.notif.message,
+    addedCart: state.notif.cart
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar)

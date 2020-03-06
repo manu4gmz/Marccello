@@ -43,6 +43,11 @@ class ProductGrid extends React.Component {
       height: "323px"
     };
     const { products } = this.props;
+    const { cart } = this.props;
+    console.log('SOY EL CARRITOOOOOOO')
+    
+    console.log(cart)
+    
     return (
       <div>
         <Jumbotron style={img}>
@@ -89,7 +94,7 @@ class ProductGrid extends React.Component {
           <Row>
             {/* MAP */}
             {products.map(product => (
-              <ProductModule product={product} onClick = {this.onClick} key={product.id}/>
+              <ProductModule alreadyCart={cart.map(p => p.id).includes(product.id)} product={product} onClick = {this.onClick} key={product.id}/>
             ))}
             {/* MAP */}
           </Row>
@@ -100,10 +105,11 @@ class ProductGrid extends React.Component {
 }
 
 const mapStateToProps = function(state, ownProps) {
-  console.log(state);
+
 
   return {
-    products: state.products.products
+    products: state.products.products,
+    cart: state.cart.products
   };
 };
 

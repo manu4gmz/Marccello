@@ -6,6 +6,7 @@ import {login} from '../store/actions/login'
 import {connect} from "react-redux";
 import Input from "../components/Input.jsx";
 import { fetchCart } from "../store/actions/cart";
+import { setNotification } from "../store/actions/notif";
 
 class Login extends React.Component {
     constructor(props) {
@@ -36,6 +37,7 @@ class Login extends React.Component {
              })
             .then(() => {
                 this.props.fetchCart();
+            this.props.setNotification(<div>Bienvenido <strong>{obj.username}</strong>!</div>)
                 this.props.history.push('/')
             })
             .catch(() => this.setState({error: true}))
@@ -80,7 +82,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 return {
     login: (user)=> (dispatch(login(user))),
     logout: ()=>dispatch(logout()),
-    fetchCart: _ => dispatch(fetchCart()),
+    fetchCart: () => dispatch(fetchCart()),
+    setNotification: (message) => dispatch(setNotification(message))
 }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
