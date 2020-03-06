@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setNotification } from "./notif"; 
 
 const setCart = products => ({
   type: "SET_CART",
@@ -17,7 +18,10 @@ export const incrementOrder = (productId, num) => dispatch => {
   axios
     .put(`/api/cart/${productId}`, { amount: num })
     .then(data => data.data)
-    .then(() => dispatch(fetchCart()));
+    .then(({exceded}) => {
+      dispatch(fetchCart())
+      exceded && dispatch(setNotification("Esa cantidad no esta disponible"))
+    });
 };
 
 export const addToCart = productId => dispatch => {

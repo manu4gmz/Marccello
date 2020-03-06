@@ -26,14 +26,17 @@ function isLoggedIn(req,res,next) {
 router.use("/", isLoggedIn);
 
 router.post("/:id", function(req, res) {
-  Order.create({ productId: req.params.id, userId: req.user.id }).then(data => {
-    res.status(201).send({ msg: "Añadido correctamente" });
-  });
+  Product.findByPk(req.params.id)
+  .then(({stock})=> 
+    Order.create({ productId: req.params.id, userId: req.user.id, stock }).then(data => {
+      res.status(201).send({ msg: "Añadido correctamente" });
+    })
+  )
 });
 
 router.get("/", function(req, res) {
   req.user.getCart().then(data => {
-    res.send(data.products.sort((a,b)=> (new Date(a)) - (new Date(b))));
+    res.send(data.products.sort((a,b) => (new Date(a)) - (new Date(b))));
   });
 });
 
@@ -44,12 +47,17 @@ router.put("/:id", function(req, res) {
     where: { userId: req.user.id, productId: req.params.id }
   }).then(orden => {
     orden.amount = Number(orden.amount) + Number(req.body.amount);
-    if (orden.amount < 1) {
-      orden.amount = 1;
+    if (orden.amount < 1) orden.amount = 1;
+
+    let exceded = false;
+    if (orden.amount > orden.stock) {
+      orden.amount = orden.stock;
+      console.log("MAX STOCK")
+      exceded = true;
     }
     orden.save()
     .then(()=> 
-      res.send({ msg: "Modificado perfectamente", result: orden.amount })
+      res.send({ msg: "Modificado perfectamente", result: orden.amount, exceded })
     )
   });
 });
