@@ -20,18 +20,21 @@ class Cart extends React.Component {
 
   render() {
     const cart = this.props.cart;
+
+    const round = (num) => (Math.floor(num*100))/100;
+    
     const totalCount =
-      Math.floor(
-        (cart.length
+      round(
+        cart.length
           ? cart.map(p => p.order.amount).reduce((acc, c) => acc + c)
-          : 0) * 100
-      ) / 100;
+          : 0
+      );
     const totalPrice =
-      Math.floor(
-        (cart.length
+      round(
+        cart.length
           ? cart.map(p => p.price * p.order.amount).reduce((acc, c) => acc + c)
-          : 0) * 100
-      ) / 100;
+          : 0
+      );
     return (
       <div>
         <Container>
@@ -60,7 +63,7 @@ class Cart extends React.Component {
                       <p>Total de productos</p>
                     </Col>
                     <Col md="5">
-                      <p className="txt2">${totalPrice}</p>
+                      <p className="txt2">${round(totalPrice)}</p>
                     </Col>
                   </Row>
                   <Row>
@@ -79,7 +82,7 @@ class Cart extends React.Component {
                     </Col>
                     <Col md="5">
                       <b>
-                        <p className="txt2">${totalPrice + 200}</p>
+                        <p className="txt2">${round(totalPrice + 200)}</p>
                       </b>
                     </Col>
                   </Row>
