@@ -12,5 +12,7 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 
 export const SET_NOTIF = 'SET_NOTIF';
 
+export const SET_PAGE = "SET_PAGE";
+
 
 export const ADDED_TO_CART = "ADDED_TO_CART";

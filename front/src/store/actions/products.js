@@ -1,4 +1,4 @@
-import {SET_PRODUCTS, SET_PRODUCT} from '../constants'
+import {SET_PRODUCTS, SET_PRODUCT, SET_PAGE} from '../constants'
 import axios from 'axios';
 
 const setProducts = (products) => ({
@@ -11,18 +11,30 @@ const setProduct = (product) => ({
     product
 })
 
+export const setPage = (index) => ({
+    type: SET_PAGE,
+    index
+})
+
 export const fetchProduct = (productid) => dispatch =>
     axios.get(`/api/products/${productid}`)
     .then(data => data.data)
     .then(product => dispatch(setProduct(product)))
 
-export const fetchProducts = (products) => dispatch =>
-    {if (products === undefined) {
-        axios.get(`/api/products`)
-        .then(data => data.data)
-        .then(products => dispatch(setProducts(products)))
-    } else {
+export const fetchProducts = (products, index) => dispatch =>{
+    if (products) {
         axios.get(`/api/products?s=${products}`)
         .then(data => data.data)
         .then(products => dispatch(setProducts(products)))
-    }}
+        .then(()=> dispatch(setPage(index || 0)))
+    
+
+    }
+    else {
+
+        axios.get(`/api/products`)
+        .then(data => data.data)
+        .then(products => dispatch(setProducts(products)))
+        .then(()=> dispatch(setPage(index || 0)))
+    }
+}

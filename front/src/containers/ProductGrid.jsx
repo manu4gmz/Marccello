@@ -4,9 +4,9 @@ import Header from "../components/Header";
 import Button1 from "../components/Button";
 import ProductModule from "../components/ProductModule";
 import { connect } from "react-redux";
-import { fetchProducts, fetchProduct } from "../store/actions/products";
+import { fetchProducts, fetchProduct, setPage } from "../store/actions/products";
 import Input from "../components/Input";
-
+import { Link } from "react-router-dom";
 class ProductGrid extends React.Component {
   constructor(props) {
     super(props);
@@ -17,8 +17,10 @@ class ProductGrid extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  componentWillMount() {
-    this.props.fetchProducts();
+  componentDidMount() {
+    this.props.fetchProducts(null, this.props.match.params.index-1);
+    //console.log("\n\n\n\nEEU\n\n\n",this.props.match.params.index)
+    //this.props.setPage()
   }
 
   handleInput(e) {
@@ -98,6 +100,13 @@ class ProductGrid extends React.Component {
             ))}
             {/* MAP */}
           </Row>
+          <Row>
+            {
+              this.props.pages.map(i => 
+                <Link className="mx-2" to={`/productos/${i+1}`} onClick={()=>this.props.setPage(i)}>{i+1}</Link>
+              )
+            }
+          </Row>
         </Container>
       </div>
     );
@@ -108,15 +117,17 @@ const mapStateToProps = function(state, ownProps) {
 
 
   return {
-    products: state.products.products,
+    products: state.products.page,
+    pages: state.products.products.map((_,i) => i),
     cart: state.cart.products
   };
 };
 
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    fetchProducts: products => dispatch(fetchProducts(products)),
-    fetchProduct: id => dispatch(fetchProduct(id))
+    fetchProducts: (products, index) => dispatch(fetchProducts(products, index)),
+    fetchProduct: id => dispatch(fetchProduct(id)),
+    setPage: index => dispatch(setPage(index))
   };
 };
 
