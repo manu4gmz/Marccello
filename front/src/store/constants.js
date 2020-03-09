@@ -24,5 +24,6 @@ export const SET_ORDERS = "SET_ORDERS";
 
 export const SET_ORDER = "SET_ORDER";
 
-export const CREATE_PRODUCT = 'CREATE_PRODUCT'
+export const SET_CATEGORIES = "SET_CATEGORIES";
 
+export const CREATE_PRODUCT = 'CREATE_PRODUCT'
