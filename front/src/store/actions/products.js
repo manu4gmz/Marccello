@@ -1,4 +1,4 @@
-import {SET_PRODUCTS, SET_PRODUCT, SET_PAGE} from '../constants'
+import { SET_PRODUCTS, SET_PRODUCT, SET_PAGE, CREATE_PRODUCT } from '../constants'
 import axios from 'axios';
 
 const setProducts = (products) => ({
@@ -16,25 +16,37 @@ export const setPage = (index) => ({
     index
 })
 
+export const newProduct = (product) => ({
+    type: CREATE_PRODUCT,
+    product
+})
+
 export const fetchProduct = (productid) => dispatch =>
     axios.get(`/api/products/${productid}`)
-    .then(data => data.data)
-    .then(product => dispatch(setProduct(product)))
+        .then(data => data.data)
+        .then(product => dispatch(setProduct(product)))
 
-export const fetchProducts = (products, index) => dispatch =>{
+export const fetchProducts = (products, index) => dispatch => {
     if (products) {
         axios.get(`/api/products?s=${products}`)
-        .then(data => data.data)
-        .then(products => dispatch(setProducts(products)))
-        .then(()=> dispatch(setPage(index || 0)))
-    
+            .then(data => data.data)
+            .then(products => dispatch(setProducts(products)))
+            .then(() => dispatch(setPage(index || 0)))
+
 
     }
     else {
 
         axios.get(`/api/products`)
-        .then(data => data.data)
-        .then(products => dispatch(setProducts(products)))
-        .then(()=> dispatch(setPage(index || 0)))
+            .then(data => data.data)
+            .then(products => dispatch(setProducts(products)))
+            .then(() => dispatch(setPage(index || 0)))
     }
 }
+
+
+export const createProduct = (product) => dispatch =>
+    axios.post(`/api/admin/create-product`, product)
+        .then(data => data.data)
+        .then(product => dispatch(newProduct(product)))
+

@@ -20,3 +20,5 @@ export const ADDED_TO_CART = "ADDED_TO_CART";
 export const SET_ORDERS = "SET_ORDERS";
 
 export const SET_ORDER = "SET_ORDER";
+
+export const CREATE_PRODUCT = 'CREATE_PRODUCT'
