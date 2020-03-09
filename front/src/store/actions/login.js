@@ -9,11 +9,22 @@ const userLogout = () => ({
   type: "USER_LOGOUT",
 });
 
+let afterLogin = null;
+
+export const goLogin = (history, success) => dispatch => {
+  history.push("/login");
+  afterLogin = success;
+
+} 
+
+
 export const login = (user) => (dispatch) => {
   return   Axios.post("api/users/login", user)
   .then(data => data.data)
   .then((data) => {
-    dispatch(userLogin(data))
+    dispatch(userLogin(data));
+    if (afterLogin) afterLogin();
+    else return true;
   })
   .catch(error => { throw new Error(error) } )
 }

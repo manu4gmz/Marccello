@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import Icon from "../components/Icon";
 import {connect} from "react-redux";
+import { getLoggedUser } from "../store/actions/users";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -34,6 +35,10 @@ class MainNavbar extends Component {
     super(props);
     this.state = {
     }
+  }
+
+  componentDidMount() {
+    this.props.getLoggedUser();
   }
 
   render() {
@@ -108,7 +113,7 @@ const mapStateToProps = (state, ownProps)=> {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    
+    getLoggedUser: () => dispatch(getLoggedUser())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar)
