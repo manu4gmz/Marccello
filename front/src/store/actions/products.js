@@ -38,3 +38,22 @@ export const fetchProducts = (products, index) => dispatch =>{
         .then(()=> dispatch(setPage(index || 0)))
     }
 }
+
+export const fetchCatProduct = (id, query) => (dispatch) => {
+
+    if (query) {
+        axios.get(`/api/category/${id}?s=${query}`)
+        .then(data => data.data)
+        .then((data) => {dispatch(setProducts(data))})
+        .then(()=> dispatch(setPage(0)))
+
+    }
+    else {
+
+        axios.get(`/api/category/${id}`)
+        .then(data => data.data)
+        .then((data) => {dispatch(setProducts(data))})
+        .then(()=> dispatch(setPage(0)))
+
+    }
+}

@@ -5,6 +5,7 @@ import cartReducer from "./cartReducer";
 import userReducer from './userReducer';
 import notifReducer from './notifReducer';
 import orderReducer from './orderReducer';
+import categoryReducer from './categoryReducer';
 
 export default combineReducers({
   products: productReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   user: userReducer,
   notif: notifReducer,
   order: orderReducer,
+  category: categoryReducer,
 });
