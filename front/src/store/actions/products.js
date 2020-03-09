@@ -50,3 +50,8 @@ export const createProduct = (product) => dispatch =>
         .then(data => data.data)
         .then(product => dispatch(newProduct(product)))
 
+
+export const deleteProduct = (product) => dispatch =>
+    axios.delete(`/api/products/${product}`)
+        .then(data => data.data)
+        .then(() => dispatch(fetchProducts()))

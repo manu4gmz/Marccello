@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         createProduct: (product) => dispatch(createProduct(product)),
-
     }
 }
 
