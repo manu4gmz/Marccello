@@ -7,6 +7,6 @@ Category.init({
         type: Sequelize.STRING,
         allowNull: false
     }
-}, { sequelize, modelName: 'purchase' });
+}, { sequelize, modelName: 'category' });
 
 module.exports = Category;
