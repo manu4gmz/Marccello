@@ -28,9 +28,9 @@ app.use(passport.session()); // https://stackoverflow.com/questions/22052258/wha
 
 
 passport.use(new LocalStrategy({ usernameField: 'username' },
-  function(inputUsername, password, done) {
-    
-    User.findOne({ where: {username: inputUsername} })
+  function (inputUsername, password, done) {
+
+    User.findOne({ where: { username: inputUsername } })
       .then(user => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
@@ -44,11 +44,11 @@ passport.use(new LocalStrategy({ usernameField: 'username' },
   }
 ));
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function (id, done) {
   User.findByPk(id).then(user => done(null, user));
 });
 
@@ -61,7 +61,7 @@ app.get("/*", (req, res) => {
 
 const port = 3000;
 db.sync({ force: false }).then(() =>
-  app.listen(port, function() {
+  app.listen(port, function () {
     console.log(`Server is listening on port ${port}!`);
   })
 );
