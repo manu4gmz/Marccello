@@ -51,6 +51,11 @@ export default ({ product, changeAmount, removeFromCart }) => {
           </div>
         </Col>
       </Row>
+      {
+        product.alert ? 
+          <h4 className="text-danger">{product.alert}</h4>
+          : null
+      }
       <hr />
     </Container>
   );

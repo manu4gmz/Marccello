@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import Button1 from "../components/Button.jsx";
 import Header from "../components/Header";
+import "./Landing.css";
 
 export default class Landing extends Component {
   render() {
@@ -26,47 +27,43 @@ export default class Landing extends Component {
             </Col>
             <br />
             <Link to="/productos">
-            <Button1 buttonTxt={"Quiero comprar"} />
+              <Button1 buttonTxt={"Quiero comprar"} />
             </Link>
             {/* <p>Agachate y conocelo</p> */}
           </Container>
         </Jumbotron>
         <Container>
-          <Header>Comprá</Header>
+          <Header>Cómo comprar</Header>
 
-          <Row className="text-center">
+          <Row className="text-center" style={{ marginTop: "6%" }}>
             <Col md="4" className="px-5">
-              <Image
-                className="mb-4"
-                fluid="true"
-                roundedCircle="true"
-                variant="top"
-                src="http://via.placeholder.com/300"
-              />
-              <h3>Elegí</h3>
-              {/* <p>lorem ipsum asda as assas as asa as</p> */}
+              <Link to="/productos">
+                <Image
+                  className="mb-4"
+                  fluid="true"
+                  variant="top"
+                  src="assets/ComoComprar-03.png"
+                />
+              </Link>
+              <h3 className="comprarTxt">Elegí</h3>
             </Col>
             <Col md="4" className="px-5">
               <Image
                 className="mb-4"
                 fluid="true"
-                roundedCircle="true"
                 variant="top"
-                src="http://via.placeholder.com/300"
+                src="assets/ComoComprar-04.png"
               />
-              <h3>Pagá</h3>
-              {/* <p>lorem ipsum asda as assas as asa as</p> */}
+              <h3 className="comprarTxt">Pagá</h3>
             </Col>
             <Col md="4" className="px-5">
               <Image
                 className="mb-4"
                 fluid="true"
-                roundedCircle="true"
                 variant="top"
-                src="http://via.placeholder.com/300"
+                src="assets/ComoComprar-05.png"
               />
-              <h3>Recibí</h3>
-              {/* <p>lorem ipsum asda as assas as asa as</p> */}
+              <h3 className="comprarTxt">Recibí</h3>
             </Col>
           </Row>
         </Container>

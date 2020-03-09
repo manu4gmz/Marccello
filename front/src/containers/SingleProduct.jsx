@@ -34,7 +34,7 @@ class SingleProduct extends Component {
       .then(() => this.props.fetchReviews(this.props.match.params.id)) 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const id = this.props.match.params.id    
     this.props.fetchProduct(id)
     this.props.fetchReviews(id)
