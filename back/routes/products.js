@@ -25,7 +25,7 @@ router.param("productId", (req, res, next, id) => {
 function pageSeparation (productos) {
     const pages = [];
     for (let i = 0, x = 0; i < productos.length; i += 8, x++) {
-        console.log(x, i)
+        //console.log(x, i)
         pages[x] = productos.slice(i, i+8);
     }
     return pages;

@@ -66,7 +66,7 @@ class MainNavbar extends Component {
             <Form inline className="ml-auto">
               <Link to="/productos" className="mr-3 text-muted">Productos</Link>
               <Input placeholder="Search" search={true} className="mr-sm-2" />
-              <Link to="carrito"><Icon src="/assets/supermarket.svg" /></Link>
+              <Link to="/carrito"><Icon src="/assets/supermarket.svg" /></Link>
 
                 
             <Dropdown alignRight>

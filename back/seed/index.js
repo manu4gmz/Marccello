@@ -182,12 +182,13 @@ const productBulkCreate = Product.bulkCreate([
 ])
 
 const userCreate = 
-User.destroy({where: {email: "pepe@crack.com"}})
+User.destroy({where: {email: "admin@mail.com"}})
 .then(_=>
 	User.create({
-		email: "pepe@crack.com",
-		username: "Pepe Capo",
-		password: "ndeah"
+		email: "admin@mail.com",
+		username: "Admin",
+		password: "123",
+		type: "superAdmin"
 	})
 )
 
@@ -201,6 +202,8 @@ Promise.all([ productBulkCreate, userCreate])
 
 	_user = user;
 	_products = products;
+})
+/*
 
 	const ordersMap = [
 		{
@@ -218,7 +221,7 @@ Promise.all([ productBulkCreate, userCreate])
 			userId: user.id,
 			productId: product.id
 		})
-	)*/
+	)
 
 	return Order.bulkCreate(ordersMap);
 })

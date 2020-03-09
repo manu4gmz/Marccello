@@ -5,6 +5,7 @@ import Button1 from "../components/Button";
 import style from "./Cart.css";
 import RandomProducts from "../components/RandomProducts";
 import Header from "../components/Header";
+import Resume from "../components/Resume";
 import { connect } from "react-redux";
 import {
   fetchCart,
@@ -12,29 +13,22 @@ import {
   addToCart,
   removeFromCart
 } from "../store/actions/cart";
+import { purchaseCart } from "../store/actions/purchase";
 
 class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart();
+  
+    this.handleBuy = this.handleBuy.bind(this);
+  }
+
+  handleBuy () {
+    this.props.history.push("/confirm-purchase")
   }
 
   render() {
     const cart = this.props.cart;
-
-    const round = (num) => (Math.floor(num*100))/100;
     
-    const totalCount =
-      round(
-        cart.length
-          ? cart.map(p => p.order.amount).reduce((acc, c) => acc + c)
-          : 0
-      );
-    const totalPrice =
-      round(
-        cart.length
-          ? cart.map(p => p.price * p.order.amount).reduce((acc, c) => acc + c)
-          : 0
-      );
     return (
       <div>
         <Container>
@@ -50,47 +44,7 @@ class Cart extends React.Component {
               ))}
             </Col>
             <Col md="4">
-              <Container className="conta">
-                <h4 className="tit">RESUMEN</h4>
-                <hr />
-                <div className="txt">
-                  <p className="txt">
-                    {totalCount} producto{totalCount > 1 ? "s" : ""}
-                  </p>
-                  <hr />
-                  <Row>
-                    <Col md="7">
-                      <p>Total de productos</p>
-                    </Col>
-                    <Col md="5">
-                      <p className="txt2">${round(totalPrice)}</p>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="7">
-                      <p>Envío</p>
-                    </Col>
-                    <Col md="5">
-                      <p className="txt2">$200 </p>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="7">
-                      <b>
-                        <p>Total</p>
-                      </b>
-                    </Col>
-                    <Col md="5">
-                      <b>
-                        <p className="txt2">${round(totalPrice + 200)}</p>
-                      </b>
-                    </Col>
-                  </Row>
-                </div>
-                <div style={{ margin: "3% 30%", padding: "8% 0" }}>
-                  <Button1 buttonTxt={"Continuar"} />
-                </div>
-              </Container>
+              <Resume cart={cart} handleBuy={this.handleBuy}/>
             </Col>
           </Row>
           <div style={{ padding: "5% 0 2% 0" }}>
@@ -115,7 +69,8 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     incrementOrder: (productId, num) =>
       dispatch(incrementOrder(productId, num)),
     addToCart: productId => dispatch(addToCart(productId)),
-    removeFromCart: productId => dispatch(removeFromCart(productId))
+    removeFromCart: productId => dispatch(removeFromCart(productId)),
+    purchaseCart: () => dispatch(purchaseCart())
   };
 };
 
