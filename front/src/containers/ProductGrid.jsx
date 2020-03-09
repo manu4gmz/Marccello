@@ -26,9 +26,11 @@ class ProductGrid extends React.Component {
   handleInput(e) {
     this.setState({ product: e.target.value });
     const product = e.target.value;
-    product.length >= 2
-      ? this.props.fetchProducts(product)
-      : this.props.fetchProducts();
+    product.length >= 2 ?
+      this.props.fetchProducts(product)
+    : this.props.fetchProducts();
+    this.props.history.push(`/productos/1`)
+    this.props.setPage(1);
   }
 
   onClick(id) {
@@ -39,7 +41,7 @@ class ProductGrid extends React.Component {
   render() {
     const img = {
       backgroundImage:
-        "url(assets/summer-chocolate-ice-cream-P7YWKEYslide.jpg)",
+        "url(/assets/summer-chocolate-ice-cream-P7YWKEYslide.jpg)",
       backgroundSize: "100%",
       backgroundAttachment: "fixed",
       height: "323px"
@@ -93,7 +95,7 @@ class ProductGrid extends React.Component {
             </Col>
           </Row> */}
 
-          <Row>
+          <Row style={{minHeight: "80vh", marginTop: "20px"}}>
             {/* MAP */}
             {products.map(product => (
               <ProductModule alreadyCart={cart.map(p => p.id).includes(product.id)} product={product} onClick = {this.onClick} key={product.id}/>
@@ -103,7 +105,7 @@ class ProductGrid extends React.Component {
           <Row>
             {
               this.props.pages.map(i => 
-                <Link className="mx-2" to={`/productos/${i+1}`} onClick={()=>this.props.setPage(i)}>{i+1}</Link>
+                <Link key={i} className="mx-2" to={`/productos/${i+1}`} onClick={()=>this.props.setPage(i)}>{i+1}</Link>
               )
             }
           </Row>

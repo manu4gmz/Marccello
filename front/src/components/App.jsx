@@ -8,7 +8,9 @@ import ProductGrid from "../containers/ProductGrid";
 import Login from "../containers/Login";
 import Register from "../containers/Register";
 import SingleProduct from "../containers/SingleProduct";
+import Payment from "../containers/Payment";
 import Cart from "../containers/Cart";
+import Admin from "./Admin";
 import Drone from "./Drone";
 
 export default function() {
@@ -18,9 +20,11 @@ export default function() {
       <Switch>
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
+        <Route path="/confirm-purchase" exact component={Payment} />
         <Route path="/productos/:index" component={ProductGrid} />
         <Redirect path="/productos" exact to="/productos/1" />
         <Route path="/carrito" exact component={Cart} />
+        <Route path="/admin" component={Admin} />
         <Route path="/producto/:id" component={SingleProduct} />
         <Route exact path="/" component={Landing} />
       </Switch>
