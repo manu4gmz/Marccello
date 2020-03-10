@@ -1,12 +1,13 @@
 import Axios from "axios";
+import { USER_LOGIN, USER_LOGOUT } from "../constants";
 
 const userLogin = (user) => ({
-  type: "USER_LOGIN",
+  type: USER_LOGIN,
   user
 });
 
 const userLogout = () => ({
-  type: "USER_LOGOUT",
+  type: USER_LOGOUT,
 });
 
 export const login = (user) => (dispatch) => {
@@ -20,7 +21,7 @@ export const login = (user) => (dispatch) => {
   
 export const logout = () => {
   return function (dispatch, getstate) {
-    Axios.post("api/users/logout")
+    return Axios.post("api/users/logout")
       .then(res => {
         dispatch(userLogout())
       })
