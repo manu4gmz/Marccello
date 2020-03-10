@@ -13,8 +13,15 @@ const {
 } = require("../models");
 
 function isAdmin(req, res, next) {
-	if (req.isAuthenticated() && req.user.type === "admin") next();
+	if (req.isAuthenticated() && (req.user.type == "admin" || req.user.type == "superAdmin")) next();
 	else res.status(401).send({ msg: "Flasheaste man" })
+}
+
+router.use("/", isAdmin);
+
+function isSuperAdmin(req, res, next) {
+	if (req.isAuthenticated() && (req.user.type == "superAdmin")) next();
+	else res.status(401).send({ msg: "Flasheaste man, solo capos" })
 }
 
 router.post("/orders/:id/send", (req, res) => {
