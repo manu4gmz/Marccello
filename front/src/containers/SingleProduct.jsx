@@ -73,7 +73,23 @@ class SingleProduct extends Component {
         >
           <Row className="m-0 p-0" style={hero}>
             <Col md="8" className="px-0">
-              <Image src={product.imgURL} style={{ width: "100%" }} fluid />
+              <Image
+                src={product.imgURL}
+                style={{ width: "100%", display: "inline" }}
+                fluid
+              />
+              <div
+                style={{
+                  width: "30px",
+                  position: "absolute",
+                  left: "0px",
+                  display: "inline",
+                  marginLeft: "16%",
+                  marginTop: "3%"
+                }}
+              >
+                <img src="/assets/back.svg" />
+              </div>
             </Col>
             <Col md="3" className="px-0">
               <div style={info}>
@@ -84,7 +100,6 @@ class SingleProduct extends Component {
                       fontSize: "30px",
                       fontWeight: "600",
                       paddingBottom: "14px"
-                      //   paddingTop: "15px"
                     }}
                   >
                     {product.name}

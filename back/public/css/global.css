@@ -48,6 +48,38 @@
   color: #6b4856;
 }
 
+.buttonPink1 {
+  font-family: "Montserrat", sans-serif;
+  background-color: #e2d5da;
+  color: #6b4856;
+  font-size: 13px;
+  padding: 9px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 37px;
+  text-align: center;
+}
+.buttonPink1:hover {
+  background-color: #6b4856;
+  color: #e2d5da;
+}
+
+.buttonDark1 {
+  font-family: "Montserrat", sans-serif;
+  background-color: #6b4856;
+  color: #e2d5da;
+  font-size: 13px;
+  padding: 9px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 37px;
+  text-align: center;
+}
+.buttonDark1:hover {
+  background-color: #e2d5da;
+  color: #6b4856;
+}
+
 .navbarAlert {
   padding: 30px 20px;
   position: fixed;

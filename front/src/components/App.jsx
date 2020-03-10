@@ -29,7 +29,6 @@ export default function() {
         <Route path="/carrito" exact component={Cart} />
         <Route path="/admin" component={Admin} />
         <Route path="/producto/:id" component={SingleProduct} />
-        <Route path="/users" component={UsersContainer} />
         <Route exact path="/" component={Landing} />
       </Switch>
       <Footer />

@@ -1,0 +1,57 @@
+.cont {
+  margin-top: 3%;
+  padding: 8px 0px;
+}
+
+.imag {
+  height: 105px;
+  width: 105px;
+  border-radius: 90px;
+  overflow: hidden;
+}
+
+.bot {
+  margin-top: 8px;
+  padding: 2px 9px;
+  background-color: #e2d5da;
+  color: #6b4856;
+  border-radius: 25px;
+  border: none;
+}
+
+.bot:hover {
+  font-weight: 700;
+}
+
+.priceA {
+  font-size: 17px;
+  font-weight: 500;
+  margin-left: 50px;
+  display: inline;
+}
+
+.dele {
+  font-size: 13px;
+  cursor: pointer;
+}
+.dele:hover {
+  font-weight: 600;
+}
+
+.cross {
+  margin-top: -3px;
+  margin-left: 15%;
+  width: 20px;
+  height: 20px;
+  fill: #6b4856;
+  cursor: pointer;
+}
+
+.edit {
+  margin-top: -3px;
+  margin-left: 5%;
+  width: 18px;
+  height: 18px;
+  fill: #6b4856;
+  cursor: pointer;
+}
