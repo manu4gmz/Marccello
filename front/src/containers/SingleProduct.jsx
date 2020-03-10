@@ -5,8 +5,9 @@ import Header from "../components/Header";
 import Input from "../components/Input.jsx";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/actions/products";
-import { setNotification } from "../store/actions/notif";
-import { fetchReviews, newReview } from "../store/actions/reviews";
+import {setNotification} from "../store/actions/notif";
+import {fetchReviews, newReview} from "../store/actions/reviews";
+import { addToCart } from "../store/actions/cart";
 
 class SingleProduct extends Component {
   constructor(props) {
@@ -116,7 +117,7 @@ class SingleProduct extends Component {
                     float: "right"
                   }}
                 >
-                  <Button buttonTxt={"Agregar"} buttonClass={"buttonDark"} />
+                  <Button buttonTxt={"Agregar"} buttonClass={"buttonDark"} onClick={()=>{this.props.addToCart(product.id); this.props.setNotification(null, product.name)}}/>
                 </div>
               </div>
             </Col>
@@ -202,6 +203,7 @@ const mapStateToProps = function(state, ownProps) {
 
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
+    addToCart: productId => dispatch(addToCart(productId)),
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchReviews: id => dispatch(fetchReviews(id)),
     newReview: (review, producto) => dispatch(newReview(review, producto)),

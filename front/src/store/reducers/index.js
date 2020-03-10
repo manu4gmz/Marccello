@@ -7,6 +7,7 @@ import reviewsReducers from "./reviewsReducers";
 import notifReducer from './notifReducer';
 import orderReducer from './orderReducer';
 import categoryReducer from './categoryReducer';
+import purchasesReducer from "./purchasesReducers";
 
 export default combineReducers({
   products: productReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   notif: notifReducer,
   order: orderReducer,
   category: categoryReducer,
+  purchases: purchasesReducer,
 });

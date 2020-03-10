@@ -9,6 +9,7 @@ import Login from "../containers/Login";
 import Register from "../containers/Register";
 import SingleProduct from "../containers/SingleProduct";
 import PurchaseView from "../containers/PurchaseView";
+import Purchases from "../containers/Purchases";
 import Payment from "../containers/Payment";
 import Cart from "../containers/Cart";
 import Admin from "./Admin";
@@ -28,6 +29,7 @@ export default function() {
         <Redirect path="/productos" exact to="/productos/1" />
         <Route path="/carrito" exact component={Cart} />
         <Route path="/admin" component={Admin} />
+        <Route path="/purchases" exact component={Purchases} />
         <Route path="/producto/:id" component={SingleProduct} />
         <Route path="/users" component={UsersContainer} />
         <Route exact path="/" component={Landing} />
