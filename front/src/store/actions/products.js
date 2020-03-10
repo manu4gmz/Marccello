@@ -32,8 +32,6 @@ export const fetchProducts = (products, index) => dispatch => {
             .then(data => data.data)
             .then(products => dispatch(setProducts(products)))
             .then(() => dispatch(setPage(index || 0)))
-
-
     }
     else {
 
@@ -45,8 +43,32 @@ export const fetchProducts = (products, index) => dispatch => {
 }
 
 
+export const fetchCatProduct = (id, query) => (dispatch) => {
+
+    if (query) {
+        axios.get(`/api/category/${id}?s=${query}`)
+        .then(data => data.data)
+        .then((data) => {dispatch(setProducts(data))})
+        .then(()=> dispatch(setPage(0)))
+
+    }
+    else {
+
+        axios.get(`/api/category/${id}`)
+        .then(data => data.data)
+        .then((data) => {dispatch(setProducts(data))})
+        .then(()=> dispatch(setPage(0)))
+
+    }
+}
+
+
 export const createProduct = (product) => dispatch =>
     axios.post(`/api/admin/create-product`, product)
         .then(data => data.data)
         .then(product => dispatch(newProduct(product)))
 
+export const deleteProduct = (product) => dispatch =>
+    axios.delete(`/api/products/${product}`)
+        .then(data => data.data)
+        .then(() => dispatch(fetchProducts()))

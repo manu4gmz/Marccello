@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import Input from "../components/Input.jsx";
 import { fetchCart } from "../store/actions/cart";
 import { setNotification } from "../store/actions/notif";
-
+import { moveLocalToLogged } from "../store/actions/cart";
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -35,10 +35,13 @@ class Login extends React.Component {
             .then(()=> {
                 this.setState({error: false})
              })
-            .then(() => {
-                this.props.fetchCart();
-            this.props.setNotification(<div>Bienvenido <strong>{obj.username}</strong>!</div>)
-                this.props.history.push('/')
+            .then((redirect) => {
+                this.props.moveLocalToLogged()
+                .then(()=>
+                        this.props.fetchCart()
+                    )
+                this.props.setNotification(<div>Bienvenido <strong>{obj.username}</strong>!</div>)
+                if (redirect) this.props.history.push('/');
             })
             .catch(() => this.setState({error: true}))
         }
@@ -83,7 +86,8 @@ return {
     login: (user)=> (dispatch(login(user))),
     logout: ()=>dispatch(logout()),
     fetchCart: () => dispatch(fetchCart()),
-    setNotification: (message) => dispatch(setNotification(message))
+    setNotification: (message) => dispatch(setNotification(message)),
+    moveLocalToLogged: (cart) => dispatch(moveLocalToLogged(cart))
 }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -16,8 +16,7 @@ import Icon from "../components/Icon";
 import {connect} from "react-redux";
 import {logout} from '../store/actions/login';
 import { setNotification } from "../store/actions/notif";
-
-
+import { getLoggedUser } from "../store/actions/users";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -47,7 +46,11 @@ class MainNavbar extends Component {
       this.props.setNotification(<div>Logout exitoso!</div>)
     })
   };
-  
+
+  componentDidMount() {
+    this.props.getLoggedUser();
+  }
+
 
   render() {
     const {message, addedCart, user, logout} = this.props
