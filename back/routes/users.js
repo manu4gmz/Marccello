@@ -28,7 +28,9 @@ router.post('/logout', (req, res) => {
 
 //devuelve un usuario logueado si existe
 router.get('/checkLogUser', (req, res) => {
-    req.isAuthenticated()? res.send(req.user) : res.send('No hay usuario logueado')    
+    req.isAuthenticated() ? 
+        res.send(req.user) 
+        : res.status(404).send({msg:'No hay usuario logueado'})    
 })
 
 //devuelve los usuarios

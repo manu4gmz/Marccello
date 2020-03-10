@@ -3,30 +3,31 @@ const router = new express.Router();
 const models = require('../models');
 const Product = models.Product;
 const Review = models.Review;
-const Sequelize = require ("sequelize")
+const Sequelize = require("sequelize")
+const Promise = require("bluebird");
 module.exports = router;
 
 // Middleware que automatiza la busqueda
 router.param("productId", (req, res, next, id) => {
     Product.findByPk(id)
-    .then(product => {
-        if(product){
-            req.product = product
-            next()
-        } else {
-            res.sendStatus(404)
-        }
-    })
-    .catch(err =>{
-        res.sendStatus(500)
-    })
+        .then(product => {
+            if (product) {
+                req.product = product
+                next()
+            } else {
+                res.sendStatus(404)
+            }
+        })
+        .catch(err => {
+            res.sendStatus(500)
+        })
 });
 
-function pageSeparation (productos) {
+function pageSeparation(productos) {
     const pages = [];
     for (let i = 0, x = 0; i < productos.length; i += 8, x++) {
         //console.log(x, i)
-        pages[x] = productos.slice(i, i+8);
+        pages[x] = productos.slice(i, i + 8);
     }
     return pages;
 }
@@ -34,22 +35,20 @@ function pageSeparation (productos) {
 // te devuelve todos los productos o, si hay una busqueda, te devuelve los que coinciden con la búsqueda
 router.get('/', function (req, res, next) {
     const Op = Sequelize.Op
-    if(req.query.s){
-        Product.findAll({
-            where: {name:{[Op.iLike]: `%${req.query.s}%`}}
+    Product.findAll(req.query.s ? {
+        where: { name: { [Op.iLike]: `%${req.query.s}%` } }
+    } : {})
+        .then((productos) => 
+            Promise.all(
+                productos.map(p => p.rating().then((data) => {
+                    p.dataValues.rating = data;
+                    return p;
+                }))
+            )
+        )
+        .then((productos) => {
+            res.status(200).json(pageSeparation(productos.sort((b, a) => b.id - a.id)))
         })
-        .then(productos => {
-            //console.log(pageSeparation(productos))
-            res.status(200).json(pageSeparation( productos))
-        })
-    } else{
-    Product.findAll()
-    .then((productos) => {
-        
-        
-
-        res.status(200).json(pageSeparation(productos))})
-    }
 });
 
 // te busca un producto
@@ -60,26 +59,41 @@ router.get('/:productId', function (req, res, next) {
 // crea un nuevo producto
 router.post('/', function (req, res, next) {
     Product.create(req.body)
-    .then(nuevoProducto => res.status(201).json(nuevoProducto))
+        .then(nuevoProducto => res.status(201).json(nuevoProducto))
 });
 
 // te actualiza un producto
-router.put("/:productId", (req, res, next) =>{
+router.put("/:productId", (req, res, next) => {
+    console.log('Llegue a la ruta esta')
+    console.log("OLD \n\n\n", req.product)
     req.product.update(req.body)
-    .then(productoU =>res.status(200).json(productoU))
+        .then(productoU => {
+            console.log("NEW \n\n\n", productoU)
+
+            res.status(200).json(productoU)
+        })
+        .catch(next)
 });
 
 // te borra un producto
-router.delete("/:productId", (req,res,next) =>{
+router.delete("/:productId", (req, res, next) => {
     req.product.destroy()
-    .then(() => res.sendStatus(204))
+        .then(() => res.sendStatus(204))
 });
 
 // crear un review para un producto
 router.post("/:productId", function (req, res, next) {
     Review.create(req.body)
     .then(nuevoReview => {
-        nuevoReview.setProduct(req.product) 
+        nuevoReview.setProduct(req.product)
+        nuevoReview.setUser(req.user) 
         res.status(201).json(nuevoReview)}
     )
+});
+
+router.get('/:productId/reviews', function (req, res, next) {
+    Review.findAll({where: {
+        productId: req.params.productId
+    }})
+    .then(reviews => res.status(200).json(reviews))
 });

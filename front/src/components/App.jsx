@@ -8,6 +8,7 @@ import ProductGrid from "../containers/ProductGrid";
 import Login from "../containers/Login";
 import Register from "../containers/Register";
 import SingleProduct from "../containers/SingleProduct";
+import PurchaseView from "../containers/PurchaseView";
 import Payment from "../containers/Payment";
 import Cart from "../containers/Cart";
 import Admin from "./Admin";
@@ -22,6 +23,7 @@ export default function() {
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
         <Route path="/confirm-purchase" exact component={Payment} />
+        <Route path="/purchase/:id" exact component={PurchaseView} />
         <Route path="/productos/:index" component={ProductGrid} />
         <Redirect path="/productos" exact to="/productos/1" />
         <Route path="/carrito" exact component={Cart} />

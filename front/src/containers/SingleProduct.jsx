@@ -1,22 +1,52 @@
 import React, { Component } from "react";
 import Button from "../components/Button";
-import { Jumbotron, Row, Col, Container, Image } from "react-bootstrap";
+import { Jumbotron, Row, Col, Container, Image, Form } from "react-bootstrap";
 import Header from "../components/Header";
+import Input from "../components/Input.jsx";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/actions/products";
-
+import { setNotification } from "../store/actions/notif";
+import { fetchReviews, newReview } from "../store/actions/reviews";
 
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
+      title: "",
+      content: "",
+      rating: ""
+    };
+  }
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    let obj = {
+      title: this.state.title,
+      content: this.state.content,
+      rating: this.state.rating
+    };
+    this.props.newReview(obj, this.props.match.params.id).then(() => {
+      this.props.fetchReviews(this.props.match.params.id);
+      if (obj.rating > 2) {
+        this.props.setNotification(<div>¡Muchas gracias por tu reseña!</div>);
+      } else {
+        this.props.setNotification(<div>Gracias eh...</div>);
+      }
+    });
   }
 
   componentDidMount() {
-    const id = this.props.match.params.id    
-    this.props.fetchProduct(id)
+    const id = this.props.match.params.id;
+    this.props.fetchProduct(id);
+    this.props.fetchReviews(id);
   }
-  
-  render() {    
+
+  render() {
     const hero = {
       backgroundColor: "#E2D5DA",
       heigth: "100px"
@@ -32,21 +62,18 @@ class SingleProduct extends Component {
       position: "relative",
       right: "20%"
     };
-    const {product} = this.props
-    console.log(product);
-        
+    const { product, reviews, user } = this.props;
+
     return (
       <div>
-        <Container fluid className="px-0" style={{ maxHeight: "100vh", overflow:"hidden" }}>
+        <Container
+          fluid
+          className="px-0"
+          style={{ maxHeight: "100vh", overflow: "hidden" }}
+        >
           <Row className="m-0 p-0" style={hero}>
             <Col md="8" className="px-0">
-              <Image
-                src={
-                  product.imgURL
-                }
-                style={{ width: "100%" }}
-                fluid
-              />
+              <Image src={product.imgURL} style={{ width: "100%" }} fluid />
             </Col>
             <Col md="3" className="px-0">
               <div style={info}>
@@ -100,9 +127,63 @@ class SingleProduct extends Component {
           <br />
 
           <Header>Comentarios</Header>
-          <Row>
-            <Col md="2">{/* <Image></Image> */}</Col>
-          </Row>
+          {user.username &&
+          !reviews.map(review => review.userId).includes(user.id) ? (
+            <div>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group>
+                  <label>Título</label>
+                  <Input
+                    onChange={this.handleChange}
+                    name="title"
+                    placeholder="Título de la reseña"
+                    value={this.state.title}
+                    type="text"
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <label>Rating</label>
+                  <Input
+                    onChange={this.handleChange}
+                    name="rating"
+                    type="text"
+                    value={this.state.rating}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <label>Contenido</label>
+                  <Input
+                    onChange={this.handleChange}
+                    name="content"
+                    type="content"
+                    placeholder="Contenido"
+                    value={this.state.content}
+                    type="text"
+                  />
+                </Form.Group>
+
+                <Button buttonTxt={"Dejar comentario"} />
+              </Form>
+            </div>
+          ) : user.username ? (
+            "Gracias por tu reseña!"
+          ) : (
+            "Tenés que estar loggeado para dejar una reseña."
+          )}
+          <br />
+          <br />
+
+          {reviews.length > 0
+            ? reviews.map(review => {
+                return (
+                  <div key={review.id}>
+                    <h4>{review.title}</h4>
+                    <p> {review.rating}</p>
+                    <p>{review.content}</p>
+                  </div>
+                );
+              })
+            : "No hay comentarios todavía"}
         </Container>
       </div>
     );
@@ -113,13 +194,18 @@ const mapStateToProps = function(state, ownProps) {
   console.log(state);
 
   return {
-    product: state.products.product
+    product: state.products.product,
+    reviews: state.reviews.reviews,
+    user: state.login.user
   };
 };
 
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    fetchProduct: id => dispatch(fetchProduct(id))
+    fetchProduct: id => dispatch(fetchProduct(id)),
+    fetchReviews: id => dispatch(fetchReviews(id)),
+    newReview: (review, producto) => dispatch(newReview(review, producto)),
+    setNotification: (msg, pr) => dispatch(setNotification(msg, pr))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

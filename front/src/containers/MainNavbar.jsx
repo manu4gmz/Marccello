@@ -13,7 +13,10 @@ import {
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import Icon from "../components/Icon";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+import { logout } from "../store/actions/login";
+import { setNotification } from "../store/actions/notif";
+import { getLoggedUser } from "../store/actions/users";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -29,65 +32,88 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 ));
 
 class MainNavbar extends Component {
-
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {};
+    this.ClickLogout = this.ClickLogout.bind(this);
+  }
+
+  ClickLogout() {
+    this.props.logout().then(() => {
+      this.props.setNotification(<div>Logout exitoso!</div>);
+    });
+  }
+
+  componentDidMount() {
+    this.props.getLoggedUser();
   }
 
   render() {
-    const {message, addedCart, user} = this.props
+    const { message, addedCart, user, logout } = this.props;
     return (
-      <Navbar bg="light" expand="lg" style={{padding: "10px 0"}}>
+      <Navbar bg="light" expand="lg" style={{ padding: "10px 0" }}>
         <Container>
           <Link to="/">
             <img
-              style={{ width: "120px" }}
+              style={{ width: "135px", padding: "3% 0" }}
               src="/assets/logo/marccello-logo.svg"
             />
           </Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            
-            {message? 
-              (
-                addedCart ?
-                <div  className="navbarAlert">Se agrego un {message} al carrito. <br/><Link to="/carrito">Ver carrito</Link></div>
-                :
+            {message ? (
+              addedCart ? (
                 <div className="navbarAlert">
-                {message}
-              </div>)
-              :
-              null
-              }
+                  Se agregó un {message} al carrito. <br />
+                  <Link to="/carrito">Ver carrito</Link>
+                </div>
+              ) : (
+                <div className="navbarAlert">{message}</div>
+              )
+            ) : null}
 
             <Form inline className="ml-auto">
-              <Link to="/productos" className="mr-3 text-muted">Productos</Link>
+              <Link to="/productos" className="mr-3 text-muted">
+                Productos
+              </Link>
               <Input placeholder="Search" search={true} className="mr-sm-2" />
-              <Link to="/carrito"><Icon src="/assets/supermarket.svg" /></Link>
+              <Link to="/carrito">
+                <Icon src="/assets/supermarket.svg" />
+              </Link>
 
-                
-            <Dropdown alignRight>
-              <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components"/>
+              <Dropdown alignRight>
+                <Dropdown.Toggle
+                  as={CustomToggle}
+                  id="dropdown-custom-components"
+                />
 
-              <Dropdown.Menu>
-                {user.username?
-                <Fragment>
-                  <Dropdown.Item>{user.username}</Dropdown.Item>
-                  <Dropdown.Item><Link to="/">Compras</Link></Dropdown.Item>
-                  <Dropdown.Divider></Dropdown.Divider> 
-                  <Dropdown.Item><Link to="/">Log out</Link></Dropdown.Item> 
-                </Fragment>
-                :
-                <Fragment>
-                  <Dropdown.Item><Link to="/login">Inicia sesión</Link></Dropdown.Item>
-                  <Dropdown.Item><Link to="/register">Registrate</Link></Dropdown.Item>
-                </Fragment>} 
-                
-              </Dropdown.Menu>
-            </Dropdown>
+                <Dropdown.Menu>
+                  {user.username ? (
+                    <Fragment>
+                      <Dropdown.Item>{user.username}</Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link to="/">Compras</Link>
+                      </Dropdown.Item>
+                      <Dropdown.Divider></Dropdown.Divider>
+                      <Dropdown.Item>
+                        <Link onClick={this.ClickLogout} to="/">
+                          Log out
+                        </Link>
+                      </Dropdown.Item>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <Dropdown.Item>
+                        <Link to="/login">Inicia sesión</Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link to="/register">Registrate</Link>
+                      </Dropdown.Item>
+                    </Fragment>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
             </Form>
           </Navbar.Collapse>
         </Container>
@@ -96,19 +122,21 @@ class MainNavbar extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps)=> {
-  console.log(state)
-  
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+
   return {
     message: state.notif.message,
     addedCart: state.notif.cart,
     user: state.user.user
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar)
+    logout: () => dispatch(logout()),
+    setNotification: message => dispatch(setNotification(message)),
+    getLoggedUser: () => dispatch(getLoggedUser())
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar);

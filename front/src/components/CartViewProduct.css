@@ -46,3 +46,12 @@
   fill: #6b4856;
   cursor: pointer;
 }
+
+.edit {
+  margin-top: -3px;
+  margin-left: 5%;
+  width: 18px;
+  height: 18px;
+  fill: #6b4856;
+  cursor: pointer;
+}

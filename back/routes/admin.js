@@ -1,37 +1,45 @@
 const express = require("express");
 const router = express.Router();
 const Promise = require("bluebird");
-const { sendDrone } = require("../drone");
+const { startDrone } = require("../drone");
 //const passport = require("passport");
 
 const {
-  User,
-  Product,
-  Purchase,
-  ProductPurchase,
-  Order
+	User,
+	Product,
+	Purchase,
+	ProductPurchase,
+	Order
 } = require("../models");
 
-function isAdmin(req,res,next) {
-  if (req.isAuthenticated() && req.user.type === "admin") next();
-  else res.status(401).send({msg: "Flasheaste man"})
+function isAdmin(req, res, next) {
+	if (req.isAuthenticated() && (req.user.type == "admin" || req.user.type == "superAdmin")) next();
+	else res.status(401).send({ msg: "Flasheaste man" })
 }
 
-router.post("/orders/:id/send", (req,res)=>{
+router.use("/", isAdmin);
+
+function isSuperAdmin(req, res, next) {
+	if (req.isAuthenticated() && (req.user.type == "superAdmin")) next();
+	else res.status(401).send({ msg: "Flasheaste man, solo capos" })
+}
+
+router.post("/orders/:id/send", (req, res) => {
 	Purchase.findOne({
 		where: {
 			id: req.params.id,
 			//status : "preparing"
 		}
 	})
-	.then(purchase => {
-		//purchase.status = "ongoing";
-		purchase.save()
-		.then(()=>{
-			sendDrone(purchase.id, req.body.coords);
-			res.send({msg: "Drone sent"})
+		.then(purchase => {
+			//purchase.status = "ongoing";
+			purchase.coords = req.body.coords;
+			purchase.save()
+				.then(() => {
+					startDrone(purchase.id, req.body.coords);
+					res.send({ msg: "Drone sent" })
+				})
 		})
-	})
 })
 
 
@@ -40,7 +48,7 @@ router.get("/orders/:id", (req, res) => {
 	Purchase.findOne({
 		where: {
 			id: req.params.id,
-			status : "preparing"
+			status: "preparing"
 		},
 		include: [
 			{
@@ -51,13 +59,13 @@ router.get("/orders/:id", (req, res) => {
 			}
 		]
 	})
-	.then(order => res.send(order))
+		.then(order => res.send(order))
 })
 
 router.get("/orders", (req, res) => {
 	Purchase.findAll({
 		where: {
-			status : "preparing"
+			status: "preparing"
 		},
 		include: [
 			{
@@ -65,10 +73,17 @@ router.get("/orders", (req, res) => {
 			}
 		]
 	})
-	.then(purchases => {
-		res.send(purchases);
-	})
+		.then(purchases => {
+			res.send(purchases);
+		})
 })
+
+
+router.post('/create-product', function (req, res, next) {
+	Product.create(req.body)
+		.then(nuevoProducto => res.status(201).json(nuevoProducto))
+		.catch(next)
+});
 
 
 
