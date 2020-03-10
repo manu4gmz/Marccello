@@ -62,6 +62,15 @@ class ProductGrid extends React.Component {
     };
     const { products, cart, categories } = this.props;
 
+    let arr = [];
+    const max = this.props.pages, actual = Number(this.props.match.params.index);
+    for (let i = actual-3 < 0 ? 0 : actual-3; i < max && i < actual+2; i++) arr.push(i)
+    actual == 1 && arr.push(3,4);      
+    actual == 2 && arr.push(4);
+
+    actual == max && arr.unshift(max-4,max-5);      
+    actual == max-1 && arr.unshift(max-5);      
+
     return (
       <div>
         <Jumbotron style={img}>
@@ -143,17 +152,27 @@ class ProductGrid extends React.Component {
               />
             ))}
           </Row>
-          <Row>
-            {this.props.pages.map(i => (
-              <Link
-                key={i}
-                className="mx-2"
-                to={`/productos/${i + 1}`}
-                onClick={() => this.props.setPage(i)}
-              >
-                {i + 1}
-              </Link>
-            ))}
+          <Row className="my-5 py-3">
+          <h5 className="mx-auto">
+            {
+              actual !== 1 ? <Link className="mr-3" to={`/productos/${actual - 1}`}  onClick={() => this.props.setPage(actual-2)}>Ver anterior</Link>: null
+            }
+            { 
+              arr.map((i,b) => (
+                <Link
+                  key={b}
+                  className={"mx-2 roundedPink"+ (i==actual-1 ? " active" : "" )}
+                  to={`/productos/${i + 1}`}
+                  onClick={() => this.props.setPage(i)}
+                >
+                  {i + 1}
+                </Link>
+              )) 
+            }
+            {
+              actual !== max ? <Link className="ml-3" to={`/productos/${actual + 1}`}  onClick={() => this.props.setPage(actual)}>Ver siguiente</Link>: null
+            }
+          </h5>
           </Row>
         </Container>
       </div>
@@ -164,7 +183,7 @@ class ProductGrid extends React.Component {
 const mapStateToProps = function(state, ownProps) {
   return {
     products: state.products.page,
-    pages: state.products.products.map((_, i) => i),
+    pages: state.products.products.length,
     cart: state.cart.products,
     categories: state.category.categories
   };
