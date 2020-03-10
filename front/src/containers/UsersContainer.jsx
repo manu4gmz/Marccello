@@ -3,22 +3,28 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchUsers } from '../store/actions/users'
 import  User  from '../components/User'
-import {promoteUser} from '../store/actions/users'
+import {promoteUser, demoteUser} from '../store/actions/users'
 
 class UsersContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this)
+    this.handlePromClick = this.handlePromClick.bind(this)
+    this.handleDemClick = this.handleDemClick.bind(this)
   }
 
   componentDidMount() {
    this.props.fetchUsersProp()
   }
 
-  handleClick (e) {
-    console.log(e.target.value);
+  handlePromClick (e) {
     const id = e.target.value
     this.props.promoteUser(id)
+    .then(() => this.props.fetchUsersProp())
+  }
+
+  handleDemClick (e) {
+    const id = e.target.value
+    this.props.demoteUser(id)
     .then(() => this.props.fetchUsersProp())
   }
 
@@ -28,7 +34,7 @@ class UsersContainer extends React.Component {
           {this.props.users? this.props.users.map(user => {
             return (
               <Fragment key = {user.id}>
-              <User user = {user} handleClick = {this.handleClick}/>
+              <User user = {user} handlePromClick = {this.handlePromClick} handleDemClick = {this.handleDemClick}/>
               </Fragment>
             )
           }): ''}
@@ -47,7 +53,8 @@ const mapStateToProps = function(state, ownProps) {
 const mapDispatchToProps = function(dispatch, ownProps){
    return { 
      fetchUsersProp: () => dispatch(fetchUsers()),
-     promoteUser: (id) => dispatch(promoteUser(id))
+     promoteUser: (id) => dispatch(promoteUser(id)),
+     demoteUser: (id) => dispatch(demoteUser(id))
     }
 };
 

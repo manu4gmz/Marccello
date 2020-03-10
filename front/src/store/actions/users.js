@@ -24,3 +24,7 @@ export const fetchUsers = () => dispatch =>
 export const promoteUser = (id) => dispatch =>
         axios.get(`/api/users/promote/${id}`)
         .then(data => data.data)
+
+export const demoteUser = (id) => dispatch =>
+        axios.get(`/api/users/demote/${id}`)
+        .then(data => data.data)

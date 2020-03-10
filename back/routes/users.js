@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
             }
         }
     )
-    .then((users) => res.send(users))
+    .then((users) => res.send(users.sort((a,b)=>b.id - a.id)))
 })
 
 //promueve un usuario
@@ -51,6 +51,18 @@ router.get('/promote/:id', (req, res) => {
     .then(user => {
         user.update({
             type: 'admin'
+        })
+        .then((user) => res.send(user))
+    }
+    )
+})
+
+//degradar un usuario
+router.get('/demote/:id', (req, res) => {
+    User.findByPk(req.params.id)
+    .then(user => {
+        user.update({
+            type: 'normal'
         })
         .then((user) => res.send(user))
     }
