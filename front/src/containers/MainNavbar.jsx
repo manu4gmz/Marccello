@@ -69,8 +69,8 @@ class MainNavbar extends Component {
                   <Link to="/carrito">Ver carrito</Link>
                 </div>
               ) : (
-                <div className="navbarAlert">{message}</div>
-              )
+                  <div className="navbarAlert">{message}</div>
+                )
             ) : null}
 
             <Form inline className="ml-auto">
@@ -93,25 +93,34 @@ class MainNavbar extends Component {
                     <Fragment>
                       <Dropdown.Item>{user.username}</Dropdown.Item>
                       <Dropdown.Item>
-                        <Link to="/">Compras</Link>
+                        <Link to="/purchases">Compras</Link>
                       </Dropdown.Item>
                       <Dropdown.Divider></Dropdown.Divider>
+                      {user.type !== 'normal' ? (
+                        <Dropdown.Item>
+
+                          <Link to="/admin/orders">
+                            Admin
+                        </Link>
+                        </Dropdown.Item>
+                      ) : null}
                       <Dropdown.Item>
                         <Link onClick={this.ClickLogout} to="/">
                           Log out
                         </Link>
                       </Dropdown.Item>
+
                     </Fragment>
                   ) : (
-                    <Fragment>
-                      <Dropdown.Item>
-                        <Link to="/login">Inicia sesión</Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <Link to="/register">Registrate</Link>
-                      </Dropdown.Item>
-                    </Fragment>
-                  )}
+                      <Fragment>
+                        <Dropdown.Item>
+                          <Link to="/login">Inicia sesión</Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link to="/register">Registrate</Link>
+                        </Dropdown.Item>
+                      </Fragment>
+                    )}
                 </Dropdown.Menu>
               </Dropdown>
             </Form>
