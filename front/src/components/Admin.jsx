@@ -6,10 +6,14 @@ import SingleOrder from "../containers/SingleOrder";
 import NewProductContainer from "../containers/NewProductContainer";
 import AdminProductListContainer from "../containers/AdminProductListContainer";
 import EditProductContainer from "../containers/EditProductContainer";
+import { connect } from "react-redux";
 
-export default ({ match }) => {
+const Admin = ({ match, user }) => {
   return (
     <Fragment>
+      {
+        user.type === "normal" ? <Redirect to="/" /> : null
+      }
       <Switch>
         <Route path={match.path + "/create-product"} exact component={NewProductContainer} />
         <Route path={match.path + "/edit-product/:id"} component={EditProductContainer} />
@@ -22,3 +26,9 @@ export default ({ match }) => {
     </Fragment>
   );
 }
+
+const mapStateToProps = (state) => ({
+  user: state.user.user
+})
+
+export default connect(mapStateToProps, null)(Admin)
