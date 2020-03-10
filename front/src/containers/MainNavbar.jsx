@@ -125,7 +125,8 @@ const mapStateToProps = (state, ownProps)=> {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: ()=> dispatch(logout()),
-    setNotification: (message) => dispatch(setNotification(message))
+    setNotification: (message) => dispatch(setNotification(message)),
+    getLoggedUser: () => dispatch(getLoggedUser())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar)
