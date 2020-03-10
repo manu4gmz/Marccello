@@ -13,6 +13,7 @@ import Payment from "../containers/Payment";
 import Cart from "../containers/Cart";
 import Admin from "./Admin";
 import Drone from "./Drone";
+import UsersContainer from "../containers/UsersContainer";
 
 export default function() {
   return (
@@ -28,6 +29,7 @@ export default function() {
         <Route path="/carrito" exact component={Cart} />
         <Route path="/admin" component={Admin} />
         <Route path="/producto/:id" component={SingleProduct} />
+        <Route path="/users" component={UsersContainer} />
         <Route exact path="/" component={Landing} />
       </Switch>
       <Footer />

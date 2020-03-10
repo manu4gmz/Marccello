@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router()
 const passport = require('passport');
 const User = require('../models/user')
+const sequelize = require('sequelize')
 //routes
 
 //registra usuario
@@ -32,12 +33,38 @@ router.get('/checkLogUser', (req, res) => {
         : res.status(404).send({msg:'No hay usuario logueado'})    
 })
 
-//promueve un usuario a "admin"
+//devuelve los usuarios
+router.get('/', (req, res) => {
+    User.findAll(
+        {
+            where: {
+                id: {
+                    [sequelize.Op.not]: req.user.id
+                }
+            }
+        }
+    )
+    .then((users) => res.send(users.sort((a,b)=>b.id - a.id)))
+})
+
+//promueve un usuario
 router.get('/promote/:id', (req, res) => {
     User.findByPk(req.params.id)
     .then(user => {
         user.update({
             type: 'admin'
+        })
+        .then((user) => res.send(user))
+    }
+    )
+})
+
+//degradar un usuario
+router.get('/demote/:id', (req, res) => {
+    User.findByPk(req.params.id)
+    .then(user => {
+        user.update({
+            type: 'normal'
         })
         .then((user) => res.send(user))
     }
