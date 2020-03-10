@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Input from "../components/Input.jsx";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/actions/products";
+import {setNotification} from "../store/actions/notif";
 import {fetchReviews, newReview} from "../store/actions/reviews";
 
 
@@ -31,7 +32,13 @@ class SingleProduct extends Component {
           rating: this.state.rating,
       }
       this.props.newReview(obj, this.props.match.params.id)
-      .then(() => this.props.fetchReviews(this.props.match.params.id)) 
+      .then(() => {this.props.fetchReviews(this.props.match.params.id);
+        if(obj.rating>2){
+          this.props.setNotification(<div>¡Muchas gracias por tu reseña!</div>)
+        } else {
+          this.props.setNotification(<div>Gracias eh...</div>)
+        }
+      }) 
   }
 
   componentDidMount() {
@@ -181,7 +188,8 @@ const mapDispatchToProps = function(dispatch, ownProps) {
   return {
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchReviews: id => dispatch(fetchReviews(id)),
-    newReview: (review, producto) => dispatch(newReview(review, producto))
+    newReview: (review, producto) => dispatch(newReview(review, producto)),
+    setNotification: (msg, pr) => dispatch(setNotification(msg, pr))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
