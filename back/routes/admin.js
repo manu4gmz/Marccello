@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Promise = require("bluebird");
-const { sendDrone } = require("../drone");
+const { startDrone } = require("../drone");
 //const passport = require("passport");
 
 const {
@@ -26,9 +26,10 @@ router.post("/orders/:id/send", (req, res) => {
 	})
 		.then(purchase => {
 			//purchase.status = "ongoing";
+			purchase.coords = req.body.coords;
 			purchase.save()
 				.then(() => {
-					sendDrone(purchase.id, req.body.coords);
+					startDrone(purchase.id, req.body.coords);
 					res.send({ msg: "Drone sent" })
 				})
 		})
