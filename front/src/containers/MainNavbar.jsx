@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import Icon from "../components/Icon";
 import {connect} from "react-redux";
+import {logout} from '../store/actions/login'
+
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -34,10 +36,16 @@ class MainNavbar extends Component {
     super(props);
     this.state = {
     }
+    this.ClickLogout = this.ClickLogout.bind(this);
   }
 
+  ClickLogout(){
+    this.props.logout()
+  };
+  
+
   render() {
-    const {message, addedCart, user} = this.props
+    const {message, addedCart, user, logout} = this.props
     return (
       <Navbar bg="light" expand="lg" style={{padding: "10px 0"}}>
         <Container>
@@ -78,7 +86,7 @@ class MainNavbar extends Component {
                   <Dropdown.Item>{user.username}</Dropdown.Item>
                   <Dropdown.Item><Link to="/">Compras</Link></Dropdown.Item>
                   <Dropdown.Divider></Dropdown.Divider> 
-                  <Dropdown.Item><Link to="/">Log out</Link></Dropdown.Item> 
+                  <Dropdown.Item><Link onClick={this.ClickLogout} to="/">Log out</Link></Dropdown.Item> 
                 </Fragment>
                 :
                 <Fragment>
@@ -108,7 +116,7 @@ const mapStateToProps = (state, ownProps)=> {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    
+    logout: ()=>{dispatch(logout())}
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar)

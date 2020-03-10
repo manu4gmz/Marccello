@@ -12,7 +12,7 @@ export default combineReducers({
   login: loginReducer,
   cart: cartReducer,
   user: userReducer,
-  reviews: reviewsReducers
+  reviews: reviewsReducers,
   notif: notifReducer,
   order: orderReducer,
 });
