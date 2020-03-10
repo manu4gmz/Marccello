@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Container, Image } from "react-bootstrap";
 import Styles from "./CartViewProduct.css"
+import { Link } from 'react-router-dom'
 
 export default ({ product, editProduct, deleteProduct }) => {
     return (
@@ -25,12 +26,13 @@ export default ({ product, editProduct, deleteProduct }) => {
                             className="cross"
                             onClick={() => deleteProduct(product.id)}
                         />
-                        <img
-                            src="/assets/edit.svg"
-                            className="edit"
-                            onClick={() => editProduct(product.id)}
-
-                        />
+                        <Link to={`/admin/edit-product/${product.id}`}>
+                            <img
+                                src="/assets/edit.svg"
+                                className="edit"
+                                onClick={() => editProduct(product.id)}
+                            />
+                        </Link>
                     </div>
                 </Col>
             </Row>
