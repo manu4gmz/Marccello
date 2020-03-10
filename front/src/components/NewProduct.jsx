@@ -6,6 +6,7 @@ import Header from "./Header"
 export default ({ handleChange, handleSubmit }) => {
     return (<Form onSubmit={handleSubmit}>
         <Container >
+
             <br />
             <Header>Agregar un nuevo producto</Header>
             <Row>
@@ -55,6 +56,7 @@ export default ({ handleChange, handleSubmit }) => {
                 <Button buttonTxt={'Confirmar'} />
 
             </div>
+
         </Container >
 
     </Form>)

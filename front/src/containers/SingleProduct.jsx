@@ -9,8 +9,6 @@ import {setNotification} from "../store/actions/notif";
 import {fetchReviews, newReview} from "../store/actions/reviews";
 import { addToCart } from "../store/actions/cart";
 
-
-
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
@@ -18,38 +16,38 @@ class SingleProduct extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-        title: "",
-        content: "",
-        rating: "",
-    }
+      title: "",
+      content: "",
+      rating: ""
+    };
   }
   handleChange(e) {
-    this.setState({[e.target.name]:e.target.value})
+    this.setState({ [e.target.name]: e.target.value });
   }
   handleSubmit(e) {
-      e.preventDefault();
-      let obj = {
-          title: this.state.title,
-          content: this.state.content,
-          rating: this.state.rating,
+    e.preventDefault();
+    let obj = {
+      title: this.state.title,
+      content: this.state.content,
+      rating: this.state.rating
+    };
+    this.props.newReview(obj, this.props.match.params.id).then(() => {
+      this.props.fetchReviews(this.props.match.params.id);
+      if (obj.rating > 2) {
+        this.props.setNotification(<div>¡Muchas gracias por tu reseña!</div>);
+      } else {
+        this.props.setNotification(<div>Gracias eh...</div>);
       }
-      this.props.newReview(obj, this.props.match.params.id)
-      .then(() => {this.props.fetchReviews(this.props.match.params.id);
-        if(obj.rating>2){
-          this.props.setNotification(<div>¡Muchas gracias por tu reseña!</div>)
-        } else {
-          this.props.setNotification(<div>Gracias eh...</div>)
-        }
-      }) 
+    });
   }
 
   componentDidMount() {
-    const id = this.props.match.params.id    
-    this.props.fetchProduct(id)
-    this.props.fetchReviews(id)
+    const id = this.props.match.params.id;
+    this.props.fetchProduct(id);
+    this.props.fetchReviews(id);
   }
-  
-  render() {    
+
+  render() {
     const hero = {
       backgroundColor: "#E2D5DA",
       heigth: "100px"
@@ -65,20 +63,18 @@ class SingleProduct extends Component {
       position: "relative",
       right: "20%"
     };
-    const {product, reviews, user} = this.props
-        
+    const { product, reviews, user } = this.props;
+
     return (
       <div>
-        <Container fluid className="px-0" style={{ maxHeight: "100vh", overflow:"hidden" }}>
+        <Container
+          fluid
+          className="px-0"
+          style={{ maxHeight: "100vh", overflow: "hidden" }}
+        >
           <Row className="m-0 p-0" style={hero}>
             <Col md="8" className="px-0">
-              <Image
-                src={
-                  product.imgURL
-                }
-                style={{ width: "100%" }}
-                fluid
-              />
+              <Image src={product.imgURL} style={{ width: "100%" }} fluid />
             </Col>
             <Col md="3" className="px-0">
               <div style={info}>
@@ -132,44 +128,63 @@ class SingleProduct extends Component {
           <br />
 
           <Header>Comentarios</Header>
-          {
-            user.username && !reviews.map(review => review.userId).includes(user.id) ?(
-              <div>
-                <Form onSubmit={this.handleSubmit} >
-                  <Form.Group>
-                      <label>Título</label>
-                      <Input onChange={this.handleChange} name='title' placeholder="Título de la reseña" value={this.state.title}  type="text"/>
-                  </Form.Group>
-                  <Form.Group>
-                      <label>Rating</label>
-                      <Input onChange={this.handleChange} name='rating' type="text" value={this.state.rating}/>
-                  </Form.Group>
-                  <Form.Group>
-                      <label>Contenido</label>
-                      <Input onChange={this.handleChange} name='content' type="content" placeholder="Contenido" value={this.state.content} type="text"/>
-                  </Form.Group>
-                  
-                  <Button buttonTxt={'Dejar comentario'} />
-                </Form>
-              </div>
-            ) : ( user.username ? 
-              ("Gracias por tu reseña!") :
-              ("Tenés que estar loggeado para dejar una reseña.")
-              )
-          }
+          {user.username &&
+          !reviews.map(review => review.userId).includes(user.id) ? (
+            <div>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group>
+                  <label>Título</label>
+                  <Input
+                    onChange={this.handleChange}
+                    name="title"
+                    placeholder="Título de la reseña"
+                    value={this.state.title}
+                    type="text"
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <label>Rating</label>
+                  <Input
+                    onChange={this.handleChange}
+                    name="rating"
+                    type="text"
+                    value={this.state.rating}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <label>Contenido</label>
+                  <Input
+                    onChange={this.handleChange}
+                    name="content"
+                    type="content"
+                    placeholder="Contenido"
+                    value={this.state.content}
+                    type="text"
+                  />
+                </Form.Group>
+
+                <Button buttonTxt={"Dejar comentario"} />
+              </Form>
+            </div>
+          ) : user.username ? (
+            "Gracias por tu reseña!"
+          ) : (
+            "Tenés que estar loggeado para dejar una reseña."
+          )}
           <br />
           <br />
-          {
-            reviews.length>0 ? (reviews.map(review => {
-              return (
-                <div key={review.id}>  
-                  <h4>{review.title}</h4>
-                  <p> {review.rating}</p>
-                  <p>{review.content}</p>
-                </div>)
-            }
-            )) : ("No hay comentarios todavía")
-          }
+
+          {reviews.length > 0
+            ? reviews.map(review => {
+                return (
+                  <div key={review.id}>
+                    <h4>{review.title}</h4>
+                    <p> {review.rating}</p>
+                    <p>{review.content}</p>
+                  </div>
+                );
+              })
+            : "No hay comentarios todavía"}
         </Container>
       </div>
     );
@@ -182,7 +197,7 @@ const mapStateToProps = function(state, ownProps) {
   return {
     product: state.products.product,
     reviews: state.reviews.reviews,
-    user: state.login.user,
+    user: state.login.user
   };
 };
 
