@@ -14,6 +14,7 @@ import {
   removeFromCart
 } from "../store/actions/cart";
 import { purchaseCart } from "../store/actions/purchase";
+import { goLogin } from "../store/actions/login";
 
 class Cart extends React.Component {
   componentDidMount() {
@@ -23,7 +24,10 @@ class Cart extends React.Component {
   }
 
   handleBuy () {
-    this.props.history.push("/confirm-purchase")
+    if (!this.props.user.id) this.props.goLogin(this.props.history, ()=>{
+      this.props.history.push("/confirm-purchase")
+    })
+    else this.props.history.push("/confirm-purchase");
   }
 
   render() {
@@ -59,18 +63,22 @@ class Cart extends React.Component {
 
 const mapStateToProps = function(state, ownProps) {
   return {
-    cart: state.cart.products
+    cart: state.cart.products,
+    user: state.user.user
   };
 };
 
 const mapDispatchToProps = function(dispatch, ownProps) {
+  console.log("OWNPROPS \n\n\n\n", ownProps)
+  
   return {
-    fetchCart: products => dispatch(fetchCart(products)),
+    fetchCart: () => dispatch(fetchCart()),
     incrementOrder: (productId, num) =>
       dispatch(incrementOrder(productId, num)),
     addToCart: productId => dispatch(addToCart(productId)),
     removeFromCart: productId => dispatch(removeFromCart(productId)),
-    purchaseCart: () => dispatch(purchaseCart())
+    purchaseCart: () => dispatch(purchaseCart()),
+    goLogin: (history, cb)=>dispatch(goLogin(history, cb)) 
   };
 };
 

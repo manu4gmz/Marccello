@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import Icon from "../components/Icon";
 import {connect} from "react-redux";
-import {logout} from '../store/actions/login'
-
+import {logout} from '../store/actions/login';
+import { getLoggedUser } from "../store/actions/users";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -42,7 +42,11 @@ class MainNavbar extends Component {
   ClickLogout(){
     this.props.logout()
   };
-  
+
+  componentDidMount() {
+    this.props.getLoggedUser();
+  }
+
 
   render() {
     const {message, addedCart, user, logout} = this.props
@@ -116,7 +120,8 @@ const mapStateToProps = (state, ownProps)=> {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    logout: ()=>{dispatch(logout())}
+    logout: ()=>{dispatch(logout())},
+    getLoggedUser: () => dispatch(getLoggedUser())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar)

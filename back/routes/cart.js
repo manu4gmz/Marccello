@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const Promise = require("bluebird");
 
 const {
   User,
@@ -24,6 +25,25 @@ function isLoggedIn(req,res,next) {
 }
 
 router.use("/", isLoggedIn);
+
+router.post("/log", isLoggedIn, (req,res) => {
+  const cart = req.body.cart.split(",");
+  Promise.all(
+    cart.map(a=>a.split(":")).map(([productId, amount, stock])=>
+      {
+        console.log(productId, amount, stock)
+        return Order.create({
+         productId: Number(productId), 
+         userId: req.user.id, 
+         stock: Number(stock),
+         amount: Number(amount)
+       })
+      }
+    )
+  )
+  .then(()=>res.send({msg:"Loggueado excelentemente"}))
+
+})
 
 router.post("/:id", function(req, res) {
   Product.findByPk(req.params.id)
