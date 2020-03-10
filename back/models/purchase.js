@@ -11,13 +11,16 @@ Purchase.init({
     	type: Sequelize.STRING,
     	allowNull: false
     },
+    coords: {
+        type: Sequelize.STRING
+    },
 
     status: {
     	type: Sequelize.ENUM("preparing", "ongoing", "completed", "lost"),
     	defaultValue: "preparing",
     }
 
-}, { sequelize, modelName: 'buy' });
+}, { sequelize, modelName: 'purchase' });
 
 module.exports = Purchase
 

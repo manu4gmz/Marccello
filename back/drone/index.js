@@ -11,13 +11,13 @@ function Drone(id,coords, destination, cb) {
 	this.orientation = Math.atan((this.destination.y-this.y)/(this.destination.x-this.x))
 	//console.log((this.destination.y-this.y), (this.destination.x-this.x), (this.destination.y-this.y)/(this.destination.x-this.x), this.orientation)
 
-	this.speed = 0.002;
+	this.speed = 0.0002;
 
 	drones[id] = this;
 }
 
 Drone.prototype.step = function () {
-	if (this.distance() < this.speed) return;
+	if (this.distance() < this.speed) { console.log("eu"); return;}
 	this.x += Math.cos(this.orientation)*this.speed;
 	this.y += Math.sin(this.orientation)*this.speed;
 }
@@ -29,14 +29,21 @@ Drone.prototype.distance = function () {
 function startDrone(id, destination) {
 	new Drone(id, "-34.667468,-58.361285", destination);
 
+	console.log(`---- NEW DRONE Nr${id} ----
+Destination: (${drones[id].destination.x},${drones[id].destination.y})`)
+
 	if (Object.keys(drones).length !== 1) return;
 	let interval = setInterval(()=>{
-		for (let key in drones) drones[key].step()
+		for (let key in drones) {
+			console.log(statusDrone(key))
+			drones[key].step()
+		}
 		if (Object.keys(drones).length === 0) clearInterval(interval);
 	}, 1000)
 }
 
 function statusDrone(id) {
+	if (!drones[id]) return false;
 	return { x: drones[id].x, y: drones[id].y, distance: drones[id].distance() }
 }
 
