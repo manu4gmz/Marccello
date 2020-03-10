@@ -1,6 +1,13 @@
 import { SET_PRODUCTS, SET_PRODUCT, SET_PAGE, CREATE_PRODUCT } from '../constants'
 import axios from 'axios';
 
+
+const updateProduct = (product) => ({
+    type: 'UPDATE_PRODUCT',
+    product
+})
+
+
 const setProducts = (products) => ({
     type: SET_PRODUCTS,
     products
@@ -53,5 +60,10 @@ export const createProduct = (product) => dispatch =>
 
 export const deleteProduct = (product) => dispatch =>
     axios.delete(`/api/products/${product}`)
+        .then(data => data.data)
+        .then(() => dispatch(fetchProducts()))
+
+export const editProduct = (productId, product) => dispatch =>
+    axios.put(`/api/products/${productId}`, product)
         .then(data => data.data)
         .then(() => dispatch(fetchProducts()))

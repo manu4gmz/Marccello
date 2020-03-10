@@ -1,12 +1,13 @@
 import React from 'react'
 import NewProduct from '../components/NewProduct'
-import { createProduct, fetchProduct } from '../store/actions/products'
+import { editProduct, fetchProduct } from '../store/actions/products'
 import { connect } from 'react-redux'
 import EditProduct from '../components/EditProduct'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        fetchProduct: (product) => dispatch(fetchProduct(product))
+        fetchProduct: (product) => dispatch(fetchProduct(product)),
+        editProduct: (productid, product) => dispatch(editProduct(productid, product))
     }
 }
 
@@ -23,7 +24,7 @@ class EditProductContainer extends React.Component {
         this.state = {
             inputName: '',
             inputImage: '',
-            inputSock: '',
+            inputStock: '',
             inputPrice: '',
             inputVisible: '',
             descriptionInput: ''
@@ -32,15 +33,34 @@ class EditProductContainer extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
+
+    handleSubmit(e) {
+        e.preventDefault();
+        this.setState({ [e.target.name]: e.target.value })
+        this.props.editProduct(this.props.product.id, {
+            name: this.state.inputName,
+            price: Number(this.state.inputPrice),
+            description: this.state.descriptionInput,
+            stock: Number(this.state.inputStock),
+            imgURL: this.state.inputImage,
+            visible: this.state.inputVisible
+        })
+            .then(() => console.log('Este es el nombre', this.props.product.name))
+
+
+
+
+    }
+
+
     componentDidMount() {
         const id = this.props.match.params.id
         this.props.fetchProduct(id)
             .then(data => data.product)
             .then(data => this.setState({
-
                 inputName: data.name,
                 inputImage: data.imgURL,
-                inputSock: data.stock,
+                inputStock: data.stock,
                 inputPrice: data.price,
                 inputVisible: data.visible,
                 descriptionInput: data.description
@@ -55,20 +75,7 @@ class EditProductContainer extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    handleSubmit(evt) {
-        evt.preventDefault();
-        this.props.createProduct({
-            name: this.state.inputName,
-            price: Number(this.state.inputPrice),
-            description: this.state.descriptionInput,
-            stock: Number(this.state.inputSock),
-            imgURL: this.state.inputImage,
-            visible: this.state.inputVisible
-        })
 
-
-
-    }
 
     render() {
         console.log('ESTAS SON LAS PROPSSSSSS', this.props)

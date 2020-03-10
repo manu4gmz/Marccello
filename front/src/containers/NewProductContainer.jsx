@@ -16,7 +16,7 @@ class NewProductContainer extends React.Component {
         this.state = {
             inputName: '',
             inputImage: '',
-            inputSock: '',
+            inputStock: '',
             inputPrice: '',
             inputVisible: 'false' ? false : true,
             descriptionInput: ''
@@ -35,7 +35,7 @@ class NewProductContainer extends React.Component {
             name: this.state.inputName,
             price: Number(this.state.inputPrice),
             description: this.state.descriptionInput,
-            stock: Number(this.state.inputSock),
+            stock: Number(this.state.inputStock),
             imgURL: this.state.inputImage,
             visible: this.state.inputVisible
         })

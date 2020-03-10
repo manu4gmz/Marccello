@@ -53,7 +53,7 @@ export default ({ handleChange, handleSubmit, state }) => {
                 <Form.Control value={state.descriptionInput} onChange={handleChange} name="descriptionInput" rows="3" />
             </Form.Group>
             <div style={{ paddingBottom: "60px" }}>
-                <Button buttonTxt={'Confirmar'} />
+                <Button buttonTxt={'Update'} />
 
             </div>
         </Container >
