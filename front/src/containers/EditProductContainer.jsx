@@ -45,10 +45,7 @@ class EditProductContainer extends React.Component {
             imgURL: this.state.inputImage,
             visible: this.state.inputVisible
         })
-            .then(() => console.log('Este es el nombre', this.props.product.name))
-
-
-
+            .then(() => this.props.history.push("/admin/edit-product"))
 
     }
 
@@ -66,7 +63,6 @@ class EditProductContainer extends React.Component {
                 descriptionInput: data.description
             })
             )
-
     }
 
     handleChange(e) {
@@ -74,8 +70,6 @@ class EditProductContainer extends React.Component {
         console.log('ESTOS SON LOS INPUTS', { [e.target.name]: e.target.value })
         this.setState({ [e.target.name]: e.target.value })
     }
-
-
 
     render() {
         console.log('ESTAS SON LAS PROPSSSSSS', this.props)

@@ -39,6 +39,8 @@ class NewProductContainer extends React.Component {
             imgURL: this.state.inputImage,
             visible: this.state.inputVisible
         })
+            .then(() => this.props.history.push("/admin/edit-product"))
+
 
     }
 
