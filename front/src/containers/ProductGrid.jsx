@@ -65,11 +65,13 @@ class ProductGrid extends React.Component {
     let arr = [];
     const max = this.props.pages, actual = Number(this.props.match.params.index);
     for (let i = actual-3 < 0 ? 0 : actual-3; i < max && i < actual+2; i++) arr.push(i)
-    actual == 1 && arr.push(3,4);      
-    actual == 2 && arr.push(4);
+    actual == 1 && max >= 4 && arr.push(3);      
+    actual == 1 && max >= 5 && arr.push(4);      
+    actual == 2 && max >= 5 && arr.push(4);
 
-    actual == max && arr.unshift(max-4,max-5);      
-    actual == max-1 && arr.unshift(max-5);      
+    actual == max && max-4 >= 0 && arr.unshift(max-4);      
+    actual == max && max-5 >= 0 && arr.unshift(max-5);      
+    actual == max-1 && max-5 >= 0 && arr.unshift(max-5);      
 
     return (
       <div>
@@ -153,10 +155,13 @@ class ProductGrid extends React.Component {
             ))}
           </Row>
           <Row className="my-5 py-3">
-          <h5 className="mx-auto">
+          <Col md="2">
             {
               actual !== 1 ? <Link className="mr-3" to={`/productos/${actual - 1}`}  onClick={() => this.props.setPage(actual-2)}>Ver anterior</Link>: null
             }
+          </Col>
+          <Col md="8">
+            <h5 className="text-center">
             { 
               arr.map((i,b) => (
                 <Link
@@ -169,10 +174,15 @@ class ProductGrid extends React.Component {
                 </Link>
               )) 
             }
+            </h5>
+          </Col>
+          <Col md="2">
             {
               actual !== max ? <Link className="ml-3" to={`/productos/${actual + 1}`}  onClick={() => this.props.setPage(actual)}>Ver siguiente</Link>: null
             }
-          </h5>
+
+          </Col>
+
           </Row>
         </Container>
       </div>
