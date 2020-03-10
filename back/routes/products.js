@@ -4,6 +4,7 @@ const models = require('../models');
 const Product = models.Product;
 const Review = models.Review;
 const Sequelize = require("sequelize")
+const Promise = require("bluebird");
 module.exports = router;
 
 // Middleware que automatiza la busqueda
@@ -34,23 +35,20 @@ function pageSeparation(productos) {
 // te devuelve todos los productos o, si hay una busqueda, te devuelve los que coinciden con la búsqueda
 router.get('/', function (req, res, next) {
     const Op = Sequelize.Op
-    if (req.query.s) {
-        Product.findAll({
-            where: { name: { [Op.iLike]: `%${req.query.s}%` } }
+    Product.findAll(req.query.s ? {
+        where: { name: { [Op.iLike]: `%${req.query.s}%` } }
+    } : {})
+        .then((productos) => 
+            Promise.all(
+                productos.map(p => p.rating().then((data) => {
+                    p.dataValues.rating = data;
+                    return p;
+                }))
+            )
+        )
+        .then((productos) => {
+            res.status(200).json(pageSeparation(productos.sort((b, a) => b.id - a.id)))
         })
-            .then(productos => {
-                //console.log(pageSeparation(productos))
-                res.status(200).json(pageSeparation(productos.sort((b, a) => b.id - a.id)))
-            })
-    } else {
-        Product.findAll()
-            .then((productos) => {
-
-
-
-                res.status(200).json(pageSeparation(productos.sort((b, a) => b.id - a.id)))
-            })
-    }
 });
 
 // te busca un producto
