@@ -27,3 +27,5 @@ export const SET_ORDER = "SET_ORDER";
 export const SET_CATEGORIES = "SET_CATEGORIES";
 
 export const CREATE_PRODUCT = 'CREATE_PRODUCT'
+
+export const SET_PURCHASES = "SET_PURCHASES";

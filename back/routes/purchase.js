@@ -61,7 +61,7 @@ router.post("/", (req,res) => {
           ProductPurchase.create({
             productId: order.productId,
             amount: order.amount,
-            buyId: purchase.id
+            purchaseId: purchase.id
           })
         )
       )

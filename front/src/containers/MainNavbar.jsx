@@ -93,7 +93,7 @@ class MainNavbar extends Component {
                     <Fragment>
                       <Dropdown.Item>{user.username}</Dropdown.Item>
                       <Dropdown.Item>
-                        <Link to="/">Compras</Link>
+                        <Link to="/purchases">Compras</Link>
                       </Dropdown.Item>
                       <Dropdown.Divider></Dropdown.Divider>
                       <Dropdown.Item>
