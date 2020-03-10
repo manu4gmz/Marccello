@@ -27,14 +27,15 @@ export default class Landing extends Component {
             </Col>
             <br />
             <Link to="/productos">
-              <Button1 buttonTxt={"Quiero comprar"} />
+              <Button1 buttonTxt={"Quiero pedir"} />
             </Link>
             {/* <p>Agachate y conocelo</p> */}
           </Container>
         </Jumbotron>
         <Container>
-          <Header>Cómo comprar</Header>
-
+          <div style={{ paddingTop: "4%" }}>
+            <Header>Cómo comprar</Header>
+          </div>
           <Row className="text-center" style={{ marginTop: "6%" }}>
             <Col md="4" className="px-5">
               <Link to="/productos">
