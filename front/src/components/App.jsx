@@ -31,7 +31,6 @@ export default function() {
         <Route path="/admin" component={Admin} />
         <Route path="/purchases" exact component={Purchases} />
         <Route path="/producto/:id" component={SingleProduct} />
-        <Route path="/users" component={UsersContainer} />
         <Route exact path="/" component={Landing} />
       </Switch>
       <Footer />
