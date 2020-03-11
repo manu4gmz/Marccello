@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Input from "../components/Input.jsx";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/actions/products";
-import {setNotification} from "../store/actions/notif";
+import {setNotification, setAddCart} from "../store/actions/notif";
 import {fetchReviews, newReview} from "../store/actions/reviews";
 import {fetchPurchases} from "../store/actions/purchases";
 import { addToCart } from "../store/actions/cart";
@@ -140,7 +140,7 @@ class SingleProduct extends Component {
                     float: "right"
                   }}
                 >
-                  <Button buttonTxt={"Agregar"} buttonClass={"buttonDark"} onClick={()=>{this.props.addToCart(product.id); this.props.setNotification(null, product.name)}}/>
+                  <Button buttonTxt={"Agregar"} buttonClass={"buttonDark"} onClick={()=>{this.props.addToCart(product.id); this.props.setAddCart(product.name)}}/>
                 </div>
               </div>
             </Col>
@@ -234,7 +234,8 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchReviews: id => dispatch(fetchReviews(id)),
     newReview: (review, producto) => dispatch(newReview(review, producto)),
-    setNotification: (msg, pr) => dispatch(setNotification(msg, pr)),
+    setNotification: (msg) => dispatch(setNotification(msg)),
+    setAddCart: (prod) => dispatch(setAddCart(prod)),
     fetchPurchases: () => dispatch(fetchPurchases()),
   };
 };
