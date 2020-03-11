@@ -33,8 +33,8 @@ export const fetchProduct = (productid) => dispatch =>
         .then(data => data.data)
         .then(product => dispatch(setProduct(product)))
 
-export const fetchProducts = (products, index) => dispatch => {
-    if (products) {
+export const fetchProducts = (search, sort) => dispatch => {
+    /*if (products) {
         axios.get(`/api/products?s=${products}`)
             .then(data => data.data)
             .then(products => dispatch(setProducts(products)))
@@ -46,14 +46,18 @@ export const fetchProducts = (products, index) => dispatch => {
             .then(data => data.data)
             .then(products => dispatch(setProducts(products)))
             .then(() => dispatch(setPage(index || 0)))
-    }
+    }*/
+    return axios.get(`/api/products${search || sort ? "?" : ""}${search ? "s="+search : ""}${search ? "&" : ""}${sort ? "o="+sort:""}`)
+            .then(data => data.data)
+            .then(products => dispatch(setProducts(products)))
+            //.then(() => dispatch(setPage(index || 0)))
 }
 
 
-export const fetchCatProduct = (id, query) => (dispatch) => {
-
-    if (query) {
-        axios.get(`/api/category/${id}?s=${query}`)
+export const fetchCatProduct = (id, search, sort) => (dispatch) => {
+    /*
+    if (search) {
+        axios.get(`/api/category/${id}?s=${search}`)
         .then(data => data.data)
         .then((data) => {dispatch(setProducts(data))})
         .then(()=> dispatch(setPage(0)))
@@ -66,7 +70,14 @@ export const fetchCatProduct = (id, query) => (dispatch) => {
         .then((data) => {dispatch(setProducts(data))})
         .then(()=> dispatch(setPage(0)))
 
-    }
+    }*/
+    return axios.get(`/api/category/${id}${search || sort ? "?" : ""}${search ? "s="+search : ""}${search ? "&" : ""}${sort ? "o="+sort:""}`)
+        .then(data => data.data)
+        .then((data) => {dispatch(setProducts(data))})
+        .then(()=> dispatch(setPage(0)))
+
+
+    
 }
 
 

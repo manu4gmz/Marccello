@@ -1,10 +1,8 @@
 .mainHero {
-  background-image: url("../assets/ice-cream-with-berries-PA9XYSLslide.jpg");
+  
   background-attachment: fixed;
-  background-size: 100%;
+  background-size: contain;
   background-repeat: no-repeat;
-  padding-top: 200px !important;
-  padding-bottom: 220px !important;
 }
 
 .mainHero h1 {
@@ -117,6 +115,14 @@
   background-color: #6b4856;
   color: #e2d5da;
   text-decoration: none;
+}
+
+
+.inputContainer select {
+ border: none;
+ background-color: transparent;
+ width: 100%;
+ padding: 2px;
 }
 
 @media only screen and (max-width: 768px) {

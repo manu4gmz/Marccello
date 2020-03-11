@@ -16,42 +16,45 @@ class Orders extends React.Component {
     //this.props.setPage()
   }
 
-
   render() {
     return (
       <div>
         <Container>
           <br />
+          <br />
 
           <Header>Órdenes</Header>
-          {
-            this.props.orders.map(order => {
-              const ago = Math.floor(((new Date()) - (new Date(order.createdAt))) / 60000)
-              return (
+          {this.props.orders.map(order => {
+            const ago = Math.floor(
+              (new Date() - new Date(order.createdAt)) / 60000
+            );
+            return (
+              <Row>
                 <Link key={order.id} to={`/admin/orders/${order.id}`}>
-                  <Row>
-                    <h1>{order.address}</h1>
-                    <p className="text-muted">Hace {} minutos</p>
-                  </Row>
+                  <h4>{order.address}</h4>
+                  <p className="text-muted"> </p>
                 </Link>
-              )
-            })
-          }
+                <p style={{ paddingLeft: "10px", paddingTop: "3px" }}>
+                  Hace {} minutos
+                </p>
+              </Row>
+            );
+          })}
         </Container>
       </div>
     );
   }
 }
 
-const mapStateToProps = function (state, ownProps) {
+const mapStateToProps = function(state, ownProps) {
   return {
     orders: state.order.orders
   };
 };
 
-const mapDispatchToProps = function (dispatch, ownProps) {
+const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    fetchOrders: () => dispatch(fetchOrders()),
+    fetchOrders: () => dispatch(fetchOrders())
   };
 };
 

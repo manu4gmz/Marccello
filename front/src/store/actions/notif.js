@@ -8,11 +8,15 @@ const setNotif = (message) => ({
 
 const addedToCart = (product) => ({
     type: ADDED_TO_CART,
-    message: product
+    messageProduct: product
 })
 
-export const setNotification = (message, product, time = 2000) => dispatch => {
-    console.log("\n\n\nEEEEU\n\n\n\n\n\n\n\n",message, product)
-    dispatch(product ? addedToCart(product) : setNotif(message))
+export const setNotification = (message, time = 2000) => dispatch => {
+    dispatch(setNotif(message))
     setTimeout(()=> dispatch(setNotif(null)),time)
+}
+
+export const setAddCart = (product, time = 2000) => dispatch => {
+    dispatch(addedToCart(product))
+    setTimeout(()=> dispatch(addedToCart(null)),time)
 }

@@ -1,5 +1,6 @@
 import Axios from "axios";
 import { USER_LOGIN, USER_LOGOUT } from "../constants";
+import { fetchCart } from "./cart";
 
 const userLogin = (user) => ({
   type: USER_LOGIN,
@@ -24,6 +25,7 @@ export const login = (user) => (dispatch) => {
   .then(data => data.data)
   .then((data) => {
     dispatch(userLogin(data));
+    dispatch(fetchCart())
     if (afterLogin) afterLogin();
     else return true;
   })
@@ -35,6 +37,7 @@ export const logout = () => {
     return Axios.post("api/users/logout")
       .then(res => {
         dispatch(userLogout())
+        dispatch(fetchCart())
       })
   }
 }

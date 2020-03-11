@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default () => (
   <Container
@@ -12,18 +13,22 @@ export default () => (
   >
     <Container style={{ paddingTop: "15px", color: "#6b4856" }}>
       <Row>
-        <Col md="4">
-          <img
-            src="/assets/logo/marccello-logo.svg"
-            style={{ width: "100px", marginBottom: "10px" }}
-          />
-          <p>Probalo y conoccello</p>
-          <hr />
-
-          <p>Helados artesanales</p>
+        <Col md="6">
+          <Link to="/">
+            <img
+              src="/assets/logo/marccello-logo.svg"
+              style={{ width: "120px", marginBottom: "10px" }}
+            />
+          </Link>
+          <p>
+            <br />
+            Helados artesanales
+            <br />
+            que te llegan en dron.
+          </p>
         </Col>
 
-        <Col md="4">
+        {/* <Col md="4">
           <br />
           Productos
           <br />
@@ -32,13 +37,24 @@ export default () => (
           Compras realizadas
           <br />
           Nosotros
-        </Col>
+        </Col> */}
 
-        <Col md="4">
-          <br />
+        <Col md="6">
           <b>Contacto:</b>
           <br />
-          ig fb
+          <p>Avenida Siempreviva 742</p>
+          <div style={{ marginTop: "1%" }}>
+            <img
+              src="/assets/instagram.svg"
+              href="#"
+              style={{ width: "27px", marginRight: "3%" }}
+            />
+            <img
+              src="/assets/facebook.svg"
+              href="#"
+              style={{ width: "27px" }}
+            />
+          </div>
         </Col>
       </Row>
     </Container>

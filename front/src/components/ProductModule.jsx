@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Row, Col, Container, Image, Jumbotron } from "react-bootstrap";
 import { addToCart } from "../store/actions/cart";
 import { Link } from "react-router-dom";
-import {setNotification} from "../store/actions/notif";
+import {setAddCart} from "../store/actions/notif";
 import { connect } from "react-redux";
 
-const ProductModule = ({ product, onClick, addToCart, cart, setNotification }) => {
+const ProductModule = ({ product, onClick, addToCart, cart, setAddCart }) => {
   return (
     <Col md="3" className="px-5">
     <Image
@@ -32,8 +32,7 @@ const ProductModule = ({ product, onClick, addToCart, cart, setNotification }) =
           src="../assets/more.svg"
           onClick={()=>{
             addToCart(product.id);
-          setNotification(null, product.name)
-          console.log(product.name)
+            setAddCart(product.name)
           }}
         />
       </Col>
@@ -52,7 +51,7 @@ const mapStateToProps = function(state, ownProps) {
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
     addToCart: productId => dispatch(addToCart(productId)),
-    setNotification: (msg, pr) => dispatch(setNotification(msg, pr))
+    setAddCart: (prod) => dispatch(setAddCart(prod)),
   };
 };
 

@@ -52,7 +52,26 @@ router.get('/', function (req, res, next) {
             )
         )
         .then((productos) => {
-            res.status(200).json(pageSeparation(productos.sort((b, a) => b.id - a.id)))
+            let sorting;
+
+            switch (req.query.o) {
+              case "lp":
+                sorting = (b,a) => b.price - a.price;
+                break;
+              case "hp":
+                sorting = (a,b) => b.price - a.price;
+                break; 
+              case "lr":
+                sorting = (b,a) => b.dataValues.rating - a.dataValues.rating;
+                break;
+              case "hr":
+                sorting = (a,b) => b.dataValues.rating - a.dataValues.rating;
+                break; 
+              default:
+                sorting = (b, a) => b.id - a.id
+            }
+
+            res.status(200).json(pageSeparation(productos.sort(sorting)))
         })
 });
 
@@ -90,17 +109,30 @@ router.delete("/:productId", (req, res, next) => {
 router.post("/:productId", function (req, res, next) {
     Review.create(req.body)
     .then(nuevoReview => {
-        nuevoReview.setProduct(req.product)
-        nuevoReview.setUser(req.user) 
-        res.status(201).json(nuevoReview)}
-    )
+        return Promise.all([
+            nuevoReview.setProduct(req.product),
+            nuevoReview.setUser(req.user) 
+        ])
+        .then(()=> nuevoReview)
+    })
+    .then((nuevoReview)=>res.status(201).json(nuevoReview))
 });
 
 router.get('/:productId/reviews', function (req, res, next) {
     Review.findAll({where: {
-        productId: req.params.productId
-    }})
-    .then(reviews => res.status(200).json(reviews))
+        productId: req.params.productId,
+    },
+    include: [{
+        model: User
+    }]
+    })
+    .then(reviews => {
+        const maped = reviews.map(r => {
+            r.dataValues.user = r.user.username
+            return r
+        })
+        res.status(200).json(maped)
+    })
 });
 
 router.get('/:id', (req, res) => { 

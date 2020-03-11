@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport');
 const {Product, Category} = require('../models')
 const Sequelize = require('sequelize')
+const Promise = require("bluebird")
 //routes
 
 //crea una categoria
@@ -40,32 +41,50 @@ function pageSeparation (productos) {
 //busca producto por categoria
 router.get('/:id', (req, res) => { 
     const Op = Sequelize.Op
-    if(req.query.s){   
-        Category.findOne({
-            where: {
-                id: req.params.id
-            },
-            include: [{
-                model: Product,
-                where: {name:{[Op.iLike]: `%${req.query.s}%`}}
-            }]
-        })
-        .then((category) => {
-            category ? res.send(pageSeparation(category.products)) : res.send([[]])
-        })
-    } else {   
-        Category.findOne({
-            where: {
-                id: req.params.id
-            },
-            include: [{
-                model: Product
-            }]
-        })
-        .then((category) => {
-            category ? res.send(pageSeparation(category.products)) : res.send([[]])
-        })
-    }
+    Category.findOne({
+        where: {
+            id: req.params.id
+        },
+        include: [
+        req.query.s ? 
+        {
+            model: Product,
+            where: {name:{[Op.iLike]: `%${req.query.s}%`}}
+        } : { model: Product } ]
+    })
+    .then((category) => 
+        category ?
+        Promise.all(
+            category.products.map(p => p.rating().then((data) => {
+                p.dataValues.rating = data;
+                return p;
+            }))
+        ) : []
+    )
+    .then((products) => {
+        let sorting;
+
+        switch (req.query.o) {
+          case "lp":
+            sorting = (b,a) => b.price - a.price;
+            break;
+          case "hp":
+            sorting = (a,b) => b.price - a.price;
+            break; 
+          case "lr":
+            sorting = (b,a) => b.dataValues.rating - a.dataValues.rating;
+            break;
+          case "hr":
+            sorting = (a,b) => b.dataValues.rating - a.dataValues.rating;
+            break; 
+          default:
+            sorting = (b, a) => b.id - a.id
+        }
+
+
+        res.send(pageSeparation(products.sort(sorting))) 
+    })
+
 })
 
 //borra una categoria de un producto

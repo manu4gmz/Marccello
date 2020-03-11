@@ -5,15 +5,18 @@ import Header from "../components/Header";
 import Input from "../components/Input.jsx";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/actions/products";
-import {setNotification} from "../store/actions/notif";
+import {setNotification, setAddCart} from "../store/actions/notif";
 import {fetchReviews, newReview} from "../store/actions/reviews";
+import {fetchPurchases} from "../store/actions/purchases";
 import { addToCart } from "../store/actions/cart";
+import ReactStars from 'react-stars'
 
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.ratingChanged = this.ratingChanged.bind(this)
 
     this.state = {
       title: "",
@@ -24,6 +27,9 @@ class SingleProduct extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+  ratingChanged(newRating) {
+    this.setState({rating: newRating})
+  }
   handleSubmit(e) {
     e.preventDefault();
     let obj = {
@@ -31,20 +37,22 @@ class SingleProduct extends Component {
       content: this.state.content,
       rating: this.state.rating
     };
-    this.props.newReview(obj, this.props.match.params.id).then(() => {
-      this.props.fetchReviews(this.props.match.params.id);
+    this.props.newReview(obj, this.props.match.params.id)
+    .then(() => {
       if (obj.rating > 2) {
-        this.props.setNotification(<div>¡Muchas gracias por tu reseña!</div>);
+        this.props.setNotification("¡Muchas gracias por tu reseña!");
       } else {
-        this.props.setNotification(<div>Gracias eh...</div>);
+        this.props.setNotification("Gracias eh...");
       }
-    });
+    })
+    .then(() => this.props.fetchReviews(this.props.match.params.id))
   }
 
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.fetchProduct(id);
     this.props.fetchReviews(id);
+    this.props.fetchPurchases()
   }
 
   render() {
@@ -63,7 +71,7 @@ class SingleProduct extends Component {
       position: "relative",
       right: "20%"
     };
-    const { product, reviews, user } = this.props;
+    const { product, reviews, user, purchases } = this.props;
 
     return (
       <div>
@@ -132,7 +140,7 @@ class SingleProduct extends Component {
                     float: "right"
                   }}
                 >
-                  <Button buttonTxt={"Agregar"} buttonClass={"buttonDark"} onClick={()=>{this.props.addToCart(product.id); this.props.setNotification(null, product.name)}}/>
+                  <Button buttonTxt={"Agregar"} buttonClass={"buttonDark"} onClick={()=>{this.props.addToCart(product.id); this.props.setAddCart(product.name)}}/>
                 </div>
               </div>
             </Col>
@@ -144,7 +152,8 @@ class SingleProduct extends Component {
 
           <Header>Comentarios</Header>
           {user.username &&
-          !reviews.map(review => review.userId).includes(user.id) ? (
+          !reviews.map(review => review.userId).includes(user.id) && 
+          purchases.map(purchase => purchase.products.map(producto => producto.id)).flat(1).includes(product.id) ? (
             <div>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
@@ -159,11 +168,13 @@ class SingleProduct extends Component {
                 </Form.Group>
                 <Form.Group>
                   <label>Rating</label>
-                  <Input
-                    onChange={this.handleChange}
-                    name="rating"
-                    type="text"
-                    value={this.state.rating}
+                  <ReactStars
+                  name= "rating"
+                  value={this.state.rating}
+                  count={5}
+                  onChange={this.ratingChanged}
+                  size={24}
+                  color2={'#ffd700'} 
                   />
                 </Form.Group>
                 <Form.Group>
@@ -181,9 +192,9 @@ class SingleProduct extends Component {
                 <Button buttonTxt={"Dejar comentario"} />
               </Form>
             </div>
-          ) : user.username ? (
+          ) : user.username ? reviews.map(review => review.userId).includes(user.id)? (
             "Gracias por tu reseña!"
-          ) : (
+          ) : ("Tenés que comprar el producto para dejar una reseña!") : (
             "Tenés que estar loggeado para dejar una reseña."
           )}
           <br />
@@ -193,7 +204,7 @@ class SingleProduct extends Component {
             ? reviews.map(review => {
                 return (
                   <div key={review.id}>
-                    <h4>{review.title}</h4>
+                    <h4>{review.user} - {review.title}</h4>
                     <p> {review.rating}</p>
                     <p>{review.content}</p>
                   </div>
@@ -212,7 +223,8 @@ const mapStateToProps = function(state, ownProps) {
   return {
     product: state.products.product,
     reviews: state.reviews.reviews,
-    user: state.login.user
+    user: state.login.user,
+    purchases: state.purchases.purchases
   };
 };
 
@@ -222,7 +234,9 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchReviews: id => dispatch(fetchReviews(id)),
     newReview: (review, producto) => dispatch(newReview(review, producto)),
-    setNotification: (msg, pr) => dispatch(setNotification(msg, pr))
+    setNotification: (msg) => dispatch(setNotification(msg)),
+    setAddCart: (prod) => dispatch(setAddCart(prod)),
+    fetchPurchases: () => dispatch(fetchPurchases()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

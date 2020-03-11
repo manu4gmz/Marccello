@@ -14,32 +14,58 @@ import { fetchCategories } from "../store/actions/category";
 import Input from "../components/Input";
 import { Link } from "react-router-dom";
 
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
 class ProductGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       product: "",
-      category: 0
+      category: 0,
+      sorting: "",
     };
     this.handleInput = this.handleInput.bind(this);
     this.onClick = this.onClick.bind(this);
     this.categoryClick = this.categoryClick.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+    this.search = debounce(this.search.bind(this),200)
+  }
+
+  search() {
+    const product = this.state.product;
+    const search = product.length >= 2 ? product : null;
+    (this.state.category
+      ? this.props.fetchCatProduct(this.state.category, search, this.state.sorting)
+      : this.props.fetchProducts(search, this.state.sorting))
+    .then(()=> this.props.setPage(this.props.match.params.index - 1))
+    this.props.history.push(`/productos/1`);
+    this.props.setPage(1);
   }
 
   componentDidMount() {
-    this.props.fetchProducts(null, this.props.match.params.index - 1);
+    this.props.fetchProducts()
+    .then(()=>{
+      this.props.setPage(this.props.match.params.index - 1);
+    })
     this.props.fetchCategories();
   }
 
   handleInput(e) {
     this.setState({ product: e.target.value });
-    const product = e.target.value;
-    const search = product.length >= 2 ? product : null;
-    this.state.category
-      ? this.props.fetchCatProduct(this.state.category, search)
-      : this.props.fetchProducts(search);
-    this.props.history.push(`/productos/1`);
-    this.props.setPage(1);
+    this.search();
   }
 
   onClick(id) {
@@ -47,43 +73,47 @@ class ProductGrid extends React.Component {
     this.props.history.push(`/producto/${id}`);
   }
 
+  handleSelect(e) {
+    const sorting = e.target.value;
+    this.setState({sorting});
+    this.search();
+  }
+
   categoryClick(id) {
     this.setState({ category: id });
-    id ? this.props.fetchCatProduct(id) : this.props.fetchProducts();
+    this.search();
   }
 
   render() {
     const img = {
       backgroundImage:
         "url(/assets/summer-chocolate-ice-cream-P7YWKEYslide.jpg)",
-      backgroundSize: "100%",
-      backgroundAttachment: "fixed",
-      height: "390px"
     };
     const { products, cart, categories } = this.props;
 
     let arr = [];
-    const max = this.props.pages, actual = Number(this.props.match.params.index);
-    for (let i = actual-3 < 0 ? 0 : actual-3; i < max && i < actual+2; i++) arr.push(i)
-    actual == 1 && arr.push(3,4);      
-    actual == 2 && arr.push(4);
+    const max = this.props.pages,
+      actual = Number(this.props.match.params.index);
+    for (
+      let i = actual - 3 < 0 ? 0 : actual - 3;
+      i < max && i < actual + 2;
+      i++
+    )
+      arr.push(i);
+    actual == 1 && max >= 4 && arr.push(3);
+    actual == 1 && max >= 5 && arr.push(4);
+    actual == 2 && max >= 5 && arr.push(4);
 
-    actual == max && arr.unshift(max-4,max-5);      
-    actual == max-1 && arr.unshift(max-5);      
+    actual == max && max - 4 >= 0 && arr.unshift(max - 4);
+    actual == max && max - 5 >= 0 && arr.unshift(max - 5);
+    actual == max - 1 && max - 5 >= 0 && arr.unshift(max - 5);
 
     return (
       <div>
-        <Jumbotron style={img}>
+        <Jumbotron style={img} className="mainHero">
           <Container>
             <Col md="5" className="px-0">
-              <h1
-                style={{
-                  color: "#6b4856",
-                  paddingTop: "11%",
-                  fontSize: "45px",
-                  fontWeight: "700"
-                }}
-              >
+              <h1>
                 Helados <br />
                 artesanales
               </h1>
@@ -91,6 +121,8 @@ class ProductGrid extends React.Component {
           </Container>
         </Jumbotron>
         <Container>
+          <br />
+
           <Header>Productos</Header>
           <Row>
             {[...categories, { id: 0, name: "Todos" }].map((category, i) => {
@@ -126,6 +158,18 @@ class ProductGrid extends React.Component {
                 />
               </div>
             </Col>
+
+            <Col md={3} className="ml-auto">
+              <div className="inputContainer">
+              <select onChange={this.handleSelect}>
+                <option value="" disabled selected>Ordenar</option>
+                <option value="hp">Mayor precio</option>
+                <option value="lp">Menor precio</option>
+                <option value="hr">Mejor Rating</option>
+                <option value="lr">Peor Rating</option>
+              </select>
+              </div>
+            </Col>
           </Row>
 
           {/* <Col md = {3}>
@@ -153,26 +197,44 @@ class ProductGrid extends React.Component {
             ))}
           </Row>
           <Row className="my-5 py-3">
-          <h5 className="mx-auto">
-            {
-              actual !== 1 ? <Link className="mr-3" to={`/productos/${actual - 1}`}  onClick={() => this.props.setPage(actual-2)}>Ver anterior</Link>: null
-            }
-            { 
-              arr.map((i,b) => (
+            <Col md="2">
+              {actual !== 1 ? (
                 <Link
-                  key={b}
-                  className={"mx-2 roundedPink"+ (i==actual-1 ? " active" : "" )}
-                  to={`/productos/${i + 1}`}
-                  onClick={() => this.props.setPage(i)}
+                  className="mr-3"
+                  to={`/productos/${actual - 1}`}
+                  onClick={() => this.props.setPage(actual - 2)}
                 >
-                  {i + 1}
+                  Ver anterior
                 </Link>
-              )) 
-            }
-            {
-              actual !== max ? <Link className="ml-3" to={`/productos/${actual + 1}`}  onClick={() => this.props.setPage(actual)}>Ver siguiente</Link>: null
-            }
-          </h5>
+              ) : null}
+            </Col>
+            <Col md="8">
+              <h5 className="text-center">
+                {arr.map((i, b) => (
+                  <Link
+                    key={b}
+                    className={
+                      "mx-2 roundedPink" + (i == actual - 1 ? " active" : "")
+                    }
+                    to={`/productos/${i + 1}`}
+                    onClick={() => this.props.setPage(i)}
+                  >
+                    {i + 1}
+                  </Link>
+                ))}
+              </h5>
+            </Col>
+            <Col md="2">
+              {actual !== max ? (
+                <Link
+                  className="ml-3"
+                  to={`/productos/${actual + 1}`}
+                  onClick={() => this.props.setPage(actual)}
+                >
+                  Ver siguiente
+                </Link>
+              ) : null}
+            </Col>
           </Row>
         </Container>
       </div>
@@ -191,12 +253,11 @@ const mapStateToProps = function(state, ownProps) {
 
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    fetchProducts: (products, index) =>
-      dispatch(fetchProducts(products, index)),
+    fetchProducts: (s, sort) => dispatch(fetchProducts(s, sort)),
     fetchProduct: id => dispatch(fetchProduct(id)),
     setPage: index => dispatch(setPage(index)),
     fetchCategories: () => dispatch(fetchCategories()),
-    fetchCatProduct: (id, query) => dispatch(fetchCatProduct(id, query))
+    fetchCatProduct: (cat, s, sort) => dispatch(fetchCatProduct(cat, s, sort))
   };
 };
 
