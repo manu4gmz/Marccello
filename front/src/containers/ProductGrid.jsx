@@ -14,32 +14,58 @@ import { fetchCategories } from "../store/actions/category";
 import Input from "../components/Input";
 import { Link } from "react-router-dom";
 
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
 class ProductGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       product: "",
-      category: 0
+      category: 0,
+      sorting: "",
     };
     this.handleInput = this.handleInput.bind(this);
     this.onClick = this.onClick.bind(this);
     this.categoryClick = this.categoryClick.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+    this.search = debounce(this.search.bind(this),200)
+  }
+
+  search() {
+    const product = this.state.product;
+    const search = product.length >= 2 ? product : null;
+    (this.state.category
+      ? this.props.fetchCatProduct(this.state.category, search, this.state.sorting)
+      : this.props.fetchProducts(search, this.state.sorting))
+    .then(()=> this.props.setPage(this.props.match.params.index - 1))
+    this.props.history.push(`/productos/1`);
+    this.props.setPage(1);
   }
 
   componentDidMount() {
-    this.props.fetchProducts(null, this.props.match.params.index - 1);
+    this.props.fetchProducts()
+    .then(()=>{
+      this.props.setPage(this.props.match.params.index - 1);
+    })
     this.props.fetchCategories();
   }
 
   handleInput(e) {
     this.setState({ product: e.target.value });
-    const product = e.target.value;
-    const search = product.length >= 2 ? product : null;
-    this.state.category
-      ? this.props.fetchCatProduct(this.state.category, search)
-      : this.props.fetchProducts(search);
-    this.props.history.push(`/productos/1`);
-    this.props.setPage(1);
+    this.search();
   }
 
   onClick(id) {
@@ -47,9 +73,15 @@ class ProductGrid extends React.Component {
     this.props.history.push(`/producto/${id}`);
   }
 
+  handleSelect(e) {
+    const sorting = e.target.value;
+    this.setState({sorting});
+    this.search();
+  }
+
   categoryClick(id) {
     this.setState({ category: id });
-    id ? this.props.fetchCatProduct(id) : this.props.fetchProducts();
+    this.search();
   }
 
   render() {
@@ -124,6 +156,18 @@ class ProductGrid extends React.Component {
                   onChange={this.handleInput}
                   value={this.state.product}
                 />
+              </div>
+            </Col>
+
+            <Col md={3} className="ml-auto">
+              <div className="inputContainer">
+              <select onChange={this.handleSelect}>
+                <option value="" disabled selected>Ordenar</option>
+                <option value="hp">Mayor precio</option>
+                <option value="lp">Menor precio</option>
+                <option value="hr">Mejor Rating</option>
+                <option value="lr">Peor Rating</option>
+              </select>
               </div>
             </Col>
           </Row>
@@ -209,12 +253,11 @@ const mapStateToProps = function(state, ownProps) {
 
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    fetchProducts: (products, index) =>
-      dispatch(fetchProducts(products, index)),
+    fetchProducts: (s, sort) => dispatch(fetchProducts(s, sort)),
     fetchProduct: id => dispatch(fetchProduct(id)),
     setPage: index => dispatch(setPage(index)),
     fetchCategories: () => dispatch(fetchCategories()),
-    fetchCatProduct: (id, query) => dispatch(fetchCatProduct(id, query))
+    fetchCatProduct: (cat, s, sort) => dispatch(fetchCatProduct(cat, s, sort))
   };
 };
 

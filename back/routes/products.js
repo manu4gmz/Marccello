@@ -48,7 +48,26 @@ router.get('/', function (req, res, next) {
             )
         )
         .then((productos) => {
-            res.status(200).json(pageSeparation(productos.sort((b, a) => b.id - a.id)))
+            let sorting;
+
+            switch (req.query.o) {
+              case "lp":
+                sorting = (b,a) => b.price - a.price;
+                break;
+              case "hp":
+                sorting = (a,b) => b.price - a.price;
+                break; 
+              case "lr":
+                sorting = (b,a) => b.dataValues.rating - a.dataValues.rating;
+                break;
+              case "hr":
+                sorting = (a,b) => b.dataValues.rating - a.dataValues.rating;
+                break; 
+              default:
+                sorting = (b, a) => b.id - a.id
+            }
+
+            res.status(200).json(pageSeparation(productos.sort(sorting)))
         })
 });
 
