@@ -1,5 +1,6 @@
 import {SET_USER, SET_USERS} from '../constants'
 import axios from 'axios';
+import { fetchCart } from "./cart";
 
 const setUser = (user) => ({
         type: SET_USER,
@@ -13,8 +14,10 @@ const setUsers = (users) => ({
 export const getLoggedUser = (user) => dispatch =>
         axios.get(`/api/users/checkLogUser`)
         .then(rta => rta.data)
-        .then(user => dispatch(setUser(user)))
-        .catch(()=>dispatch(setUser({})))
+        .then(data => {
+          dispatch(setUser(data.user || {}))
+          dispatch(fetchCart())
+        })
 
 export const createUser = (user) => dispatch =>
         axios.post(`/api/users/register`, user)
