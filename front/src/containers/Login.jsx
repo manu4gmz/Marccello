@@ -39,14 +39,10 @@ class Login extends React.Component {
           return redirect;
         })
         .then(redirect => {
-          this.props.moveLocalToLogged().then(() => this.props.fetchCart());
-          this.props.setNotification(
-            <div>
-              Bienvenido <strong>{obj.username}</strong>!
-            </div>
-          );
-          console.log("REDIRECT \n\n\n\n", redirect)
           if (redirect) this.props.history.push("/");
+          this.props.moveLocalToLogged().then(() => this.props.fetchCart());
+          this.props.setNotification(`Bienvenido ${obj.username}`);
+          console.log("REDIRECT \n\n\n\n", redirect)
         })
         .catch(() => this.setState({ error: true }));
     }
