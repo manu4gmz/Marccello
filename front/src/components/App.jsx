@@ -24,7 +24,7 @@ export default function() {
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
         <Route path="/confirm-purchase" exact component={Payment} />
-        <Route path="/purchase/:id" exact component={PurchaseView} />
+        <Route path="/purchase/:id/status" exact component={PurchaseView} />
         <Route path="/productos/:index" component={ProductGrid} />
         <Redirect path="/productos" exact to="/productos/1" />
         <Route path="/carrito" exact component={Cart} />

@@ -28,11 +28,11 @@ router.post("/orders/:id/send", (req, res) => {
 	Purchase.findOne({
 		where: {
 			id: req.params.id,
-			//status : "preparing"
+			status : "preparing"
 		}
 	})
 		.then(purchase => {
-			//purchase.status = "ongoing";
+			purchase.status = "ongoing";
 			purchase.coords = req.body.coords;
 			purchase.save()
 				.then(() => {
