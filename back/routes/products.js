@@ -3,6 +3,7 @@ const router = new express.Router();
 const models = require('../models');
 const Product = models.Product;
 const Review = models.Review;
+const User = models.User;
 const Sequelize = require("sequelize")
 const Promise = require("bluebird");
 module.exports = router;
@@ -93,7 +94,17 @@ router.post("/:productId", function (req, res, next) {
 
 router.get('/:productId/reviews', function (req, res, next) {
     Review.findAll({where: {
-        productId: req.params.productId
-    }})
-    .then(reviews => res.status(200).json(reviews))
+        productId: req.params.productId,
+    },
+    include: [{
+        model: User
+    }]
+    })
+    .then(reviews => {
+        const maped = reviews.map(r => {
+            r.dataValues.user = r.user.username
+            return r
+        })
+        res.status(200).json(maped)
+    })
 });
