@@ -26,6 +26,7 @@ class Purchases extends React.Component {
           <Header>Compras hechas</Header>
           <Row>
             {purchases.map(purchase => {
+              const date = new Date(purchase.createdAt);
               return (
                 <Col md="4">
                   <div key={purchase.id} className="conta">
@@ -53,7 +54,8 @@ class Purchases extends React.Component {
                         {" "}
                         <b>Fecha de compra:</b>
                         <br />
-                        {purchase.createdAt}{" "}
+                        {date.getDate()}/{date.getMonth()}/{date.getFullYear()}{" "}
+                        - {date.getHours()}:{date.getMinutes()}{" "}
                       </p>
                       <p>
                         <b>Dirección de envío:</b>
