@@ -40,7 +40,7 @@ class MainNavbar extends Component {
 
   ClickLogout() {
     this.props.logout().then(() => {
-      this.props.setNotification(<div>Logout exitoso!</div>);
+      this.props.setNotification("Logout exitoso!");
     });
   }
 
@@ -49,7 +49,7 @@ class MainNavbar extends Component {
   }
 
   render() {
-    const { message, addedCart, user, logout } = this.props;
+    const { message, addedCart, user, logout, messageProduct } = this.props;
     return (
       <Navbar bg="light" expand="lg" style={{ padding: "10px 0" }}>
         <Container>
@@ -65,7 +65,16 @@ class MainNavbar extends Component {
             {message ? (
               addedCart ? (
                 <div className="navbarAlert">
-                  Se agregó un {message} al carrito. <br />
+                  {message} <br />
+                </div>
+              ) : (
+                  <div className="navbarAlert">{message}</div>
+                )
+            ) : null}
+            {messageProduct ? (
+              addedCart ? (
+                <div className="navbarAlert">
+                  Se agregó un {messageProduct} al carrito. <br />
                   <Link to="/carrito">Ver carrito</Link>
                 </div>
               ) : (
@@ -136,6 +145,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     message: state.notif.message,
+    messageProduct: state.notif.messageProduct,
     addedCart: state.notif.cart,
     user: state.user.user
   };
