@@ -13,18 +13,20 @@ export default () => (
       fontSize: "15px"
     }}
   >
-    <p style={{ fontWeight: "700" }}>ADMIN</p>
-    <Link to="/admin/orders">
-      <p style={{ color: "#6b4856" }}>Órdenes</p>
-    </Link>
-    <Link to="/admin/create-product">
-      <p style={{ color: "#6b4856" }}>Crear producto</p>
-    </Link>
-    <Link to="/admin/edit-product">
-      <p style={{ color: "#6b4856" }}>Editar productos</p>
-    </Link>
-    <Link to="/admin/users">
-      <p style={{ color: "#6b4856" }}>Usuarios</p>
-    </Link>
+    <div>
+      <p style={{ fontWeight: "700" }}>ADMIN</p>
+      <Link to="/admin/orders">
+        <p style={{ color: "#6b4856" }}>Órdenes</p>
+      </Link>
+      <Link to="/admin/create-product">
+        <p style={{ color: "#6b4856" }}>Crear producto</p>
+      </Link>
+      <Link to="/admin/edit-product">
+        <p style={{ color: "#6b4856" }}>Editar productos</p>
+      </Link>
+      <Link to="/admin/users">
+        <p style={{ color: "#6b4856" }}>Usuarios</p>
+      </Link>
+    </div>
   </div>
 );
