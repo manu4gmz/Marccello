@@ -16,7 +16,7 @@ Purchase.init({
     },
 
     status: {
-    	type: Sequelize.ENUM("preparing", "ongoing", "completed", "lost"),
+    	type: Sequelize.ENUM("preparing", "ongoing", "resolved", "lost"),
     	defaultValue: "preparing",
     }
 

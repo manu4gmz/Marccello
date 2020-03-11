@@ -17,7 +17,10 @@ function Drone(id,coords, destination, cb) {
 }
 
 Drone.prototype.step = function () {
-	if (this.distance() < this.speed) { console.log("eu"); return;}
+	if (this.distance() < this.speed) { 
+		this.x = this.destination.x;
+		this.y = this.destination.y;
+	}
 	this.x += Math.cos(this.orientation)*this.speed;
 	this.y += Math.sin(this.orientation)*this.speed;
 }
@@ -27,7 +30,7 @@ Drone.prototype.distance = function () {
 }
 
 function startDrone(id, destination) {
-	new Drone(id, "-34.667468,-58.361285", destination);
+	new Drone(id, "-34.588704,-58.440857", destination);
 
 	console.log(`---- NEW DRONE Nr${id} ----
 Destination: (${drones[id].destination.x},${drones[id].destination.y})`)

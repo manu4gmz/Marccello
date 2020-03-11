@@ -36,11 +36,26 @@ router.get("/:id", (req,res)=>{
   })
 })
 
-const { statusDrone} = require("../drone");
+const { statusDrone, clearDrone } = require("../drone");
 
 router.get("/:id/status", (req, res)=>{
   res.send(statusDrone(req.params.id))
 })
+
+router.get("/:id/resolve", (req, res)=>{
+  
+  clearDrone(req.params.id);
+  Purchase.findByPk(req.params.id)
+  .then(purchase => {
+    purchase.status = "resolved";
+    return purchase.save()
+  })
+  .then(()=> 
+    res.send({ msg: "Listo"})
+  )
+
+})
+
 
 router.post("/", (req,res) => {
   req.user.getCart()
@@ -61,7 +76,7 @@ router.post("/", (req,res) => {
           ProductPurchase.create({
             productId: order.productId,
             amount: order.amount,
-            buyId: purchase.id
+            purchaseId: purchase.id
           })
         )
       )
