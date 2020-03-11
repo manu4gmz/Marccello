@@ -33,6 +33,7 @@ export default ({ product, editProduct, deleteProduct }) => {
                                 onClick={() => editProduct(product.id)}
                             />
                         </Link>
+                        <Link to={`/admin/add-categories/${product.id}`}>Categorias</Link>
                     </div>
                 </Col>
             </Row>

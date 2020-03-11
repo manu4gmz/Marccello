@@ -1,4 +1,4 @@
-import {SET_PRODUCTS, SET_PRODUCT, SET_PAGE} from '../constants'
+import {SET_PRODUCTS, SET_PRODUCT, SET_PAGE, CREATE_PRODUCT} from '../constants'
 
 const initialState = {
     products: [],
@@ -11,6 +11,8 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case SET_PRODUCTS:
             return Object.assign({}, state, {products: action.products })
+        case CREATE_PRODUCT:
+            return Object.assign({}, state, {product: action.product })
         case SET_PRODUCT:
             return Object.assign({}, state, {product: action.product})
         case SET_PAGE:

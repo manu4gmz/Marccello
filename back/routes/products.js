@@ -1,15 +1,20 @@
 const express = require('express');
 const router = new express.Router();
-const models = require('../models');
-const Product = models.Product;
-const Review = models.Review;
+const {Product, Category, Review} = require('../models');
 const Sequelize = require("sequelize")
 const Promise = require("bluebird");
 module.exports = router;
 
 // Middleware que automatiza la busqueda
 router.param("productId", (req, res, next, id) => {
-    Product.findByPk(id)
+    Product.findOne({
+        where: { id : req.params.productId },
+        include: [
+            {
+                 model : Category 
+            }
+        ]
+    })
         .then(product => {
             if (product) {
                 req.product = product
@@ -19,7 +24,7 @@ router.param("productId", (req, res, next, id) => {
             }
         })
         .catch(err => {
-            res.sendStatus(500)
+            res.status(500).send(err)
         })
 });
 
@@ -97,3 +102,21 @@ router.get('/:productId/reviews', function (req, res, next) {
     }})
     .then(reviews => res.status(200).json(reviews))
 });
+
+router.get('/:id', (req, res) => { 
+    const Op = Sequelize.Op
+    if(req.query.s){   
+        Product.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: [{
+                model: Category,
+                where: {name:{[Op.iLike]: `%${req.query.s}%`}}
+            }]
+        })
+        .then((product) => {
+            product ? res.send(pageSeparation(product.categories)) : res.send([[]])
+        })
+    }
+})

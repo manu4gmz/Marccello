@@ -73,7 +73,10 @@ export const fetchCatProduct = (id, query) => (dispatch) => {
 export const createProduct = (product) => dispatch =>
     axios.post(`/api/admin/create-product`, product)
         .then(data => data.data)
-        .then(product => dispatch(newProduct(product)))
+        .then(product => {
+            dispatch(fetchProduct(product.id))
+            return product;
+        })
 
 export const deleteProduct = (product) => dispatch =>
     axios.delete(`/api/products/${product}`)
