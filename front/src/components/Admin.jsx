@@ -10,6 +10,7 @@ import AdminProductListContainer from "../containers/AdminProductListContainer";
 import EditProductContainer from "../containers/EditProductContainer";
 import UsersContainer from "../containers/UsersContainer";
 import Sidebar from "./Sidebar";
+import CategoriesContainer from "../containers/CategoriesContainer";
 
 const Admin = ({ match, user }) => {
   return (
@@ -31,6 +32,11 @@ const Admin = ({ match, user }) => {
                 path={match.path + "/create-product"}
                 exact
                 component={NewProductContainer}
+              />
+              <Route
+                path={match.path + "/add-categories/:id"}
+                exact
+                component={CategoriesContainer}
               />
               <Route
                 path={match.path + "/edit-product/:id"}

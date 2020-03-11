@@ -15,7 +15,9 @@ router.post('/:id', (req, res) => {
         })
         .then(([category]) => {
             producto.addCategory(category)
+            .then(() => 
             res.send(category)
+            )
         })
     })
 })
@@ -85,6 +87,23 @@ router.get('/:id', (req, res) => {
 
 })
 
+//borra una categoria de un producto
+router.delete('/delete/:id/:name', (req, res) => {
+    console.log('ENTRE A RUTAS', req.params);
+    Product.findByPk(req.params.id)
+    .then((producto) => {
+        Category.findOne({
+            where: {name: req.params.name}
+        })
+        .then((category) => {
+            producto.removeCategory(category)
+            .then(()=>
+            res.send(category)
+            )
+        })
+    })
+})
+
 //elimina una categoria
 router.delete('/:id', (req, res) => {
     Category.destroy({where: {
@@ -92,5 +111,6 @@ router.delete('/:id', (req, res) => {
     }})
     .then(() => res.send(`categoria eliminada`))    
 })
+
 
 module.exports = router
