@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default () => (
   <Container
@@ -13,10 +14,12 @@ export default () => (
     <Container style={{ paddingTop: "15px", color: "#6b4856" }}>
       <Row>
         <Col md="6">
-          <img
-            src="/assets/logo/marccello-logo.svg"
-            style={{ width: "120px", marginBottom: "10px" }}
-          />
+          <Link to="/">
+            <img
+              src="/assets/logo/marccello-logo.svg"
+              style={{ width: "120px", marginBottom: "10px" }}
+            />
+          </Link>
           <p>
             <br />
             Helados artesanales
