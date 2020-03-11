@@ -18,7 +18,11 @@ export default class Landing extends Component {
   render() {
     return (
       <Fragment>
-        <Jumbotron fluid className="mainHero">
+        <Jumbotron fluid className="mainHero" style={{ 
+          backgroundImage: `url("/assets/ice-cream-with-berries-PA9XYSLslide.jpg")`,
+          paddingTop: "200px",
+          paddingBottom:" 220px"
+        }}>
           <Container>
             <Col md="6" className="px-0">
               <h1>

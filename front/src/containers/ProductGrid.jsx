@@ -56,9 +56,6 @@ class ProductGrid extends React.Component {
     const img = {
       backgroundImage:
         "url(/assets/summer-chocolate-ice-cream-P7YWKEYslide.jpg)",
-      backgroundSize: "100%",
-      backgroundAttachment: "fixed",
-      height: "390px"
     };
     const { products, cart, categories } = this.props;
 
@@ -75,17 +72,10 @@ class ProductGrid extends React.Component {
 
     return (
       <div>
-        <Jumbotron style={img}>
+        <Jumbotron style={img} className="mainHero">
           <Container>
             <Col md="5" className="px-0">
-              <h1
-                style={{
-                  color: "#6b4856",
-                  paddingTop: "11%",
-                  fontSize: "45px",
-                  fontWeight: "700"
-                }}
-              >
+              <h1>
                 Helados <br />
                 artesanales
               </h1>
