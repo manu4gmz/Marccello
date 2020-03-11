@@ -9,12 +9,14 @@ import {setNotification} from "../store/actions/notif";
 import {fetchReviews, newReview} from "../store/actions/reviews";
 import {fetchPurchases} from "../store/actions/purchases";
 import { addToCart } from "../store/actions/cart";
+import ReactStars from 'react-stars'
 
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.ratingChanged = this.ratingChanged.bind(this)
 
     this.state = {
       title: "",
@@ -25,6 +27,9 @@ class SingleProduct extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+  ratingChanged(newRating) {
+    this.setState({rating: newRating})
+  }
   handleSubmit(e) {
     e.preventDefault();
     let obj = {
@@ -32,14 +37,15 @@ class SingleProduct extends Component {
       content: this.state.content,
       rating: this.state.rating
     };
-    this.props.newReview(obj, this.props.match.params.id).then(() => {
-      this.props.fetchReviews(this.props.match.params.id);
+    this.props.newReview(obj, this.props.match.params.id)
+    .then(() => {
       if (obj.rating > 2) {
-        this.props.setNotification(<div>¡Muchas gracias por tu reseña!</div>);
+        this.props.setNotification("¡Muchas gracias por tu reseña!");
       } else {
-        this.props.setNotification(<div>Gracias eh...</div>);
+        this.props.setNotification("Gracias eh...");
       }
-    });
+    })
+    .then(() => this.props.fetchReviews(this.props.match.params.id))
   }
 
   componentDidMount() {
@@ -162,11 +168,13 @@ class SingleProduct extends Component {
                 </Form.Group>
                 <Form.Group>
                   <label>Rating</label>
-                  <Input
-                    onChange={this.handleChange}
-                    name="rating"
-                    type="text"
-                    value={this.state.rating}
+                  <ReactStars
+                  name= "rating"
+                  value={this.state.rating}
+                  count={5}
+                  onChange={this.ratingChanged}
+                  size={24}
+                  color2={'#ffd700'} 
                   />
                 </Form.Group>
                 <Form.Group>

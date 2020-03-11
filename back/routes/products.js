@@ -86,10 +86,13 @@ router.delete("/:productId", (req, res, next) => {
 router.post("/:productId", function (req, res, next) {
     Review.create(req.body)
     .then(nuevoReview => {
-        nuevoReview.setProduct(req.product)
-        nuevoReview.setUser(req.user) 
-        res.status(201).json(nuevoReview)}
-    )
+        return Promise.all([
+            nuevoReview.setProduct(req.product),
+            nuevoReview.setUser(req.user) 
+        ])
+        .then(()=> nuevoReview)
+    })
+    .then((nuevoReview)=>res.status(201).json(nuevoReview))
 });
 
 router.get('/:productId/reviews', function (req, res, next) {
