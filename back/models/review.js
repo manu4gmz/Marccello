@@ -8,7 +8,7 @@ Review.init({
     title: Sequelize.STRING,
     content: Sequelize.TEXT,
     rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL,
         defaultValue: 0
     }
 
