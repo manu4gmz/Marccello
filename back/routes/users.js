@@ -5,10 +5,37 @@ const User = require('../models/user')
 const sequelize = require('sequelize')
 //routes
 
+const email = (email, content) => {
+    const nodemailer = require('nodemailer');
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'heladrones@gmail.com',
+        pass: 'Marccello1-'
+      },
+    });    
+    const mailOptions = {
+      from: 'heladrones@gmail.com',
+      to: `${email}`,
+      subject: 'Creaste un nuevo usuario',
+      text: `Felicidades ${content}! Ya tenés una cuenta de Marccello`
+    };    
+    console.log("sending email", mailOptions);
+    transporter.sendMail(mailOptions, function (error, info) {
+      console.log("senMail returned!");
+      if (error) {
+        console.log("ERROR!!!!!!", error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+}
+
 //registra usuario
 router.post('/register', (req, res) => {
     User.create(req.body)
-    .then((user) => res.send(user))    
+    .then((user) => res.send(user))
+    .then(()=> email(req.body.email, req.body.username))    
 })
 
 //loguea usuario

@@ -140,12 +140,12 @@ const productBulkCreate = Product.bulkCreate([
 		price: 35
 	},
 	{
-		name: "Paleta de Frutilla a la Crema",
-		description: "Helado de palito ideal para los más chicos.",
+		name: "Helado de Mora",
+		description: "Probalo y enamorate.",
 		stock: 100,
-		imgURL: "https://lh3.googleusercontent.com/proxy/bi-S_RLMlpnXULScDxANlNFb9MrqOCOVyTB1pR0I2XElPg_c7D9u37U-surf5exnizVPr5F8eUXuloPJTMgoOUY-ZP46O5dX5Ko_ryrhxO4QNFX40Wf_sA",
+		imgURL: "https://i.imgur.com/kjUflOI.jpg",
 		visible: true,
-		price: 40
+		price: 80
 	},
 	{
 		name: "Paletas Frutales al agua",
