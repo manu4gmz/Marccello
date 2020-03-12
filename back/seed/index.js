@@ -1,11 +1,11 @@
-const {Product, User, Order, Purchase, ProductPurchase} = require("../models");
+const { Product, User, Order, Purchase, ProductPurchase, Review } = require("../models");
 
 const Promise = require("bluebird");
 
 const logProduct = (cart) => console.log("Cart: ", { name: cart.name })
-const logUser = (user) => console.log("User: ", 
-	{ 
-		username: user.username, 
+const logUser = (user) => console.log("User: ",
+	{
+		username: user.username,
 		email: user.email,
 		products: user.products.map(product => (
 			{
@@ -13,7 +13,7 @@ const logUser = (user) => console.log("User: ",
 				amount: product.order.amount
 			}
 		))
-	
+
 	})
 const logOrder = (order) => console.log("Order: ", { productId: order.productId, userId: order.userId, amount: order.amount })
 
@@ -161,7 +161,7 @@ const productBulkCreate = Product.bulkCreate([
 		stock: 100,
 		imgURL: "https://www.floatingkitchen.net/wp-content/uploads/2015/07/Tequila-Sunrise-Popsicles-3-748x520.jpg",
 		visible: true,
-		price:  45
+		price: 45
 	},
 	{
 		name: "Paleta de Frutilla",
@@ -181,28 +181,161 @@ const productBulkCreate = Product.bulkCreate([
 	},
 ])
 
-const userCreate = 
-User.destroy({where: {email: "admin@mail.com"}})
-.then(_=>
-	User.create({
-		email: "admin@mail.com",
-		username: "Admin",
-		password: "123",
-		type: "superAdmin"
-	})
-)
+const userCreate =
+	User.destroy({ where: { email: "admin@mail.com" } })
+		.then(_ =>
+			User.create({
+				email: "admin@mail.com",
+				username: "Admin",
+				password: "123",
+				type: "superAdmin"
+			})
+		)
+
+
+const reviewsBulkCreate = Review.bulkCreate([
+	{
+		title: 'Muy rico el helado',
+		content: 'Alto helado, papaaaa',
+		rating: 5,
+		productId: 1
+	},
+	{
+		title: 'Rico, pero tampoco para tanto',
+		content: 'El helado esta bien',
+		rating: 3,
+		productId: 1
+	},
+	{
+		title: 'Muy malo',
+		content: 'Malisimo',
+		rating: 2,
+		productId: 1
+	},
+	{
+		title: 'Alta paleta',
+		content: 'Muy rico y muy pintoresca la paleta',
+		rating: 5,
+		productId: 2
+	},
+	{
+		title: 'Muy buena paleta',
+		content: "Mira que he probado paletas en mi vida, pero como esta paleta no hay ninguna",
+		rating: 5,
+		productId: 2
+	},
+	{
+		title: 'mmmmmmmm',
+		content: 'Mneeeeeehhhhhhh',
+		rating: 3,
+		productId: 2
+	},
+	{
+		title: 'Riquisima',
+		content: 'Muy rica y llegaron bolando. Je',
+		rating: 4,
+		productId: 3
+	},
+	{
+		title: 'Muy Bien',
+		content: 'Cumplieron con la entrega y llego rapido',
+		rating: 4,
+		productId: 4
+	},
+	{
+		title: 'El mejor helado que probe en mi vida',
+		content: 'Bueno, tampoco para tanto, je',
+		rating: 4,
+		productId: 4
+	},
+	{
+		title: 'Bien',
+		content: 'Bien',
+		rating: 3,
+		productId: 5
+	},
+	{
+		title: 'Manso helado',
+		content: 'Alto helado, man',
+		rating: 5,
+		productId: 6
+	},
+	{
+		title: 'Nice gellatto, mate',
+		content: 'Love it',
+		rating: 4,
+		productId: 7
+	},
+	{
+		title: 'No me llego',
+		content: 'Vivo en Palermo y, hasta donde yo se, el drone se termino perdiendo en Lanus',
+		rating: 1,
+		productId: 8
+	},
+	{
+		title: 'Gran helado',
+		content: 'enorme',
+		rating: 4,
+		productId: 9
+	},
+	{
+		title: 'Rapido pero mas o menos',
+		content: 'La entrega fue rapidisima, me llego a la ventana de mi cuarto, pero el gusto me parecio medio flojo',
+		rating: 3,
+		productId: 16
+	}, {
+		title: 'Espectacular',
+		content: 'Divino',
+		rating: 5,
+		productId: 15
+	}, {
+		title: 'De puta madre',
+		content: 'Quiero comer este helado todos los dias de mi vida',
+		rating: 5,
+		productId: 14
+	}, {
+		title: 'Terrible, me llego todo derretido',
+		content: 'Horrible',
+		rating: 1,
+		productId: 13
+	}, {
+		title: 'Piolisimo helado',
+		content: 'Muy pero demasiado piola',
+		rating: 5,
+		productId: 12
+	}, {
+		title: 'Bien',
+		content: 'Bueno',
+		rating: 3,
+		productId: 11
+	}, {
+		title: 'Rico',
+		content: 'Sin comentarios',
+		rating: 3,
+		productId: 10
+	}
+
+])
+
+
+
+
+
 
 let _user = null;
 let _products = null;
+let _reviews = null;
 
-Promise.all([ productBulkCreate, userCreate])
-.then(([products, user])=> {
-	products.forEach(logProduct)
-	//logUser(user)
+Promise.all([productBulkCreate, userCreate, reviewsBulkCreate])
+	.then(([products, user, reviews]) => {
+		products.forEach(logProduct)
+		//logUser(user)
 
-	_user = user;
-	_products = products;
-})
+		_user = user;
+		_products = products;
+		_reviews = reviews
+
+	})
 /*
 
 	const ordersMap = [
@@ -216,7 +349,7 @@ Promise.all([ productBulkCreate, userCreate])
 		}
 	]
 
-	/*products.map(product => 
+	/*products.map(product =>
 		({
 			userId: user.id,
 			productId: product.id
