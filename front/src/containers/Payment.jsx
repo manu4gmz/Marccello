@@ -34,9 +34,10 @@ class Login extends React.Component {
         address: this.state.address
       };
 
-      this.props.purchaseCart(this.state.address).then(() => {
+      this.props.purchaseCart(this.state.address).then((purchase) => {
         this.props.fetchCart();
-        this.props.history.push("/");
+        console.log(purchase)
+        this.props.history.push(`/purchase/${purchase.id}/status`);
       });
     }
   }

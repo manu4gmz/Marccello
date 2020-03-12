@@ -92,7 +92,7 @@ router.post("/", (req,res) => {
         .then(()=> orders);
 
       })
-      .then(orders => res.send(orders))
+      .then(orders => res.send(purchase))
 
 
     })

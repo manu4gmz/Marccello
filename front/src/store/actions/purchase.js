@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const purchaseCart = (address) => dispatch => {
   return axios.post("/api/purchase", {address})
+  	.then(rta => rta.data)
 } 
 
 export const getDroneCoords = id => dispatch => {
