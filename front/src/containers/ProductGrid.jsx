@@ -95,6 +95,7 @@ class ProductGrid extends React.Component {
       paddingBottom: "8%"
     };
     const { products, cart, categories } = this.props;
+    console.log(products);
 
     let arr = [];
     const max = this.props.pages,
@@ -187,17 +188,22 @@ class ProductGrid extends React.Component {
             </Col>
             <div style={{ padding: "4% 0" }}></div>
           </Row>
-
-          <Row style={{ minHeight: "80vh"}}>
-            {products.map((product, i) => (
-              <ProductModule
-                alreadyCart={cart.map(p => p.id).includes(product.id)}
-                product={product}
-                onClick={this.onClick}
-                key={product.id}
-                index={i}
-              />
-            ))}
+          <Row>
+            {products.length ? (
+              products.map((product, i) => (
+                <ProductModule
+                  alreadyCart={cart.map(p => p.id).includes(product.id)}
+                  product={product}
+                  onClick={this.onClick}
+                  key={product.id}
+                  index={i}
+                />
+              ))
+            ) : (
+              <h4 style={{ fontWeight: "500" }}>
+                No hubo resultados en tu busqueda :(
+              </h4>
+            )}
           </Row>
           <div style={{ padding: "1%" }}></div>
 
