@@ -20,164 +20,164 @@ const logOrder = (order) => console.log("Order: ", { productId: order.productId,
 
 const productBulkCreate = Product.bulkCreate([
 	{
-		name: "Paleta Tricolor",
-		description: "Paleta con bocha de colores esta buenisima viene con extra azúcar.",
+		name: "Cono Arcoiris",
+		description: "Riquísimo cono de helado que le va a encantar a los más chicos.",
 		stock: 100,
-		imgURL: "https://http2.mlstatic.com/colchoneta-inflable-intex-paleta-helado-191x76-cm-pileta-cuo-D_NQ_NP_711234-MLA28773620570_112018-O.webp",
+		imgURL: "https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/f_auto,q_auto,w_1100/v1555309295/shape/mentalfloss/35kj35lk3j5_2.png",
 		visible: true,
-		price: 8.2
+		price: 50
 	},
 	{
-		name: "Palito bombon helado",
-		description: "PALITO BONBON HELADDOOOOOOOOOOOOOOOOO PALITO BONBON HELADOOOOOO",
+		name: "Rollos Helados tailandeces",
+		description: "Delicioso postre helado proveniente de Tailandia. ¡Probalos!",
 		stock: 100,
-		imgURL: "https://comercios.tiendakosher.com//Content/UploadDirectory/Products/23834/c10321bf-0170-422f-8d23-94509443b713.jpg",
+		imgURL: "https://www.innaturale.com/es/wp-content/uploads/2018/07/Rollito-helado-tailande%CC%81s-Thai-Rolled-Ice-Cream.jpg",
 		visible: true,
-		price: 12.1
+		price: 80
 	},
 	{
-		name: "Palitos frutilla",
-		description: "Paleta con bocha de colores esta buenisima viene con extra azúcar.",
+		name: "Vaso Chiquito",
+		description: "Vaso pequeño que puede tener 1 o 2 sabores.",
 		stock: 100,
-		imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHDAnlafrAwCFIPiWe72iwzYeyps15yHaTqKIh_-PTqFk2qkar",
+		imgURL: "https://i2.wp.com/recipes.csrsugar.com.au/wp-content/uploads/2019/01/Icecream-Cone-Cupcakes-1980x1080.jpg?fit=1980%2C1080&ssl=1",
 		visible: true,
-		price: 10
+		price: 65
 	},
 	{
-		name: "Cono Abstracto",
-		description: "UN MONTÓN DE ABSTRACCIÓN DE SABOR.",
+		name: "Helado de Cookies",
+		description: "Delicioso helado de crema americana con galletitas trituradas.",
 		stock: 100,
-		imgURL: "https://www.rocktails.tv/wp-content/uploads/edd/ice-cream-party.jpg",
+		imgURL: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimg1.southernliving.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fstory_card_hero%2Fpublic%2Fimage%2F2019%2F05%2Fmain%2Fcookies-and-cream-ice-cream-0419seo_011.jpg%3Fitok%3Dp9mnC74f",
 		visible: true,
-		price: 9.99
+		price: 100
 	},
 	{
-		name: "Helado rico",
-		description: "Esta re rico, te juro",
+		name: "Banana Split",
+		description: "Riquísimo postre para compartir.",
 		stock: 100,
-		imgURL: "https://www.hola.com/imagenes/cocina/recetas/2013042264513/helado-vainilla-dulce-leche/0-234-424/helado-vainilla-1-m.jpg",
+		imgURL: "https://www.cocinayvino.com/wp-content/uploads/2017/01/54713302_l.jpg",
 		visible: true,
-		price: 20.3
+		price: 200
 	},
 	{
-		name: "Paletas bañadas de Chocolate",
-		description: "Paletas bañadas con chocolante blanco y negro.",
+		name: "Sundae de Frutos Rojos",
+		description: "Animate a este delicioso postre frutal.",
 		stock: 100,
-		imgURL: "https://hungryhappenings.com/wp-content/uploads/2019/09/cakesicles-recipe-cake-pops-popsicles-2.jpg",
+		imgURL: "https://truffle-assets.imgix.net/pxqrocxwsjcc_48kYShSrZ6ICwMUMeK8SKe_black-forest-sundaes_landscapeThumbnail_en.png",
 		visible: true,
-		price: 10
+		price: 110
 	},
 	{
 		name: "Sundae de Chocolate",
 		description: "Delicioso Sundae de crema americana bañado de chocolate.",
 		stock: 100,
-		imgURL: "https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/1080/1080/75/dam/disney-springs/dining/vivoli-il-gelato/vivoli-sundae-1x1.jpg?1573230499054",
+		imgURL: "https://truffle-assets.imgix.net/1t1bxm43v4e3_6yx7yySB4QyWK2Qm4W8mgS_sundae-de-banana_landscapeThumbnail_es.jpeg",
 		visible: true,
-		price: 18.2
+		price: 110
 	},
 	{
-		name: "Render 3D de un Conogol",
-		description: "Saborea las 3 dimensiones con este delicioso render de un helado",
+		name: "Milkshake",
+		description: "Elegí tu sabor y probá un riquísimo Milkshake",
 		stock: 100,
-		imgURL: "https://netrinoimages.s3.eu-west-2.amazonaws.com/2018/04/04/507221/189987/ice_cream_cone_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2014745_o.jpg",
+		imgURL: "https://i0.wp.com/bmgator.org/wp-content/uploads/2018/02/bigstock-Delicious-milkshakes-on-wooden-161168270.jpg?resize=768%2C512&ssl=1",
 		visible: true,
-		price: 17
+		price: 90
 	},
 	{
-		name: "Conogol que no es un render",
-		description: "Como dice su nombre, este helado no es un render.",
+		name: "Postre de Oreo",
+		description: "Riquísimo postre de Oreo!",
 		stock: 100,
-		imgURL: "https://cdn11.bigcommerce.com/s-p4v5wfxev4/images/stencil/1280x1280/products/859/2564/952745_vanilla_cone_product_packshot-1243141-png__36921.1539108775.png?c=2?imbypass=on",
+		imgURL: "https://recetastips.com/wp-content/uploads/2019/09/Helado-de-Galleta-Oreo-2.jpg",
 		visible: true,
 		price: 10
 	},
 	{
-		name: "Cucurucho de 3 sabores",
-		description: "Viene con chocolate, vainilla y frutilla. Y nada más >:(",
+		name: "Postre Helado de Frutilla",
+		description: "Riquísimo postre de Helado de Americana, crema y frutillas.",
 		stock: 100,
-		imgURL: "https://dijf55il5e0d1.cloudfront.net/images/na/6/9/2/69287_1000.jpg",
+		imgURL: "https://helados.pro/wp-content/uploads/2019/01/Helado_de_fresa_encabezado.jpg",
 		visible: true,
-		price: 11
+		price: 70
 	},
 	{
-		name: "Kilo de helado",
-		description: "mmmmmmmmmm... helado...",
+		name: "Brownie con helado",
+		description: "Clásico postre que no podés dejar de probar",
 		stock: 100,
-		imgURL: "https://http2.mlstatic.com/helado-artesanal-por-mayor-x-baldes-p-heladerias-y-restos-D_NQ_NP_660132-MLA31412095474_072019-F.jpg",
+		imgURL: "https://www.johaprato.com/files/styles/flexslider_full/public/brownie_y_helado.jpg?itok=OuwRViML",
 		visible: true,
 		price: 50
 	},
 	{
-		name: "Helado Fancy",
-		description: "No es muy rico, pero es caro.",
+		name: "1/4 de helado",
+		description: "Puede tener hasta 4 sabores.",
 		stock: 100,
-		imgURL: "https://content-recetas.lecturas.com/medio/2018/11/23/copa_de_helado_con_flan_49ae06de_800x800.jpg",
+		imgURL: "https://http2.mlstatic.com/potes-para-helado-de-telgopor-12-kg-pack-100-unidades-D_NQ_NP_577905-MLA25091981361_102016-F.jpg",
 		visible: true,
 		price: 200
 	},
 	{
-		name: "Helado Gris",
-		description: "No tenemos idea de que gusto es, pero su color es gris.",
+		name: "Kilo de helado",
+		description: "Puede tener hasta 4 sabores.",
 		stock: 100,
-		imgURL: "https://s3-media1.fl.yelpcdn.com/bpimgs/MOBs0MgCp8hsWmUyeDSayg/ms.jpg",
+		imgURL: "https://www.yoquiero.com.ar/Img_Productos/Prod_481_1.jpg",
 		visible: true,
-		price: 17
+		price: 300
 	},
 	{
-		name: "Una bocha de helado",
-		description: "Sólo una bocha de helado. Sin cono. Sin pote. Sólo la bocha",
+		name: "2 Kilos de Helado",
+		description: "Aprovechá esta súper oferta!",
 		stock: 100,
-		imgURL: "https://cdn.shopify.com/s/files/1/0092/2815/7033/files/Best_Sellers_Collage_Coffee_5_300x300.jpg?v=1578589575",
+		imgURL: "https://www.somosjujuy.com.ar/wp-content/uploads/2018/11/helader%C3%ADa-ok.jpg",
 		visible: true,
-		price: 2
+		price: 500
 	},
 	{
-		name: "2 bowls de helado",
-		description: "ADVERTENCIA: los bowls se venden por separado",
+		name: "Palito Bombon Helado",
+		description: "Riquísimo helado de amaricana cubierto de chocolate",
 		stock: 100,
-		imgURL: "https://www.nestleusa.com/sites/g/files/pydnoa536/files/dreyers-button-2019.jpg",
+		imgURL: "https://www.cocinayvino.com/wp-content/uploads/2018/03/65862718_ml.jpg",
 		visible: true,
-		price: 15
+		price: 35
 	},
 	{
-		name: "Tramontana SIN dulce de leche",
-		description: "¿Quién fue el sádico que inventó esto?",
+		name: "Paleta de Frutilla a la Crema",
+		description: "Helado de palito ideal para los más chicos.",
 		stock: 100,
-		imgURL: "https://www.nestleusa.com/sites/g/files/pydnoa536/files/haagen-dazs-button-2019.jpg",
-		visible: true,
-		price: 20
-	},
-	{
-		name: "Helado con Brownies y dulce de leche",
-		description: "No se me ocurre ninguna descripción ingeniosa.",
-		stock: 100,
-		imgURL: "https://img.buzzfeed.com/thumbnailer-prod-us-east-1/fae3502166724b28bda94bae54b3e1d7/BFV21242_Ice_Cream_4_Ways_FB.jpg",
-		visible: true,
-		price: 20
-	},
-	{
-		name: "Un bowl gigante de helado de vainilla",
-		description: "Para ahogar todas tus penas en él.",
-		stock: 100,
-		imgURL: "https://www.williams-sonoma.com/wsimgs/ab/images/dp/recipe/201943/0060/img17l.jpg",
-		visible: true,
-		price: 5.3
-	},
-	{
-		name: "Postre helado de Oreo",
-		description: "Armar este seed me esta dando mucha hambre.",
-		stock: 100,
-		imgURL: "https://pbs.twimg.com/media/Co5z5HyWYAA1eaD.jpg:large",
-		visible: true,
-		price: 11.11
-	},
-	{
-		name: "Postre helado de Bailey's",
-		description: "Para ahogar tus penas en helado Y en alcohol.",
-		stock: 100,
-		imgURL: "https://content-recetas.lecturas.com/medio/2018/07/20/paso-a-paso-para-realizar-minipostre-de-tres-chocolates-y-vasitos-de-baileys-y-chocolate-resultado-final_2b0d12c5_800x800.jpg",
+		imgURL: "https://lh3.googleusercontent.com/proxy/bi-S_RLMlpnXULScDxANlNFb9MrqOCOVyTB1pR0I2XElPg_c7D9u37U-surf5exnizVPr5F8eUXuloPJTMgoOUY-ZP46O5dX5Ko_ryrhxO4QNFX40Wf_sA",
 		visible: true,
 		price: 40
+	},
+	{
+		name: "Paletas Frutales al agua",
+		description: "Riquísimas paletas con todo el sabor de la fruta.",
+		stock: 100,
+		imgURL: "https://animalgourmet.com/wp-content/uploads/2019/04/paletas_de_hielo2.jpg",
+		visible: true,
+		price: 25
+	},
+	{
+		name: "Paleta de Mango y Frambuesa",
+		description: "Una paleta frutal con una combinación insuperable de sabor.",
+		stock: 100,
+		imgURL: "https://www.floatingkitchen.net/wp-content/uploads/2015/07/Tequila-Sunrise-Popsicles-3-748x520.jpg",
+		visible: true,
+		price:  45
+	},
+	{
+		name: "Paleta de Frutilla",
+		description: "Disfrutá todo el sabor de la frutilla con esta paleta.",
+		stock: 100,
+		imgURL: "https://www.thespruceeats.com/thmb/fjrWI5i5btaVI9DvtH1cKx8nbvQ=/5010x2818/smart/filters:no_upscale()/homemade-strawberry-ice-popsicle-562544109-588b46ab3df78caebcfcc765.jpg",
+		visible: true,
+		price: 40
+	},
+	{
+		name: "Cono de 3 sabores",
+		description: "Disfrutá tus 3 sabores favoritos en un mismo cono.",
+		stock: 100,
+		imgURL: "https://3ncridad6ai1jg5mt30vexk1-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/italy-ice-cream-2500x1667.jpg",
+		visible: true,
+		price: 60
 	},
 ])
 
