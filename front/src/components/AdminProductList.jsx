@@ -30,7 +30,6 @@ export default ({ product, editProduct, deleteProduct }) => {
                             <img
                                 src="/assets/edit.svg"
                                 className="edit"
-                                onClick={() => editProduct(product.id)}
                             />
                         </Link>
                         <Link to={`/admin/add-categories/${product.id}`}>Categorias</Link>
