@@ -78,7 +78,6 @@ class Purchases extends React.Component {
                   </Col>
                 );
               })}
-              v
             </Row>
           ) : (
             <div style={{ paddingTop: "5%" }}>
