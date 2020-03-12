@@ -1,2 +1,14 @@
-<?xml version="1.0"?>
-<svg xmlns="http://www.w3.org/2000/svg" height="512px" viewBox="0 0 512 512" width="512px"><g><path d="m256 512c-141.164062 0-256-114.835938-256-256s114.835938-256 256-256 256 114.835938 256 256-114.835938 256-256 256zm0-480c-123.519531 0-224 100.480469-224 224s100.480469 224 224 224 224-100.480469 224-224-100.480469-224-224-224zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#000000"/><path d="m368 272h-224c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h224c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#000000"/><path d="m256 384c-8.832031 0-16-7.167969-16-16v-224c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v224c0 8.832031-7.167969 16-16 16zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#000000"/></g> </svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#6B4856;}
+</style>
+<g>
+	<path class="st0" d="M256,512C114.8,512,0,397.2,0,256S114.8,0,256,0s256,114.8,256,256S397.2,512,256,512z M256,32
+		C132.5,32,32,132.5,32,256s100.5,224,224,224s224-100.5,224-224S379.5,32,256,32z"/>
+	<path class="st0" d="M368,235h-91v-91c0-11.6-9.4-21-21-21c-11.6,0-21,9.4-21,21v91h-91c-11.6,0-21,9.4-21,21c0,11.6,9.4,21,21,21
+		h91v91c0,11.6,9.4,21,21,21c11.6,0,21-9.4,21-21v-91h91c11.6,0,21-9.4,21-21C389,244.4,379.6,235,368,235z"/>
+</g>
+</svg>
