@@ -11,14 +11,20 @@ import {
   fetchCart,
   incrementOrder,
   addToCart,
+  fetchFeatured,
   removeFromCart
 } from "../store/actions/cart";
 import { purchaseCart } from "../store/actions/purchase";
 import { goLogin } from "../store/actions/login";
+
 import { Link } from 'react-router-dom'
+import ProductModule from "../components/ProductModule";
+
 class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart();
+
+    this.props.fetchFeatured();
 
     this.handleBuy = this.handleBuy.bind(this);
   }
@@ -107,7 +113,18 @@ class Cart extends React.Component {
           <div style={{ padding: "5% 0 2% 0" }}>
             <Header>También te puede gustar</Header>
           </div>
-          <RandomProducts />
+          <Row>
+            {
+              this.props.featured.map((product,i)=>
+                <ProductModule product={product} index={i} onClick={()=>{
+                  this.props.history.push(`/producto/${product.id}`);
+                }}/>
+                )
+            }
+          </Row>
+
+
+          
         </Container>
       </div>
     );
@@ -117,7 +134,8 @@ class Cart extends React.Component {
 const mapStateToProps = function(state, ownProps) {
   return {
     cart: state.cart.products,
-    user: state.user.user
+    user: state.user.user,
+    featured: state.cart.featured
   };
 };
 
@@ -131,7 +149,8 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     addToCart: productId => dispatch(addToCart(productId)),
     removeFromCart: productId => dispatch(removeFromCart(productId)),
     purchaseCart: () => dispatch(purchaseCart()),
-    goLogin: (history, cb) => dispatch(goLogin(history, cb))
+    goLogin: (history, cb) => dispatch(goLogin(history, cb)),
+    fetchFeatured: () => dispatch(fetchFeatured())
   };
 };
 
