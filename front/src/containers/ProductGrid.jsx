@@ -188,7 +188,6 @@ class ProductGrid extends React.Component {
             </Col>
             <div style={{ padding: "4% 0" }}></div>
           </Row>
-
           <Row>
             {products.length ? (
               products.map((product, i) => (

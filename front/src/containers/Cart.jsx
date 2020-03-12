@@ -19,7 +19,6 @@ import { goLogin } from "../store/actions/login";
 
 import { Link } from "react-router-dom";
 import ProductModule from "../components/ProductModule";
-
 class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart();
@@ -42,10 +41,10 @@ class Cart extends React.Component {
     return (
       <div>
         <Container>
-          <Row>
-            <Col md="8" style={{ paddingTop: "4%" }}>
-              {cart.length ? (
-                <div>
+          {cart.length ? (
+            <div>
+              <Row>
+                <Col md="8" style={{ paddingTop: "4%" }}>
                   <div
                     style={{
                       width: "30px",
@@ -56,9 +55,9 @@ class Cart extends React.Component {
                       marginTop: "-5%"
                     }}
                   >
-                    <Link to="/productos/1">
-                      <img src="/assets/back.svg" />
-                    </Link>
+                      <Link to="/productos/1">
+                        <img src="/assets/back.svg" />
+                      </Link>
                   </div>
                   {cart.map(product => (
                     <CartViewProduct
@@ -68,51 +67,36 @@ class Cart extends React.Component {
                       key={product.id}
                     />
                   ))}
-                </div>
-              ) : (
-                <div style={{ paddingTop: "5%" }}>
-                  <div
+                </Col>
+                <Col md="4">
+                  <Resume cart={cart} handleBuy={this.handleBuy} />
+                </Col>
+              </Row>
+            </div>
+          ) : (
+            <div style={{ paddingTop: "10%" }}>
+              <Row>
+                <Col
+                  md="6"
+                  style={{ paddingLeft: "30%", paddingBottom: "10%" }}
+                >
+                  <img src="/assets/sad-08.png" />
+                </Col>
+                <Col md="6">
+                  <h1
                     style={{
-                      width: "30px",
-                      position: "absolute",
-                      left: "0px",
-                      display: "inline",
-                      marginLeft: "0%",
-                      marginTop: "-7%"
+                      paddingTop: "25%",
+                      color: "#6B4856",
+                      fontWeight: "600"
                     }}
                   >
-                    <Link to="/productos/1">
-                      <img
-                        src="/assets/back.svg"
-                        style={{ display: "inline" }}
-                      />
-                    </Link>
-                  </div>
-                  <Row>
-                    <Col md="5" style={{ paddingLeft: "18%" }}>
-                      <img src="/assets/sad-08.png" />
-                    </Col>
-                    <Col md="7">
-                      <h1
-                        style={{
-                          paddingTop: "25%",
-                          color: "#6B4856",
-                          fontWeight: "600"
-                        }}
-                      >
-                        Tu carrito <br />
-                        está vacío
-                      </h1>
-                    </Col>
-                  </Row>
-                </div>
-              )}
-            </Col>
-
-            <Col md="4">
-              <Resume cart={cart} handleBuy={this.handleBuy} />
-            </Col>
-          </Row>
+                    Tu carrito <br />
+                    está vacío
+                  </h1>
+                </Col>
+              </Row>
+            </div>
+          )}
           <div style={{ padding: "5% 0 2% 0" }}>
             <Header>También te puede gustar</Header>
           </div>

@@ -1,4 +1,4 @@
-const { Product, User, Order, Purchase, ProductPurchase, Review } = require("../models");
+const { Product, User, Order, Purchase, ProductPurchase, Review, Category } = require("../models");
 
 const Promise = require("bluebird");
 
@@ -140,12 +140,12 @@ const productBulkCreate = Product.bulkCreate([
 		price: 35
 	},
 	{
-		name: "Paleta de Frutilla a la Crema",
-		description: "Helado de palito ideal para los más chicos.",
+		name: "Helado de Mora",
+		description: "Probalo y enamorate.",
 		stock: 100,
-		imgURL: "https://lh3.googleusercontent.com/proxy/bi-S_RLMlpnXULScDxANlNFb9MrqOCOVyTB1pR0I2XElPg_c7D9u37U-surf5exnizVPr5F8eUXuloPJTMgoOUY-ZP46O5dX5Ko_ryrhxO4QNFX40Wf_sA",
+		imgURL: "https://i.imgur.com/kjUflOI.jpg",
 		visible: true,
-		price: 40
+		price: 80
 	},
 	{
 		name: "Paletas Frutales al agua",
@@ -179,154 +179,286 @@ const productBulkCreate = Product.bulkCreate([
 		visible: true,
 		price: 60
 	},
+	{
+		name: "Torta Helada Tricolor",
+		description: "Riquísima torta helada de 3 sabores.",
+		stock: 100,
+		imgURL: "https://lh3.googleusercontent.com/proxy/SbB3v21ZugT-dq8NxOyXMa9-ng4G5rVZktnvznywIP5R38av_Bu3PHTsrg7ziQKwqT7kKr0TZcbt86JlXpwXsw4EjuGlwlZlu2CMVW0HcgA49OTfDB6M",
+		visible: true,
+		price: 600
+	},
+	{
+		name: "Torta Helada de Vainillas",
+		description: "Riquísima torta helada con vainillas.",
+		stock: 100,
+		imgURL: "https://www.marubotana.tv/wp-content/uploads/2014/07/torta-helada.jpg",
+		visible: true,
+		price: 60
+	},
+	{
+		name: "Almendrado",
+		description: "Exquisito helado de vainilla con almendras con corazón de dulce de leche.",
+		stock: 100,
+		imgURL: "https://lh3.googleusercontent.com/proxy/XJ7bC4bkZAc-jLHpEKryP3nCeXB4YZ43DqfPdlUEW8e60qXlyaeO766Xjyn9QRihuqh0zqU1F-l_hX8Vm2eyuJb7zcUdvMcJej6fhobO1BVM5IIj1GyoHvY",
+		visible: true,
+		price: 350
+	},
+	{
+		name: "Helado Especial de Pistacho",
+		description: "Riquísimo helado especial de la casa.",
+		stock: 100,
+		imgURL: "https://i.imgur.com/IE4Fh68.jpg",
+		visible: true,
+		price: 120
+	},
+	{
+		name: "Paleta de avellana",
+		description: "Exquisita paleta de americana con avellanas crocantes.",
+		stock: 100,
+		imgURL: "https://i.imgur.com/amw8kPw.jpg",
+		visible: true,
+		price: 60
+	},
+	{
+		name: "Paleta de frambuesa a la crema",
+		description: "Riquísima paleta con todo el sabor de la fruta.",
+		stock: 100,
+		imgURL: "https://i.imgur.com/F1UFKTo.jpg",
+		visible: true,
+		price: 60
+	},
+	{
+		name: "Helado de Chocolate Rocher",
+		description: "Riquísimo helado especial de la casa.",
+		stock: 100,
+		imgURL: "https://i.imgur.com/0kKi0as.jpg",
+		visible: true,
+		price: 130
+		
+	},
+	{
+		name: "Torta Helada de Frambuesa",
+		description: "Riquísima torta helada con todo el sabor de la frambuesa.",
+		stock: 100,
+		imgURL: "https://images-gmi-pmc.edge-generalmills.com/3bd48a86-ffd0-475a-a8bc-091ddd0fae3f.jpg",
+		visible: true,
+		price: 550
+	},
 ])
 
-const userCreate =
-	User.destroy({ where: { email: "admin@mail.com" } })
-		.then(_ =>
-			User.create({
-				email: "admin@mail.com",
-				username: "Admin",
-				password: "123",
-				type: "superAdmin"
-			})
-		)
+const userBulkCreate =
+	User.bulkCreate([
+		{
+			email: "admin@mail.com",
+			username: "Admin",
+			password: "admin123",
+			type: "superAdmin"
+		},
+		{
+			email: "manu@mail.com",
+			username: "Manu",
+			password: "manu123",
+			type: "normal"
+		},
+		{
+			email: "cande@mail.com",
+			username: "Cande",
+			password: "cande123",
+			type: "normal"
+		}, 
+		{
+			email: "jose@mail.com",
+			username: "Jose",
+			password: "jose123",
+			type: "normal"
+		}, 
+		{
+			email: "nacho@mail.com",
+			username: "Nacho",
+			password: "nacho123",
+			type: "normal"
+		}, 
+		{
+			email: "rami@mail.com",
+			username: "Rami",
+			password: "rami123",
+			type: "normal"
+		}
+	])
 
-
-const reviewsBulkCreate = Review.bulkCreate([
+const reviews = [
 	{
 		title: 'Muy rico el helado',
 		content: 'Alto helado, papaaaa',
 		rating: 5,
-		productId: 1
+		productId: 1,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Rico, pero tampoco para tanto',
 		content: 'El helado esta bien',
 		rating: 3,
-		productId: 1
+		productId: 1,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Muy malo',
 		content: 'Malisimo',
 		rating: 2,
-		productId: 1
+		productId: 1,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Alta paleta',
 		content: 'Muy rico y muy pintoresca la paleta',
 		rating: 5,
-		productId: 2
+		productId: 2,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Muy buena paleta',
 		content: "Mira que he probado paletas en mi vida, pero como esta paleta no hay ninguna",
 		rating: 5,
-		productId: 2
+		productId: 2,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'mmmmmmmm',
 		content: 'Mneeeeeehhhhhhh',
 		rating: 3,
-		productId: 2
+		productId: 2,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Riquisima',
 		content: 'Muy rica y llegaron bolando. Je',
 		rating: 4,
-		productId: 3
+		productId: 3,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Muy Bien',
 		content: 'Cumplieron con la entrega y llego rapido',
 		rating: 4,
-		productId: 4
+		productId: 4,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'El mejor helado que probe en mi vida',
 		content: 'Bueno, tampoco para tanto, je',
 		rating: 4,
-		productId: 4
+		productId: 4,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Bien',
 		content: 'Bien',
 		rating: 3,
-		productId: 5
+		productId: 5,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Manso helado',
 		content: 'Alto helado, man',
 		rating: 5,
-		productId: 6
+		productId: 6,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Nice gellatto, mate',
 		content: 'Love it',
 		rating: 4,
-		productId: 7
+		productId: 7,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'No me llego',
 		content: 'Vivo en Palermo y, hasta donde yo se, el drone se termino perdiendo en Lanus',
 		rating: 1,
-		productId: 8
+		productId: 8,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Gran helado',
 		content: 'enorme',
 		rating: 4,
-		productId: 9
+		productId: 9,
+		userId: Math.floor(Math.random()*5)+2
 	},
 	{
 		title: 'Rapido pero mas o menos',
 		content: 'La entrega fue rapidisima, me llego a la ventana de mi cuarto, pero el gusto me parecio medio flojo',
 		rating: 3,
-		productId: 16
+		productId: 16,
+		userId: Math.floor(Math.random()*5)+2
 	}, {
 		title: 'Espectacular',
 		content: 'Divino',
 		rating: 5,
-		productId: 15
+		productId: 15,
+		userId: Math.floor(Math.random()*5)+2
 	}, {
 		title: 'De puta madre',
 		content: 'Quiero comer este helado todos los dias de mi vida',
 		rating: 5,
-		productId: 14
+		productId: 14,
+		userId: Math.floor(Math.random()*5)+2
 	}, {
 		title: 'Terrible, me llego todo derretido',
 		content: 'Horrible',
 		rating: 1,
-		productId: 13
+		productId: 13,
+		userId: Math.floor(Math.random()*5)+2
 	}, {
 		title: 'Piolisimo helado',
 		content: 'Muy pero demasiado piola',
 		rating: 5,
-		productId: 12
+		productId: 12,
+		userId: Math.floor(Math.random()*5)+2
 	}, {
 		title: 'Bien',
 		content: 'Bueno',
 		rating: 3,
-		productId: 11
+		productId: 11,
+		userId: Math.floor(Math.random()*5)+2
 	}, {
 		title: 'Rico',
 		content: 'Sin comentarios',
 		rating: 3,
-		productId: 10
-	}
+		productId: 10,
+		userId: Math.floor(Math.random()*5)+2
+	},
 
-])
+]
 
 
 
+const categories = [
+	{
+		name: "Por Peso",
+		products: [12, 13, 14]
+	},
+	{
+		name: "Postres",
+		products: [2, 5, 6, 7, 11]
+	},
+	{
+		name: "Paletas",
+		products: [15, 17, 18, 19 , 25, 26]
+	},
+	{
+		name: "Tortas Heladas",
+		products: [21, 22, 23, 28]
+	},
 
+]
 
 
 let _user = null;
 let _products = null;
 let _reviews = null;
 
-Promise.all([productBulkCreate, userCreate, reviewsBulkCreate])
+Promise.all([productBulkCreate, userBulkCreate])
 	.then(([products, user, reviews]) => {
 		products.forEach(logProduct)
 		//logUser(user)
@@ -334,7 +466,17 @@ Promise.all([productBulkCreate, userCreate, reviewsBulkCreate])
 		_user = user;
 		_products = products;
 		_reviews = reviews
-
+	})
+	.then(()=> {
+		return Review.bulkCreate(reviews)
+	})
+	.then(()=> {
+		Promise.all(categories.map(category => {
+			Category.create({name: category.name})
+			.then(cat => {
+				cat.addProducts(category.products)
+			})
+		}))
 	})
 /*
 

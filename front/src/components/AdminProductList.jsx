@@ -40,7 +40,6 @@ export default ({ product, editProduct, deleteProduct }) => {
           </div>
         </Col>
       </Row>
-
       <hr />
     </Container>
   );
