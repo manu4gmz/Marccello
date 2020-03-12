@@ -12,7 +12,7 @@ import {
 } from "../store/actions/products";
 import { fetchCategories } from "../store/actions/category";
 import Input from "../components/Input";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 function debounce(func, wait, immediate) {
   var timeout;
@@ -131,12 +131,13 @@ class ProductGrid extends React.Component {
                   {i ? <span className="mx-2"> | </span> : null}
                   {this.state.category == category.id ? (
                     <p>
-                      <strong className="d-inline ">{category.name}</strong>
+                      <strong style={{cursor:"pointer"}} className="d-inline ">{category.name}</strong>
                     </p>
                   ) : (
                     <p
                       className="d-inline "
                       onClick={() => this.categoryClick(category.id)}
+                      style={{cursor:"pointer"}}
                     >
                       {category.name}
                     </p>
@@ -261,4 +262,4 @@ const mapDispatchToProps = function(dispatch, ownProps) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductGrid);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductGrid))

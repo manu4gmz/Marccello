@@ -10,7 +10,7 @@ import {
   Dropdown,
   Alert
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Input from "../components/Input";
 import Icon from "../components/Icon";
 import { connect } from "react-redux";
@@ -83,10 +83,10 @@ class MainNavbar extends Component {
             ) : null}
 
             <Form inline className="ml-auto">
+              
               <Link to="/productos" className="mr-3 text-muted">
                 Productos
               </Link>
-              <Input placeholder="Search" search={true} className="mr-sm-2" />
               <Link to="/carrito">
                 <Icon src="/assets/supermarket.svg" />
               </Link>
@@ -107,7 +107,6 @@ class MainNavbar extends Component {
                       <Dropdown.Divider></Dropdown.Divider>
                       {user.type !== 'normal' ? (
                         <Dropdown.Item>
-
                           <Link to="/admin/orders">
                             Admin
                         </Link>
@@ -122,11 +121,11 @@ class MainNavbar extends Component {
                     </Fragment>
                   ) : (
                       <Fragment>
-                        <Dropdown.Item>
-                          <Link to="/login">Inicia sesión</Link>
+                        <Dropdown.Item onClick={(e)=> this.props.history.push(`/login`)}>
+                          Inicia sesión
                         </Dropdown.Item>
-                        <Dropdown.Item>
-                          <Link to="/register">Registrate</Link>
+                        <Dropdown.Item onClick={(e)=> this.props.history.push(`/register`)}>
+                          Registrate
                         </Dropdown.Item>
                       </Fragment>
                     )}
@@ -158,4 +157,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getLoggedUser: () => dispatch(getLoggedUser())
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainNavbar))
