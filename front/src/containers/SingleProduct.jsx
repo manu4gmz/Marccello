@@ -99,9 +99,8 @@ class SingleProduct extends Component {
                   marginTop: "3%"
                 }}
               >
-                <Link to="/productos/1">
-                  <img src="/assets/back.svg" />
-                </Link>
+                
+                  <img src="/assets/back.svg" onClick={this.props.history.goBack}/>
               </div>
             </Col>
             <Col md="3" className="px-0">
