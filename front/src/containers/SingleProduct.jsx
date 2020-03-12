@@ -213,7 +213,9 @@ class SingleProduct extends Component {
               "Tenés que comprar el producto para dejar tu reseña!"
             )
           ) : (
-            "Iniciá sesión para dejar una reseña!"
+            <p>
+              <i>Iniciá sesión para dejar una reseña!</i>
+            </p>
           )}
           <br />
           <br />
@@ -222,32 +224,65 @@ class SingleProduct extends Component {
             ? reviews.map(review => {
                 return (
                   <div key={review.id}>
+                    <Row>
+                      <Col md="3">
+                        <p
+                          style={{
+                            display: "inline-block",
+                            fontSize: "18px",
+                            fontWeight: "600",
+                            display: "inline-block"
+                          }}
+                        >
+                          {review.title}
+                        </p>
+                        <p
+                          style={{
+                            fontSize: "13px",
+                            display: "inline-block",
+                            paddingLeft: "5%"
+                          }}
+                        >
+                          <i>{review.user}</i>
+                        </p>
+                      </Col>
+                      <Col md="3">
+                        <Image
+                          style={{
+                            width: "15px",
+                            display: "inline",
+                            marginTop: "-2%"
+                          }}
+                          src="/assets/Fstar.svg"
+                        />
+                        <p
+                          style={{ paddingLeft: "3%", display: "inline-block" }}
+                        >
+                          {" "}
+                          {review.rating}
+                        </p>
+                      </Col>
+                    </Row>
                     <p
                       style={{
-                        fontSize: "23px",
-                        fontWeight: "600",
-                        display: "inline-block"
-                      }}
-                    >
-                      {review.user} - {review.title}
-                    </p>
-                    <p style={{ paddingLeft: "7%", display: "inline-block" }}>
-                      {" "}
-                      {review.rating}
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "17px"
+                        fontSize: "15px"
                       }}
                     >
                       {review.content}
                     </p>
+
+                    <div style={{ padding: "2% 0" }}>
+                      {" "}
+                      <Col md="4">
+                        <hr />
+                      </Col>
+                    </div>
                   </div>
                 );
               })
             : "No hay comentarios todavía"}
         </Container>
-        <div style={{ padding: "5%" }}></div>
+        <div style={{ padding: "3%" }}></div>
       </div>
     );
   }
