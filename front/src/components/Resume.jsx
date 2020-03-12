@@ -8,7 +8,7 @@ export default ({cart, handleBuy}) => {
 	const totalCount =
       round(
         cart.length
-          ? cart.map(p => p.order.amount).reduce((acc, c) => acc + c)
+          ? cart.map(p => p.order.amount).reduce((acc, c) => Number(acc) + Number(c))
           : 0
       );
     const totalPrice =
