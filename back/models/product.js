@@ -45,7 +45,7 @@ Product.prototype.rating = function () {
     return Review.findAll({ where: { productId: this.id } })
         .then(data => {
             let acc = 0;
-            for (let i = 0; i < data.length; i++) acc += data[i].rating;
+            for (let i = 0; i < data.length; i++) acc += Number(data[i].rating);
             return data.length ? Math.round((acc / data.length) * 10) / 10 : 5
         })
 
