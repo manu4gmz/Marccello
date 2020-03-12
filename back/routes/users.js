@@ -34,8 +34,13 @@ router.get('/checkLogUser', (req, res) => {
         res.send({ user: null, logged: false }) 
 })
 
+function isSuperAdmin(req, res, next) {
+	if (req.isAuthenticated() && (req.user.type == "superAdmin")) next();
+	else res.status(401).send({ msg: "Flasheaste man, solo capos" })
+}
+
 //devuelve los usuarios
-router.get('/', (req, res) => {
+router.get('/', isSuperAdmin, (req, res) => {
     User.findAll(
         {
             where: {
@@ -49,7 +54,7 @@ router.get('/', (req, res) => {
 })
 
 //promueve un usuario
-router.get('/promote/:id', (req, res) => {
+router.get('/promote/:id', isSuperAdmin, (req, res) => {
     User.findByPk(req.params.id)
     .then(user => {
         user.update({
@@ -61,7 +66,7 @@ router.get('/promote/:id', (req, res) => {
 })
 
 //degradar un usuario
-router.get('/demote/:id', (req, res) => {
+router.get('/demote/:id', isSuperAdmin, (req, res) => {
     User.findByPk(req.params.id)
     .then(user => {
         user.update({
