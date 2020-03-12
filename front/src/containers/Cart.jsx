@@ -18,7 +18,6 @@ import { purchaseCart } from "../store/actions/purchase";
 import { goLogin } from "../store/actions/login";
 import ProductModule from "../components/ProductModule";
 
-
 class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart();
@@ -41,10 +40,10 @@ class Cart extends React.Component {
     return (
       <div>
         <Container>
-          <Row>
-            <Col md="8" style={{ paddingTop: "4%" }}>
-              {cart.length ? (
-                <div>
+          {cart.length ? (
+            <div>
+              <Row>
+                <Col md="8" style={{ paddingTop: "4%" }}>
                   {cart.map(product => (
                     <CartViewProduct
                       product={product}
@@ -53,49 +52,51 @@ class Cart extends React.Component {
                       key={product.id}
                     />
                   ))}
-                </div>
-              ) : (
-                <div style={{ paddingTop: "5%" }}>
-                  <Row>
-                    <Col md="5" style={{ paddingLeft: "18%" }}>
-                      <img src="/assets/sad-08.png" />
-                    </Col>
-                    <Col md="7">
-                      <h1
-                        style={{
-                          paddingTop: "25%",
-                          color: "#6B4856",
-                          fontWeight: "600"
-                        }}
-                      >
-                        Tu carrito <br />
-                        está vacío
-                      </h1>
-                    </Col>
-                  </Row>
-                </div>
-              )}
-            </Col>
+                </Col>
+                <Col md="4">
+                  <Resume cart={cart} handleBuy={this.handleBuy} />
+                </Col>
+              </Row>
+            </div>
+          ) : (
+            <div style={{ paddingTop: "10%" }}>
+              <Row>
+                <Col
+                  md="6"
+                  style={{ paddingLeft: "30%", paddingBottom: "10%" }}
+                >
+                  <img src="/assets/sad-08.png" />
+                </Col>
+                <Col md="6">
+                  <h1
+                    style={{
+                      paddingTop: "25%",
+                      color: "#6B4856",
+                      fontWeight: "600"
+                    }}
+                  >
+                    Tu carrito <br />
+                    está vacío
+                  </h1>
+                </Col>
+              </Row>
+            </div>
+          )}
 
-            <Col md="4">
-              <Resume cart={cart} handleBuy={this.handleBuy} />
-            </Col>
-          </Row>
           <div style={{ padding: "5% 0 2% 0" }}>
             <Header>También te puede gustar</Header>
           </div>
           <Row>
-            {
-              this.props.featured.map((product,i)=>
-                <ProductModule product={product} index={i} onClick={()=>{
+            {this.props.featured.map((product, i) => (
+              <ProductModule
+                product={product}
+                index={i}
+                onClick={() => {
                   this.props.history.push(`/producto/${product.id}`);
-                }}/>
-                )
-            }
+                }}
+              />
+            ))}
           </Row>
-
-
-          
         </Container>
       </div>
     );
