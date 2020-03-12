@@ -20,6 +20,7 @@ Drone.prototype.step = function () {
 	if (this.distance() < this.speed) { 
 		this.x = this.destination.x;
 		this.y = this.destination.y;
+		return;
 	}
 	this.x += Math.cos(this.orientation)*this.speed;
 	this.y += Math.sin(this.orientation)*this.speed;
