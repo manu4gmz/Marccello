@@ -129,6 +129,8 @@ class ProductGrid extends React.Component {
           <br />
 
           <Header>Productos</Header>
+          <div style={{ padding: "1% 0" }}></div>
+
           <Row>
             {[...categories, { id: 0, name: "Todos" }].map((category, i) => {
               return (
@@ -136,13 +138,18 @@ class ProductGrid extends React.Component {
                   {i ? <span className="mx-2"> | </span> : null}
                   {this.state.category == category.id ? (
                     <p>
-                      <strong style={{cursor:"pointer"}} className="d-inline ">{category.name}</strong>
+                      <strong
+                        style={{ cursor: "pointer" }}
+                        className="d-inline "
+                      >
+                        {category.name}
+                      </strong>
                     </p>
                   ) : (
                     <p
                       className="d-inline "
                       onClick={() => this.categoryClick(category.id)}
-                      style={{cursor:"pointer"}}
+                      style={{ cursor: "pointer" }}
                     >
                       {category.name}
                     </p>
@@ -169,7 +176,7 @@ class ProductGrid extends React.Component {
               <div className="inputContainer">
                 <select onChange={this.handleSelect}>
                   <option value="" disabled selected>
-                    Ordenar
+                    Filtrar
                   </option>
                   <option value="hp">Mayor precio</option>
                   <option value="lp">Menor precio</option>
@@ -178,32 +185,22 @@ class ProductGrid extends React.Component {
                 </select>
               </div>
             </Col>
+            <div style={{ padding: "4% 0" }}></div>
           </Row>
 
-          {/* <Col md = {3}>
-             <Link to="/productos" className="mr-3 text-muted">Productos</Link>
-          </Col> */}
-
-          {/* <Row>
-            <Col md="4">Helados | Paletas | Postres | Todo</Col>
-            <Col md="4">
-              <input>PRUEBA</input>
-            </Col>
-            <Col md="4">
-              <Button1 buttonTxt={"Filtros +"} />{" "}
-            </Col>
-          </Row> */}
-
-          <Row style={{ minHeight: "80vh", marginTop: "20px" }}>
-            {products.map(product => (
+          <Row style={{ minHeight: "80vh"}}>
+            {products.map((product, i) => (
               <ProductModule
                 alreadyCart={cart.map(p => p.id).includes(product.id)}
                 product={product}
                 onClick={this.onClick}
                 key={product.id}
+                index={i}
               />
             ))}
           </Row>
+          <div style={{ padding: "1%" }}></div>
+
           <Row className="my-5 py-3">
             <Col md="2">
               {actual !== 1 ? (
@@ -212,7 +209,7 @@ class ProductGrid extends React.Component {
                   to={`/productos/${actual - 1}`}
                   onClick={() => this.props.setPage(actual - 2)}
                 >
-                  Ver anterior
+                  Anterior
                 </Link>
               ) : null}
             </Col>
@@ -233,13 +230,13 @@ class ProductGrid extends React.Component {
               </h5>
             </Col>
             <Col md="2">
-              {actual !== max ? (
+              {actual !== max && products.length ? (
                 <Link
                   className="ml-3"
                   to={`/productos/${actual + 1}`}
                   onClick={() => this.props.setPage(actual)}
                 >
-                  Ver siguiente
+                  Siguiente
                 </Link>
               ) : null}
             </Col>
@@ -269,4 +266,6 @@ const mapDispatchToProps = function(dispatch, ownProps) {
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductGrid))
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ProductGrid)
+);

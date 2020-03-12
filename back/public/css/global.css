@@ -1,6 +1,6 @@
 .mainHero {
   background-attachment: fixed;
-  background-size: contain;
+  background-size: 100%;
   background-repeat: no-repeat;
 }
 
@@ -127,7 +127,7 @@
   .mainHero h1 {
     text-shadow: black 6px 5px 12px;
     font-size: 40px;
-    color: #ffffff;
+    color: #ffffff !important ;
     padding-top: 12%;
   }
 
