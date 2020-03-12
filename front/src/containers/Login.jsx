@@ -34,7 +34,7 @@ class Login extends React.Component {
       };
       this.props
         .login(obj)
-        .then((redirect) => {
+        .then(redirect => {
           this.setState({ error: false });
           return redirect;
         })
@@ -42,7 +42,7 @@ class Login extends React.Component {
           if (redirect) this.props.history.push("/");
           this.props.moveLocalToLogged().then(() => this.props.fetchCart());
           this.props.setNotification(`Bienvenido ${obj.username}`);
-          console.log("REDIRECT \n\n\n\n", redirect)
+          console.log("REDIRECT \n\n\n\n", redirect);
         })
         .catch(() => this.setState({ error: true }));
     }
@@ -55,53 +55,64 @@ class Login extends React.Component {
 
     return (
       <Container className="mt-2 mb-5">
+        <div style={{ padding: "2%" }}></div>
+
         <br />
         <br />
-        <Header>Iniciá sesión</Header>
-        <Col md={6} className="mx-auto">
-          <br />
+        <Row>
+          <Col md="5">
+            <div style={{ paddingLeft: "20%" }}>
+              <img src="/assets/happy-10.png" />
+            </div>
+          </Col>
+          <Col md="7" className="mx-auto">
+            <Header>
+              <b>¡Volviste!</b> Te extrañábamos
+            </Header>
 
-          <b>
-            <p>Ingresá tus datos. </p>
-          </b>
-          <hr />
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group>
-              <label>Username</label>
-              <Input
-                onChange={this.handleChange}
-                name="username"
-                type="text"
-                placeholder="juan@email.com"
-                value={this.state.username}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label>Contraseña</label>
-              <Input
-                onChange={this.handleChange}
-                name="password"
-                type="password"
-                placeholder="********"
-                value={this.state.password}
-              />
-              {this.state.error ? (
-                <div
-                  className="alert alert-danger"
-                  style={alertStyle}
-                  role="alert"
-                >
-                  El nombre de usuario o contraseña es incorrecto
-                </div>
-              ) : null}
-            </Form.Group>
-            <Link to="/register"> O creá un nuevo usuario.</Link>
-            <br />
-            <br />
+            <b>
+              <p>Ingresá tus datos. </p>
+            </b>
+            <hr />
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group>
+                <label>Username</label>
+                <Input
+                  onChange={this.handleChange}
+                  name="username"
+                  type="text"
+                  placeholder="juan@email.com"
+                  value={this.state.username}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label>Contraseña</label>
+                <Input
+                  onChange={this.handleChange}
+                  name="password"
+                  type="password"
+                  placeholder="********"
+                  value={this.state.password}
+                />
+                {this.state.error ? (
+                  <div
+                    className="alert alert-danger"
+                    style={alertStyle}
+                    role="alert"
+                  >
+                    El nombre de usuario o contraseña es incorrecto
+                  </div>
+                ) : null}
+              </Form.Group>
+              <Link to="/register"> O creá un nuevo usuario.</Link>
+              <br />
+              <br />
 
-            <Button type="submit" buttonTxt={"Iniciar sesión"} />
-          </Form>
-        </Col>
+              <Button type="submit" buttonTxt={"Iniciar sesión"} />
+            </Form>
+          </Col>
+        </Row>
+        <div style={{ padding: "3%" }}></div>
       </Container>
     );
   }

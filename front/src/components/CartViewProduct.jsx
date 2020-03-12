@@ -13,9 +13,6 @@ export default ({ product, changeAmount, removeFromCart }) => {
         </Col>
         <Col md="4" style={{ marginLeft: "13px" }}>
           <h4 style={{ marginTop: "19%" }}>{product.name}</h4>
-          {/* <a className="dele">
-            <i>Eliminar</i>
-          </a> */}
         </Col>
         <Col md="5">
           <div style={{ marginTop: "13%" }}>
@@ -51,11 +48,7 @@ export default ({ product, changeAmount, removeFromCart }) => {
           </div>
         </Col>
       </Row>
-      {
-        product.alert ? 
-          <h4 className="text-danger">{product.alert}</h4>
-          : null
-      }
+      {product.alert ? <h4 className="text-danger">{product.alert}</h4> : null}
       <hr />
     </Container>
   );

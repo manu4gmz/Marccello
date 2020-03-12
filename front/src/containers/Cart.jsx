@@ -19,36 +19,61 @@ import { goLogin } from "../store/actions/login";
 class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart();
-  
+
     this.handleBuy = this.handleBuy.bind(this);
   }
 
-  handleBuy () {
-    if (!this.props.user.id) this.props.goLogin(this.props.history, ()=>{
-      this.props.history.push("/confirm-purchase")
-    })
+  handleBuy() {
+    if (!this.props.user.id)
+      this.props.goLogin(this.props.history, () => {
+        this.props.history.push("/confirm-purchase");
+      });
     else this.props.history.push("/confirm-purchase");
   }
 
   render() {
     const cart = this.props.cart;
-    
     return (
       <div>
         <Container>
           <Row>
             <Col md="8" style={{ paddingTop: "4%" }}>
-              {cart.map(product => (
-                <CartViewProduct
-                  product={product}
-                  changeAmount={this.props.incrementOrder}
-                  removeFromCart={this.props.removeFromCart}
-                  key={product.id}
-                />
-              ))}
+              {cart.length ? (
+                <div>
+                  {cart.map(product => (
+                    <CartViewProduct
+                      product={product}
+                      changeAmount={this.props.incrementOrder}
+                      removeFromCart={this.props.removeFromCart}
+                      key={product.id}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div style={{ paddingTop: "5%" }}>
+                  <Row>
+                    <Col md="5" style={{ paddingLeft: "18%" }}>
+                      <img src="/assets/sad-08.png" />
+                    </Col>
+                    <Col md="7">
+                      <h1
+                        style={{
+                          paddingTop: "25%",
+                          color: "#6B4856",
+                          fontWeight: "600"
+                        }}
+                      >
+                        Tu carrito <br />
+                        está vacío
+                      </h1>
+                    </Col>
+                  </Row>
+                </div>
+              )}
             </Col>
+
             <Col md="4">
-              <Resume cart={cart} handleBuy={this.handleBuy}/>
+              <Resume cart={cart} handleBuy={this.handleBuy} />
             </Col>
           </Row>
           <div style={{ padding: "5% 0 2% 0" }}>
@@ -69,8 +94,8 @@ const mapStateToProps = function(state, ownProps) {
 };
 
 const mapDispatchToProps = function(dispatch, ownProps) {
-  console.log("OWNPROPS \n\n\n\n", ownProps)
-  
+  console.log("OWNPROPS \n\n\n\n", ownProps);
+
   return {
     fetchCart: () => dispatch(fetchCart()),
     incrementOrder: (productId, num) =>
@@ -78,7 +103,7 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     addToCart: productId => dispatch(addToCart(productId)),
     removeFromCart: productId => dispatch(removeFromCart(productId)),
     purchaseCart: () => dispatch(purchaseCart()),
-    goLogin: (history, cb)=>dispatch(goLogin(history, cb)) 
+    goLogin: (history, cb) => dispatch(goLogin(history, cb))
   };
 };
 

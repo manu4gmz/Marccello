@@ -1,22 +1,23 @@
 import React, { Component } from "react";
 import Button from "../components/Button";
 import { Jumbotron, Row, Col, Container, Image, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Input from "../components/Input.jsx";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/actions/products";
-import {setNotification, setAddCart} from "../store/actions/notif";
-import {fetchReviews, newReview} from "../store/actions/reviews";
-import {fetchPurchases} from "../store/actions/purchases";
+import { setNotification, setAddCart } from "../store/actions/notif";
+import { fetchReviews, newReview } from "../store/actions/reviews";
+import { fetchPurchases } from "../store/actions/purchases";
 import { addToCart } from "../store/actions/cart";
-import ReactStars from 'react-stars'
+import ReactStars from "react-stars";
 
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.ratingChanged = this.ratingChanged.bind(this)
+    this.ratingChanged = this.ratingChanged.bind(this);
 
     this.state = {
       title: "",
@@ -28,7 +29,7 @@ class SingleProduct extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   ratingChanged(newRating) {
-    this.setState({rating: newRating})
+    this.setState({ rating: newRating });
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -37,22 +38,23 @@ class SingleProduct extends Component {
       content: this.state.content,
       rating: this.state.rating
     };
-    this.props.newReview(obj, this.props.match.params.id)
-    .then(() => {
-      if (obj.rating > 2) {
-        this.props.setNotification("¡Muchas gracias por tu reseña!");
-      } else {
-        this.props.setNotification("Gracias eh...");
-      }
-    })
-    .then(() => this.props.fetchReviews(this.props.match.params.id))
+    this.props
+      .newReview(obj, this.props.match.params.id)
+      .then(() => {
+        if (obj.rating > 2) {
+          this.props.setNotification("¡Muchas gracias por tu reseña!");
+        } else {
+          this.props.setNotification("Gracias eh...");
+        }
+      })
+      .then(() => this.props.fetchReviews(this.props.match.params.id));
   }
 
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.fetchProduct(id);
     this.props.fetchReviews(id);
-    this.props.fetchPurchases()
+    this.props.fetchPurchases();
   }
 
   render() {
@@ -97,7 +99,9 @@ class SingleProduct extends Component {
                   marginTop: "3%"
                 }}
               >
-                <img src="/assets/back.svg" />
+                <Link to="/productos/1">
+                  <img src="/assets/back.svg" />
+                </Link>
               </div>
             </Col>
             <Col md="3" className="px-0">
@@ -140,7 +144,14 @@ class SingleProduct extends Component {
                     float: "right"
                   }}
                 >
-                  <Button buttonTxt={"Agregar"} buttonClass={"buttonDark"} onClick={()=>{this.props.addToCart(product.id); this.props.setAddCart(product.name)}}/>
+                  <Button
+                    buttonTxt={"Agregar"}
+                    buttonClass={"buttonDark"}
+                    onClick={() => {
+                      this.props.addToCart(product.id);
+                      this.props.setAddCart(product.name);
+                    }}
+                  />
                 </div>
               </div>
             </Col>
@@ -152,8 +163,11 @@ class SingleProduct extends Component {
 
           <Header>Comentarios</Header>
           {user.username &&
-          !reviews.map(review => review.userId).includes(user.id) && 
-          purchases.map(purchase => purchase.products.map(producto => producto.id)).flat(1).includes(product.id) ? (
+          !reviews.map(review => review.userId).includes(user.id) &&
+          purchases
+            .map(purchase => purchase.products.map(producto => producto.id))
+            .flat(1)
+            .includes(product.id) ? (
             <div>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
@@ -169,33 +183,37 @@ class SingleProduct extends Component {
                 <Form.Group>
                   <label>Rating</label>
                   <ReactStars
-                  name= "rating"
-                  value={this.state.rating}
-                  count={5}
-                  onChange={this.ratingChanged}
-                  size={24}
-                  color2={'#ffd700'} 
+                    name="rating"
+                    value={this.state.rating}
+                    count={5}
+                    onChange={this.ratingChanged}
+                    size={24}
+                    color2={"#ffd700"}
                   />
                 </Form.Group>
                 <Form.Group>
-                  <label>Contenido</label>
+                  <label>Comentario</label>
                   <Input
                     onChange={this.handleChange}
                     name="content"
                     type="content"
-                    placeholder="Contenido"
+                    placeholder="Dejanos tu comentario"
                     value={this.state.content}
                     type="text"
                   />
                 </Form.Group>
 
-                <Button buttonTxt={"Dejar comentario"} />
+                <Button buttonTxt={"Confirmar"} />
               </Form>
             </div>
-          ) : user.username ? reviews.map(review => review.userId).includes(user.id)? (
-            "Gracias por tu reseña!"
-          ) : ("Tenés que comprar el producto para dejar una reseña!") : (
-            "Tenés que estar loggeado para dejar una reseña."
+          ) : user.username ? (
+            reviews.map(review => review.userId).includes(user.id) ? (
+              "Gracias por tu reseña!"
+            ) : (
+              "Tenés que comprar el producto para dejar tu reseña!"
+            )
+          ) : (
+            "Iniciá sesión para dejar una reseña!"
           )}
           <br />
           <br />
@@ -204,14 +222,32 @@ class SingleProduct extends Component {
             ? reviews.map(review => {
                 return (
                   <div key={review.id}>
-                    <h4>{review.user} - {review.title}</h4>
-                    <p> {review.rating}</p>
-                    <p>{review.content}</p>
+                    <p
+                      style={{
+                        fontSize: "23px",
+                        fontWeight: "600",
+                        display: "inline-block"
+                      }}
+                    >
+                      {review.user} - {review.title}
+                    </p>
+                    <p style={{ paddingLeft: "7%", display: "inline-block" }}>
+                      {" "}
+                      {review.rating}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "17px"
+                      }}
+                    >
+                      {review.content}
+                    </p>
                   </div>
                 );
               })
             : "No hay comentarios todavía"}
         </Container>
+        <div style={{ padding: "5%" }}></div>
       </div>
     );
   }
@@ -234,9 +270,9 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchReviews: id => dispatch(fetchReviews(id)),
     newReview: (review, producto) => dispatch(newReview(review, producto)),
-    setNotification: (msg) => dispatch(setNotification(msg)),
-    setAddCart: (prod) => dispatch(setAddCart(prod)),
-    fetchPurchases: () => dispatch(fetchPurchases()),
+    setNotification: msg => dispatch(setNotification(msg)),
+    setAddCart: prod => dispatch(setAddCart(prod)),
+    fetchPurchases: () => dispatch(fetchPurchases())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

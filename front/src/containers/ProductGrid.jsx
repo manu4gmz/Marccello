@@ -17,7 +17,8 @@ import { Link, withRouter } from "react-router-dom";
 function debounce(func, wait, immediate) {
   var timeout;
   return function() {
-    var context = this, args = arguments;
+    var context = this,
+      args = arguments;
     var later = function() {
       timeout = null;
       if (!immediate) func.apply(context, args);
@@ -27,7 +28,7 @@ function debounce(func, wait, immediate) {
     timeout = setTimeout(later, wait);
     if (callNow) func.apply(context, args);
   };
-};
+}
 
 class ProductGrid extends React.Component {
   constructor(props) {
@@ -35,31 +36,34 @@ class ProductGrid extends React.Component {
     this.state = {
       product: "",
       category: 0,
-      sorting: "",
+      sorting: ""
     };
     this.handleInput = this.handleInput.bind(this);
     this.onClick = this.onClick.bind(this);
     this.categoryClick = this.categoryClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-    this.search = debounce(this.search.bind(this),200)
+    this.search = debounce(this.search.bind(this), 200);
   }
 
   search() {
     const product = this.state.product;
     const search = product.length >= 2 ? product : null;
     (this.state.category
-      ? this.props.fetchCatProduct(this.state.category, search, this.state.sorting)
-      : this.props.fetchProducts(search, this.state.sorting))
-    .then(()=> this.props.setPage(this.props.match.params.index - 1))
+      ? this.props.fetchCatProduct(
+          this.state.category,
+          search,
+          this.state.sorting
+        )
+      : this.props.fetchProducts(search, this.state.sorting)
+    ).then(() => this.props.setPage(this.props.match.params.index - 1));
     this.props.history.push(`/productos/1`);
     this.props.setPage(1);
   }
 
   componentDidMount() {
-    this.props.fetchProducts()
-    .then(()=>{
+    this.props.fetchProducts().then(() => {
       this.props.setPage(this.props.match.params.index - 1);
-    })
+    });
     this.props.fetchCategories();
   }
 
@@ -75,7 +79,7 @@ class ProductGrid extends React.Component {
 
   handleSelect(e) {
     const sorting = e.target.value;
-    this.setState({sorting});
+    this.setState({ sorting });
     this.search();
   }
 
@@ -88,6 +92,7 @@ class ProductGrid extends React.Component {
     const img = {
       backgroundImage:
         "url(/assets/summer-chocolate-ice-cream-P7YWKEYslide.jpg)",
+      paddingBottom: "8%"
     };
     const { products, cart, categories } = this.props;
 
@@ -113,7 +118,7 @@ class ProductGrid extends React.Component {
         <Jumbotron style={img} className="mainHero">
           <Container>
             <Col md="5" className="px-0">
-              <h1>
+              <h1 style={{ color: "#6b4856" }}>
                 Helados <br />
                 artesanales
               </h1>
@@ -162,13 +167,15 @@ class ProductGrid extends React.Component {
 
             <Col md={3} className="ml-auto">
               <div className="inputContainer">
-              <select onChange={this.handleSelect}>
-                <option value="" disabled selected>Ordenar</option>
-                <option value="hp">Mayor precio</option>
-                <option value="lp">Menor precio</option>
-                <option value="hr">Mejor Rating</option>
-                <option value="lr">Peor Rating</option>
-              </select>
+                <select onChange={this.handleSelect}>
+                  <option value="" disabled selected>
+                    Ordenar
+                  </option>
+                  <option value="hp">Mayor precio</option>
+                  <option value="lp">Menor precio</option>
+                  <option value="hr">Mejor Rating</option>
+                  <option value="lr">Peor Rating</option>
+                </select>
               </div>
             </Col>
           </Row>
