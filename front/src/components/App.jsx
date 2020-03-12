@@ -15,6 +15,7 @@ import Cart from "../containers/Cart";
 import Admin from "./Admin";
 import Drone from "./Drone";
 import UsersContainer from "../containers/UsersContainer";
+import NotFound from "./NotFound";
 
 export default function() {
   return (
@@ -32,6 +33,9 @@ export default function() {
         <Route path="/purchases" exact component={Purchases} />
         <Route path="/producto/:id" component={SingleProduct} />
         <Route exact path="/" component={Landing} />
+        <Route exact path="/not-found" component={NotFound} />
+
+        <Redirect path="/" to="/not-found" />
       </Switch>
       <Footer />
     </Fragment>
