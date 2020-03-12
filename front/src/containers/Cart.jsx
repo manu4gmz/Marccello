@@ -16,8 +16,8 @@ import {
 } from "../store/actions/cart";
 import { purchaseCart } from "../store/actions/purchase";
 import { goLogin } from "../store/actions/login";
+import { Link } from 'react-router-dom'
 import ProductModule from "../components/ProductModule";
-
 
 class Cart extends React.Component {
   componentDidMount() {
@@ -45,6 +45,20 @@ class Cart extends React.Component {
             <Col md="8" style={{ paddingTop: "4%" }}>
               {cart.length ? (
                 <div>
+                  <div
+                style={{
+                  width: "30px",
+                  position: "absolute",
+                  left: "0px",
+                  display: "inline",
+                  marginLeft: "0%",
+                  marginTop: "-5%"
+                }}
+              >
+                <Link to="/productos/1">
+                  <img src="/assets/back.svg" />
+                </Link>
+              </div>
                   {cart.map(product => (
                     <CartViewProduct
                       product={product}
@@ -56,6 +70,20 @@ class Cart extends React.Component {
                 </div>
               ) : (
                 <div style={{ paddingTop: "5%" }}>
+                  <div
+                style={{
+                  width: "30px",
+                  position: "absolute",
+                  left: "0px",
+                  display: "inline",
+                  marginLeft: "0%",
+                  marginTop: "-7%"
+                }}
+              >
+                <Link to="/productos/1">
+                  <img src="/assets/back.svg" style = {{display: "inline"}}/>
+                </Link>
+              </div>
                   <Row>
                     <Col md="5" style={{ paddingLeft: "18%" }}>
                       <img src="/assets/sad-08.png" />
