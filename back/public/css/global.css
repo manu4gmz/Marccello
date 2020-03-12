@@ -1,5 +1,4 @@
 .mainHero {
-  
   background-attachment: fixed;
   background-size: contain;
   background-repeat: no-repeat;
@@ -117,19 +116,18 @@
   text-decoration: none;
 }
 
-
 .inputContainer select {
- border: none;
- background-color: transparent;
- width: 100%;
- padding: 2px;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  padding: 2px;
 }
 
 @media only screen and (max-width: 768px) {
   .mainHero h1 {
     text-shadow: black 6px 5px 12px;
     font-size: 40px;
-
+    color: #ffffff;
     padding-top: 12%;
   }
 

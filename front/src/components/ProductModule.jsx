@@ -4,6 +4,7 @@ import { addToCart } from "../store/actions/cart";
 import { Link } from "react-router-dom";
 import { setAddCart } from "../store/actions/notif";
 import { connect } from "react-redux";
+import ReactStars from "react-stars";
 
 const ProductModule = ({ product, onClick, addToCart, cart, setAddCart }) => {
   return (
@@ -37,7 +38,7 @@ const ProductModule = ({ product, onClick, addToCart, cart, setAddCart }) => {
         <Col md="3">
           <Image
             style={{ width: "20px", display: "inline", cursor: "pointer" }}
-            src="../assets/more.svg"
+            src="/assets/more.svg"
             onClick={() => {
               addToCart(product.id);
               setAddCart(product.name);
@@ -55,7 +56,7 @@ const ProductModule = ({ product, onClick, addToCart, cart, setAddCart }) => {
               marginRight: "14%",
               marginTop: "-4%"
             }}
-            src="../assets/Fstar.svg"
+            src="/assets/Fstar.svg"
           />
           <p style={{ display: "inline" }}>{product.rating}</p>
         </Col>

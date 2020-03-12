@@ -34,53 +34,64 @@ class Register extends React.Component {
   render() {
     return (
       <Container className="mt-2 mb-5">
+        <div style={{ padding: "2%" }}></div>
+
         <br />
         <br />
-        <Header>Registrate</Header>
-        <Col md={6} className="mx-auto">
-          <p>
-            <br />
 
-            <b>Creá tu usuario para recibir los mejores helados en dron.</b>
-          </p>
-          <hr />
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group>
-              <label>Nombre de usuario</label>
+        <Row>
+          <Col md="5">
+            <div style={{ paddingLeft: "20%" }}>
+              <img src="/assets/happy-09.png" />
+            </div>
+          </Col>
+          <Col md="7" className="mx-auto">
+            <Header>
+              Nos alegra recibirte <b>¡Registrate!</b>
+            </Header>
+            <p>
+              <b>Creá tu usuario para recibir los mejores helados en dron.</b>
+            </p>
+            <hr />
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group>
+                <label>Nombre de usuario</label>
 
-              <Input
-                onChange={this.handleChange}
-                name="username"
-                placeholder="Juan"
-                value={this.state.username}
-                type="text"
-              />
-            </Form.Group>
-            <Form.Group>
-              <label>Email</label>
-              <Input
-                onChange={this.handleChange}
-                name="email"
-                type="email"
-                placeholder="juan@email.com"
-                name="email"
-                value={this.state.email}
-                type="text"
-              />
-            </Form.Group>
-            <Form.Group>
-              <label>Contraseña</label>
-              <Input
-                onChange={this.handleChange}
-                name="password"
-                type="password"
-                placeholder="********"
-                value={this.state.password}
-              />
-            </Form.Group>
-            <Button buttonTxt={"Registrar"} />
-          </Form>
-        </Col>
+                <Input
+                  onChange={this.handleChange}
+                  name="username"
+                  placeholder="Juan"
+                  value={this.state.username}
+                  type="text"
+                />
+              </Form.Group>
+              <Form.Group>
+                <label>Email</label>
+                <Input
+                  onChange={this.handleChange}
+                  name="email"
+                  type="email"
+                  placeholder="juan@email.com"
+                  name="email"
+                  value={this.state.email}
+                  type="text"
+                />
+              </Form.Group>
+              <Form.Group>
+                <label>Contraseña</label>
+                <Input
+                  onChange={this.handleChange}
+                  name="password"
+                  type="password"
+                  placeholder="********"
+                  value={this.state.password}
+                />
+              </Form.Group>
+              <Button buttonTxt={"Registrarme"} />
+            </Form>
+          </Col>
+        </Row>
+        <div style={{ padding: "3%" }}></div>
       </Container>
     );
   }
