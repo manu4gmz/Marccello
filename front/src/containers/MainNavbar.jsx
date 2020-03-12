@@ -39,8 +39,10 @@ class MainNavbar extends Component {
   }
 
   ClickLogout() {
+    console.log('CLICKLOGOUT');
+    
     this.props.logout().then(() => {
-      this.props.setNotification("Logout exitoso!");
+      this.props.setNotification("Logout exitoso!")
     });
   }
 
@@ -101,30 +103,34 @@ class MainNavbar extends Component {
                   {user.username ? (
                     <Fragment>
                       <Dropdown.Item>{user.username}</Dropdown.Item>
-                      <Dropdown.Item>
-                        <Link to="/purchases">Compras</Link>
+                      <Dropdown.Item onClick={()=> this.props.history.push(`/purchases`)}>
+                        Compras
                       </Dropdown.Item>
                       <Dropdown.Divider></Dropdown.Divider>
                       {user.type !== 'normal' ? (
-                        <Dropdown.Item>
-                          <Link to="/admin/orders">
+                        <Dropdown.Item onClick={()=> this.props.history.push(`/admin/orders`)}>
                             Admin
-                        </Link>
                         </Dropdown.Item>
                       ) : null}
-                      <Dropdown.Item>
+                      {/* <Dropdown.Item>
                         <Link onClick={this.ClickLogout} to="/">
                           Log out
                         </Link>
+                      </Dropdown.Item> */}
+                      <Dropdown.Item onClick={()=> {
+                        this.ClickLogout()
+                        this.props.history.push(`/`)
+                        }}>
+                          Log out
                       </Dropdown.Item>
 
                     </Fragment>
                   ) : (
                       <Fragment>
-                        <Dropdown.Item onClick={(e)=> this.props.history.push(`/login`)}>
+                        <Dropdown.Item onClick={()=> this.props.history.push(`/login`)}>
                           Inicia sesión
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={(e)=> this.props.history.push(`/register`)}>
+                        <Dropdown.Item onClick={()=> this.props.history.push(`/register`)}>
                           Registrate
                         </Dropdown.Item>
                       </Fragment>
@@ -140,8 +146,6 @@ class MainNavbar extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
-
   return {
     message: state.notif.message,
     messageProduct: state.notif.messageProduct,
