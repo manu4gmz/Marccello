@@ -179,6 +179,71 @@ const productBulkCreate = Product.bulkCreate([
 		visible: true,
 		price: 60
 	},
+	{
+		name: "Torta Helada Tricolor",
+		description: "Riquísima torta helada de 3 sabores.",
+		stock: 100,
+		imgURL: "https://lh3.googleusercontent.com/proxy/SbB3v21ZugT-dq8NxOyXMa9-ng4G5rVZktnvznywIP5R38av_Bu3PHTsrg7ziQKwqT7kKr0TZcbt86JlXpwXsw4EjuGlwlZlu2CMVW0HcgA49OTfDB6M",
+		visible: true,
+		price: 600
+	},
+	{
+		name: "Torta Helada de Vainillas",
+		description: "Riquísima torta helada con vainillas.",
+		stock: 100,
+		imgURL: "https://www.marubotana.tv/wp-content/uploads/2014/07/torta-helada.jpg",
+		visible: true,
+		price: 60
+	},
+	{
+		name: "Almendrado",
+		description: "Exquisito helado de vainilla con almendras con corazón de dulce de leche.",
+		stock: 100,
+		imgURL: "https://lh3.googleusercontent.com/proxy/XJ7bC4bkZAc-jLHpEKryP3nCeXB4YZ43DqfPdlUEW8e60qXlyaeO766Xjyn9QRihuqh0zqU1F-l_hX8Vm2eyuJb7zcUdvMcJej6fhobO1BVM5IIj1GyoHvY",
+		visible: true,
+		price: 350
+	},
+	{
+		name: "Helado Especial de Pistacho",
+		description: "Riquísimo helado especial de la casa.",
+		stock: 100,
+		imgURL: "https://i.imgur.com/IE4Fh68.jpg",
+		visible: true,
+		price: 120
+	},
+	{
+		name: "Paleta de avellana",
+		description: "Exquisita paleta de americana con avellanas crocantes.",
+		stock: 100,
+		imgURL: "https://i.imgur.com/amw8kPw.jpg",
+		visible: true,
+		price: 60
+	},
+	{
+		name: "Paleta de frambuesa a la crema",
+		description: "Riquísima paleta con todo el sabor de la fruta.",
+		stock: 100,
+		imgURL: "https://i.imgur.com/F1UFKTo.jpg",
+		visible: true,
+		price: 60
+	},
+	{
+		name: "Helado de Chocolate Rocher",
+		description: "Riquísimo helado especial de la casa.",
+		stock: 100,
+		imgURL: "https://i.imgur.com/0kKi0as.jpg",
+		visible: true,
+		price: 130
+		
+	},
+	{
+		name: "Torta Helada de Frambuesa",
+		description: "Riquísima torta helada con todo el sabor de la frambuesa.",
+		stock: 100,
+		imgURL: "https://images-gmi-pmc.edge-generalmills.com/3bd48a86-ffd0-475a-a8bc-091ddd0fae3f.jpg",
+		visible: true,
+		price: 550
+	},
 ])
 
 const userBulkCreate =
@@ -362,7 +427,7 @@ const reviews = [
 		rating: 3,
 		productId: 10,
 		userId: Math.floor(Math.random()*5)+2
-	}
+	},
 
 ]
 
@@ -370,9 +435,22 @@ const reviews = [
 
 const categories = [
 	{
-		name: "Paletas",
-		products: [15, 16, 17, 18]
+		name: "Por Peso",
+		products: [12, 13, 14]
 	},
+	{
+		name: "Postres",
+		products: [2, 5, 6, 7, 11]
+	},
+	{
+		name: "Paletas",
+		products: [15, 17, 18, 19 , 25, 26]
+	},
+	{
+		name: "Tortas Heladas",
+		products: [21, 22, 23, 28]
+	},
+
 ]
 
 
