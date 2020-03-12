@@ -17,7 +17,7 @@ import {
 import { purchaseCart } from "../store/actions/purchase";
 import { goLogin } from "../store/actions/login";
 
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import ProductModule from "../components/ProductModule";
 
 class Cart extends React.Component {
@@ -47,19 +47,19 @@ class Cart extends React.Component {
               {cart.length ? (
                 <div>
                   <div
-                style={{
-                  width: "30px",
-                  position: "absolute",
-                  left: "0px",
-                  display: "inline",
-                  marginLeft: "0%",
-                  marginTop: "-5%"
-                }}
-              >
-                <Link to="/productos/1">
-                  <img src="/assets/back.svg" />
-                </Link>
-              </div>
+                    style={{
+                      width: "30px",
+                      position: "absolute",
+                      left: "0px",
+                      display: "inline",
+                      marginLeft: "0%",
+                      marginTop: "-5%"
+                    }}
+                  >
+                    <Link to="/productos/1">
+                      <img src="/assets/back.svg" />
+                    </Link>
+                  </div>
                   {cart.map(product => (
                     <CartViewProduct
                       product={product}
@@ -72,19 +72,22 @@ class Cart extends React.Component {
               ) : (
                 <div style={{ paddingTop: "5%" }}>
                   <div
-                style={{
-                  width: "30px",
-                  position: "absolute",
-                  left: "0px",
-                  display: "inline",
-                  marginLeft: "0%",
-                  marginTop: "-7%"
-                }}
-              >
-                <Link to="/productos/1">
-                  <img src="/assets/back.svg" style = {{display: "inline"}}/>
-                </Link>
-              </div>
+                    style={{
+                      width: "30px",
+                      position: "absolute",
+                      left: "0px",
+                      display: "inline",
+                      marginLeft: "0%",
+                      marginTop: "-7%"
+                    }}
+                  >
+                    <Link to="/productos/1">
+                      <img
+                        src="/assets/back.svg"
+                        style={{ display: "inline" }}
+                      />
+                    </Link>
+                  </div>
                   <Row>
                     <Col md="5" style={{ paddingLeft: "18%" }}>
                       <img src="/assets/sad-08.png" />
@@ -114,17 +117,16 @@ class Cart extends React.Component {
             <Header>También te puede gustar</Header>
           </div>
           <Row>
-            {
-              this.props.featured.map((product,i)=>
-                <ProductModule product={product} index={i} onClick={()=>{
+            {this.props.featured.map((product, i) => (
+              <ProductModule
+                product={product}
+                index={i}
+                onClick={() => {
                   this.props.history.push(`/producto/${product.id}`);
-                }}/>
-                )
-            }
+                }}
+              />
+            ))}
           </Row>
-
-
-          
         </Container>
       </div>
     );
