@@ -76,6 +76,19 @@ const addToLoggedCart = productId => dispatch => {
 
 const addToLocalCart = productId => dispatch => {
   const cart = window.localStorage.getItem("cart");
+  if (cart) {
+    console.log("\n\n\n----------------- ")
+    console.log(cart, productId)
+    console.log(cart.split(","))
+    console.log(cart.split(",").map(a => Number(a.split(":")[0])))
+    console.log("\n\n\n")
+  }
+
+  if (cart && cart.split(",").map(a => Number(a.split(":")[0])).includes(Number(productId))) {
+    return dispatch(setNotification("Ese producto ya se encuentra en tu carrito"))
+  }
+
+
   axios.get(`/api/products/${productId}`)
   .then(rta => rta.data)
   .then(product => {
