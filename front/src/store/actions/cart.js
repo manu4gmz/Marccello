@@ -7,6 +7,11 @@ const setCart = products => ({
   products
 });
 
+const setFeatured = products => ({
+  type: "SET_FEATURED_IN_CART",
+  products
+})
+
 export const fetchCart = user => (dispatch, getState) => {
   if (getState().user.user.id) {
     return axios
@@ -106,4 +111,10 @@ export const moveLocalToLogged = () => dispatch => {
       console.log(data)
       window.localStorage.clear()
     })
+}
+
+export const fetchFeatured = () => dispatch => {
+  return axios.get("/api/products?o=hr")
+    .then(rta => rta.data)
+    .then(products => dispatch(setFeatured(products[0].slice(0,4))));
 }
