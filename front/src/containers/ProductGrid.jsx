@@ -188,7 +188,7 @@ class ProductGrid extends React.Component {
             <div style={{ padding: "4% 0" }}></div>
           </Row>
 
-          <Row>
+          <Row style={{ minHeight: "80vh"}}>
             {products.map((product, i) => (
               <ProductModule
                 alreadyCart={cart.map(p => p.id).includes(product.id)}
