@@ -5,10 +5,37 @@ const User = require('../models/user')
 const sequelize = require('sequelize')
 //routes
 
+const email = (email, content) => {
+    const nodemailer = require('nodemailer');
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'heladrones@gmail.com',
+        pass: 'Marccello1-'
+      },
+    });    
+    const mailOptions = {
+      from: 'heladrones@gmail.com',
+      to: `${email}`,
+      subject: 'Creaste un nuevo usuario',
+      text: `Felicidades ${content}! Ya tenés una cuenta de Marccello`
+    };    
+    console.log("sending email", mailOptions);
+    transporter.sendMail(mailOptions, function (error, info) {
+      console.log("senMail returned!");
+      if (error) {
+        console.log("ERROR!!!!!!", error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+}
+
 //registra usuario
 router.post('/register', (req, res) => {
     User.create(req.body)
-    .then((user) => res.send(user))    
+    .then((user) => res.send(user))
+    .then(()=> email(req.body.email, req.body.username))    
 })
 
 //loguea usuario
@@ -34,8 +61,13 @@ router.get('/checkLogUser', (req, res) => {
         res.send({ user: null, logged: false }) 
 })
 
+function isSuperAdmin(req, res, next) {
+	if (req.isAuthenticated() && (req.user.type == "superAdmin")) next();
+	else res.status(401).send({ msg: "Flasheaste man, solo capos" })
+}
+
 //devuelve los usuarios
-router.get('/', (req, res) => {
+router.get('/', isSuperAdmin, (req, res) => {
     User.findAll(
         {
             where: {
@@ -49,7 +81,7 @@ router.get('/', (req, res) => {
 })
 
 //promueve un usuario
-router.get('/promote/:id', (req, res) => {
+router.get('/promote/:id', isSuperAdmin, (req, res) => {
     User.findByPk(req.params.id)
     .then(user => {
         user.update({
@@ -61,7 +93,7 @@ router.get('/promote/:id', (req, res) => {
 })
 
 //degradar un usuario
-router.get('/demote/:id', (req, res) => {
+router.get('/demote/:id', isSuperAdmin, (req, res) => {
     User.findByPk(req.params.id)
     .then(user => {
         user.update({

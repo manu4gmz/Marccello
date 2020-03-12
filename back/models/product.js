@@ -33,7 +33,7 @@ Product.init({
     },
     visible: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        defaultValue: true
     }
 }, {
         sequelize,
@@ -42,11 +42,11 @@ Product.init({
 
 
 Product.prototype.rating = function () {
-    return Review.findAll({where: { productId: this.id }})
+    return Review.findAll({ where: { productId: this.id } })
         .then(data => {
             let acc = 0;
             for (let i = 0; i < data.length; i++) acc += data[i].rating;
-            return data.length ? Math.round((acc / data.length)*10)/10 : 5
+            return data.length ? Math.round((acc / data.length) * 10) / 10 : 5
         })
 
 }

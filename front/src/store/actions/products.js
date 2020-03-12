@@ -47,10 +47,10 @@ export const fetchProducts = (search, sort) => dispatch => {
             .then(products => dispatch(setProducts(products)))
             .then(() => dispatch(setPage(index || 0)))
     }*/
-    return axios.get(`/api/products${search || sort ? "?" : ""}${search ? "s="+search : ""}${search ? "&" : ""}${sort ? "o="+sort:""}`)
-            .then(data => data.data)
-            .then(products => dispatch(setProducts(products)))
-            //.then(() => dispatch(setPage(index || 0)))
+    return axios.get(`/api/products${search || sort ? "?" : ""}${search ? "s=" + search : ""}${search ? "&" : ""}${sort ? "o=" + sort : ""}`)
+        .then(data => data.data)
+        .then(products => dispatch(setProducts(products)))
+    //.then(() => dispatch(setPage(index || 0)))
 }
 
 
@@ -71,13 +71,13 @@ export const fetchCatProduct = (id, search, sort) => (dispatch) => {
         .then(()=> dispatch(setPage(0)))
 
     }*/
-    return axios.get(`/api/category/${id}${search || sort ? "?" : ""}${search ? "s="+search : ""}${search ? "&" : ""}${sort ? "o="+sort:""}`)
+    return axios.get(`/api/category/${id}${search || sort ? "?" : ""}${search ? "s=" + search : ""}${search ? "&" : ""}${sort ? "o=" + sort : ""}`)
         .then(data => data.data)
-        .then((data) => {dispatch(setProducts(data))})
-        .then(()=> dispatch(setPage(0)))
+        .then((data) => { dispatch(setProducts(data)) })
+        .then(() => dispatch(setPage(0)))
 
 
-    
+
 }
 
 
@@ -98,3 +98,11 @@ export const editProduct = (productId, product) => dispatch =>
     axios.put(`/api/products/${productId}`, product)
         .then(data => data.data)
         .then(() => dispatch(fetchProducts()))
+
+
+export const fetchProductsForEdit = (search, sort) => dispatch => {
+    return axios.get('/api/products/editproducts')
+        .then(data => data.data)
+        .then(products => dispatch(setProducts(products)))
+
+}

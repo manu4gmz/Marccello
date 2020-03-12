@@ -15,7 +15,8 @@ import CategoriesContainer from "../containers/CategoriesContainer";
 const Admin = ({ match, user }) => {
   return (
     <Fragment>
-      {user.type === "normal" ? <Redirect to="/" /> : null}
+      {
+      user.type == "superAdmin" || user.type == "admin"? 
       <Row>
         <Col md="2">
           <Sidebar />
@@ -23,30 +24,26 @@ const Admin = ({ match, user }) => {
         <Col md="10">
           <Container>
             <Switch>
-              <Route
-                path={match.path + "/users"}
-                exact
-                component={UsersContainer}
-              />
+              
               <Route
                 path={match.path + "/create-product"}
                 exact
                 component={NewProductContainer}
-              />
+                />
               <Route
                 path={match.path + "/add-categories/:id"}
                 exact
                 component={CategoriesContainer}
-              />
+                />
               <Route
                 path={match.path + "/edit-product/:id"}
                 component={EditProductContainer}
-              />
+                />
               <Route
                 path={match.path + "/edit-product"}
                 exact
                 component={AdminProductListContainer}
-              />
+                />
               <Route
                 path={match.path + "/orders/:id"}
                 exact
@@ -54,10 +51,19 @@ const Admin = ({ match, user }) => {
               />
               <Route path={match.path + "/orders"} exact component={Orders} />
               <Redirect path={match.path} exact to="/admin/orders" />
+              {user.type == "superAdmin"?
+                <Route
+                path={match.path + "/users"}
+                exact
+                component={UsersContainer}
+                />
+              : <div>Tenes que ser superAdmin para entrar aqui</div>
+              }
             </Switch>
           </Container>
         </Col>
       </Row>
+        : <div>Tenes que ser admin para entrar aqui</div>}
     </Fragment>
   );
 };
