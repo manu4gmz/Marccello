@@ -1,6 +1,6 @@
 const express = require('express');
 const router = new express.Router();
-const {Product, Category, Review} = require('../models');
+const {Product, Category, Review, User} = require('../models');
 const Sequelize = require("sequelize")
 const Promise = require("bluebird");
 module.exports = router;
