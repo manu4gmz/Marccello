@@ -1,6 +1,6 @@
 const express = require('express');
 const router = new express.Router();
-const {Product, Category, Review, User} = require('../models');
+const { Product, Category, Review, User } = require('../models');
 const Sequelize = require("sequelize")
 const Promise = require("bluebird");
 module.exports = router;
@@ -8,10 +8,10 @@ module.exports = router;
 // Middleware que automatiza la busqueda
 router.param("productId", (req, res, next, id) => {
     Product.findOne({
-        where: { id : req.params.productId },
+        where: { id: req.params.productId },
         include: [
             {
-                 model : Category 
+                model: Category
             }
         ]
     })
@@ -42,8 +42,8 @@ router.get('/', function (req, res, next) {
     const Op = Sequelize.Op
     Product.findAll(req.query.s ? {
         where: { name: { [Op.iLike]: `%${req.query.s}%` } }
-    } : {})
-        .then((productos) => 
+    } : { where: { visible: true } })
+        .then((productos) =>
             Promise.all(
                 productos.map(p => p.rating().then((data) => {
                     p.dataValues.rating = data;
@@ -55,25 +55,30 @@ router.get('/', function (req, res, next) {
             let sorting;
 
             switch (req.query.o) {
-              case "lp":
-                sorting = (b,a) => b.price - a.price;
-                break;
-              case "hp":
-                sorting = (a,b) => b.price - a.price;
-                break; 
-              case "lr":
-                sorting = (b,a) => b.dataValues.rating - a.dataValues.rating;
-                break;
-              case "hr":
-                sorting = (a,b) => b.dataValues.rating - a.dataValues.rating;
-                break; 
-              default:
-                sorting = (b, a) => b.id - a.id
+                case "lp":
+                    sorting = (b, a) => b.price - a.price;
+                    break;
+                case "hp":
+                    sorting = (a, b) => b.price - a.price;
+                    break;
+                case "lr":
+                    sorting = (b, a) => b.dataValues.rating - a.dataValues.rating;
+                    break;
+                case "hr":
+                    sorting = (a, b) => b.dataValues.rating - a.dataValues.rating;
+                    break;
+                default:
+                    sorting = (b, a) => b.id - a.id
             }
 
             res.status(200).json(pageSeparation(productos.sort(sorting)))
         })
 });
+
+router.get('/editproducts', function (req, res, next) {
+    Product.findAll()
+        .then(data => res.status(200).json(data))
+})
 
 // te busca un producto
 router.get('/:productId', function (req, res, next) {
@@ -108,47 +113,48 @@ router.delete("/:productId", (req, res, next) => {
 // crear un review para un producto
 router.post("/:productId", function (req, res, next) {
     Review.create(req.body)
-    .then(nuevoReview => {
-        return Promise.all([
-            nuevoReview.setProduct(req.product),
-            nuevoReview.setUser(req.user) 
-        ])
-        .then(()=> nuevoReview)
-    })
-    .then((nuevoReview)=>res.status(201).json(nuevoReview))
+        .then(nuevoReview => {
+            return Promise.all([
+                nuevoReview.setProduct(req.product),
+                nuevoReview.setUser(req.user)
+            ])
+                .then(() => nuevoReview)
+        })
+        .then((nuevoReview) => res.status(201).json(nuevoReview))
 });
 
 router.get('/:productId/reviews', function (req, res, next) {
-    Review.findAll({where: {
-        productId: req.params.productId,
-    },
-    include: [{
-        model: User
-    }]
+    Review.findAll({
+        where: {
+            productId: req.params.productId,
+        },
+        include: [{
+            model: User
+        }]
     })
-    .then(reviews => {
-        const maped = reviews.map(r => {
-            r.dataValues.user = r.user.username
-            return r
+        .then(reviews => {
+            const maped = reviews.map(r => {
+                r.dataValues.user = r.user.username
+                return r
+            })
+            res.status(200).json(maped)
         })
-        res.status(200).json(maped)
-    })
 });
 
-router.get('/:id', (req, res) => { 
+router.get('/:id', (req, res) => {
     const Op = Sequelize.Op
-    if(req.query.s){   
+    if (req.query.s) {
         Product.findOne({
             where: {
                 id: req.params.id
             },
             include: [{
                 model: Category,
-                where: {name:{[Op.iLike]: `%${req.query.s}%`}}
+                where: { name: { [Op.iLike]: `%${req.query.s}%` } }
             }]
         })
-        .then((product) => {
-            product ? res.send(pageSeparation(product.categories)) : res.send([[]])
-        })
+            .then((product) => {
+                product ? res.send(pageSeparation(product.categories)) : res.send([[]])
+            })
     }
 })

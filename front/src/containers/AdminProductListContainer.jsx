@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import AdminProductList from "../components/AdminProductList"
 import { Row, Col, Container, Image, Jumbotron } from "react-bootstrap";
-import { fetchProducts, fetchProduct, setPage, deleteProduct } from "../store/actions/products";
+import { fetchProductsForEdit, fetchProduct, setPage, deleteProduct } from "../store/actions/products";
 import { Link } from "react-router-dom"
 
 
@@ -16,7 +16,7 @@ const mapStateToProps = function (state, ownProps) {
 
 const mapDispatchToProps = function (dispatch, ownProps) {
     return {
-        fetchProducts: (products, index) => dispatch(fetchProducts(products, index)),
+        fetchProductsForEdit: (products, index) => dispatch(fetchProductsForEdit(products, index)),
         fetchProduct: id => dispatch(fetchProduct(id)),
         setPage: index => dispatch(setPage(index)),
         deleteProduct: productId => dispatch(deleteProduct(productId))
@@ -30,7 +30,7 @@ class AdminProductListContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchProducts()
+        this.props.fetchProductsForEdit()
     }
 
     render() {
