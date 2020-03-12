@@ -95,6 +95,7 @@ class ProductGrid extends React.Component {
       paddingBottom: "8%"
     };
     const { products, cart, categories } = this.props;
+    console.log(products);
 
     let arr = [];
     const max = this.props.pages,

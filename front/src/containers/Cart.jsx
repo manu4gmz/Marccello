@@ -16,9 +16,9 @@ import {
 } from "../store/actions/cart";
 import { purchaseCart } from "../store/actions/purchase";
 import { goLogin } from "../store/actions/login";
-import { Link } from 'react-router-dom'
-import ProductModule from "../components/ProductModule";
 
+import { Link } from "react-router-dom";
+import ProductModule from "../components/ProductModule";
 class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart();
@@ -45,7 +45,6 @@ class Cart extends React.Component {
             <div>
               <Row>
                 <Col md="8" style={{ paddingTop: "4%" }}>
-
                   <div
                     style={{
                       width: "30px",
@@ -98,7 +97,6 @@ class Cart extends React.Component {
               </Row>
             </div>
           )}
-
           <div style={{ padding: "5% 0 2% 0" }}>
             <Header>También te puede gustar</Header>
           </div>

@@ -7,7 +7,9 @@ import {
 } from "../store/actions/category";
 import { fetchProduct } from "../store/actions/products";
 import Button from "../components/Button";
-import { Image } from "react-bootstrap";
+import { Image, Container, Row, Col } from "react-bootstrap";
+import Header from "../components/Header";
+
 class CategoriesContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -43,48 +45,60 @@ class CategoriesContainer extends React.Component {
     const cats = (product.categories || []).map(cat => cat.id);
 
     return (
-      <div>
-        <ul>
-          {categories.map(category => {
-            return (
-              <li key={category.id}>
-                {category.name}
-                {cats.includes(category.id) ? (
-                  <Image
-                    style={{
-                      width: "20px",
-                      display: "inline",
-                      cursor: "pointer"
-                    }}
-                    src="/assets/bin.svg"
-                    onClick={() => {
-                      this.handleDelete(category.name);
-                    }}
-                  />
-                ) : (
-                  <Image
-                    style={{
-                      width: "20px",
-                      display: "inline",
-                      cursor: "pointer"
-                    }}
-                    src="/assets/more.svg"
-                    onClick={() => {
-                      this.handleLink(category.name);
-                    }}
-                  />
-                )}
-              </li>
-            );
-          })}
-          <form onSubmit={this.handleSubmit}>
-            <div className="inputContainer">
-              <input></input>
+      <Container>
+        <div style={{ padding: "2%" }}></div>
+        <Header>Seleccioná la categoría</Header>
+        {categories.map(category => {
+          return (
+            <div>
+              <Row style={{ paddingBottom: "1%" }}>
+                <Col md="5">{category.name}</Col>
+                <Col md="2">
+                  {cats.includes(category.id) ? (
+                    <Image
+                      style={{
+                        width: "20px",
+                        display: "inline",
+                        cursor: "pointer"
+                      }}
+                      src="/assets/bin.svg"
+                      onClick={() => {
+                        this.handleDelete(category.name);
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      style={{
+                        width: "20px",
+                        display: "inline",
+                        cursor: "pointer"
+                      }}
+                      src="/assets/more.svg"
+                      onClick={() => {
+                        this.handleLink(category.name);
+                      }}
+                    />
+                  )}
+                </Col>
+              </Row>
             </div>
-            <Button buttonTxt={"Agregar"} />
-          </form>
-        </ul>
-      </div>
+          );
+        })}
+        <Row>
+          <Col md="4">
+            <form onSubmit={this.handleSubmit}>
+              <div className="inputContainer">
+                <input placeholder="Nueva categoría"></input>
+              </div>
+            </form>
+          </Col>
+
+          <Col md="2">
+            <button className={"buttonPink2"}>Agregar</button>
+            {/* <Button className={"buttonPink1"} buttonTxt={"Agregar"} /> */}
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
