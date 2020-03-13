@@ -83,7 +83,7 @@ class Register extends React.Component {
                   onChange={this.handleChange}
                   name="password"
                   type="password"
-                  placeholder="********"
+                  //placeholder="********"
                   value={this.state.password}
                 />
               </Form.Group>
