@@ -246,190 +246,45 @@ const productBulkCreate = Product.bulkCreate([
 	},
 ])
 
-const userBulkCreate =
-	User.bulkCreate([
-		{
-			email: "admin@mail.com",
-			username: "Admin",
-			password: "admin123",
-			type: "superAdmin"
-		},
-		{
-			email: "manu@mail.com",
-			username: "Manu",
-			password: "manu123",
-			type: "normal"
-		},
-		{
-			email: "cande@mail.com",
-			username: "Cande",
-			password: "cande123",
-			type: "normal"
-		}, 
-		{
-			email: "jose@mail.com",
-			username: "Jose",
-			password: "jose123",
-			type: "normal"
-		}, 
-		{
-			email: "nacho@mail.com",
-			username: "Nacho",
-			password: "nacho123",
-			type: "normal"
-		}, 
-		{
-			email: "rami@mail.com",
-			username: "Rami",
-			password: "rami123",
-			type: "normal"
-		}
-	])
+const usuarios = [
+	{
+		email: "admin@mail.com",
+		username: "Admin",
+		password: "admin123",
+		type: "superAdmin"
+	},
+	{
+		email: "manu@mail.com",
+		username: "Manu",
+		password: "manu123",
+		type: "normal"
+	},
+	{
+		email: "cande@mail.com",
+		username: "Cande",
+		password: "cande123",
+		type: "normal"
+	}, 
+	{
+		email: "jose@mail.com",
+		username: "Jose",
+		password: "jose123",
+		type: "normal"
+	}, 
+	{
+		email: "nacho@mail.com",
+		username: "Nacho",
+		password: "nacho123",
+		type: "normal"
+	}, 
+	{
+		email: "rami@mail.com",
+		username: "Rami",
+		password: "rami123",
+		type: "normal"
+	}
+];
 
-const reviews = [
-	{
-		title: 'Muy rico el helado',
-		content: 'Alto helado, papaaaa',
-		rating: 5,
-		productId: 1,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Rico, pero tampoco para tanto',
-		content: 'El helado esta bien',
-		rating: 3,
-		productId: 1,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Muy malo',
-		content: 'Malisimo',
-		rating: 2,
-		productId: 1,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Alta paleta',
-		content: 'Muy rico y muy pintoresca la paleta',
-		rating: 5,
-		productId: 2,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Muy buena paleta',
-		content: "Mira que he probado paletas en mi vida, pero como esta paleta no hay ninguna",
-		rating: 5,
-		productId: 2,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'mmmmmmmm',
-		content: 'Mneeeeeehhhhhhh',
-		rating: 3,
-		productId: 2,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Riquisima',
-		content: 'Muy rica y llegaron bolando. Je',
-		rating: 4,
-		productId: 3,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Muy Bien',
-		content: 'Cumplieron con la entrega y llego rapido',
-		rating: 4,
-		productId: 4,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'El mejor helado que probe en mi vida',
-		content: 'Bueno, tampoco para tanto, je',
-		rating: 4,
-		productId: 4,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Bien',
-		content: 'Bien',
-		rating: 3,
-		productId: 5,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Manso helado',
-		content: 'Alto helado, man',
-		rating: 5,
-		productId: 6,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Nice gellatto, mate',
-		content: 'Love it',
-		rating: 4,
-		productId: 7,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'No me llego',
-		content: 'Vivo en Palermo y, hasta donde yo se, el drone se termino perdiendo en Lanus',
-		rating: 1,
-		productId: 8,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Gran helado',
-		content: 'enorme',
-		rating: 4,
-		productId: 9,
-		userId: Math.floor(Math.random()*5)+2
-	},
-	{
-		title: 'Rapido pero mas o menos',
-		content: 'La entrega fue rapidisima, me llego a la ventana de mi cuarto, pero el gusto me parecio medio flojo',
-		rating: 3,
-		productId: 16,
-		userId: Math.floor(Math.random()*5)+2
-	}, {
-		title: 'Espectacular',
-		content: 'Divino',
-		rating: 5,
-		productId: 15,
-		userId: Math.floor(Math.random()*5)+2
-	}, {
-		title: 'De puta madre',
-		content: 'Quiero comer este helado todos los dias de mi vida',
-		rating: 5,
-		productId: 14,
-		userId: Math.floor(Math.random()*5)+2
-	}, {
-		title: 'Terrible, me llego todo derretido',
-		content: 'Horrible',
-		rating: 1,
-		productId: 13,
-		userId: Math.floor(Math.random()*5)+2
-	}, {
-		title: 'Piolisimo helado',
-		content: 'Muy pero demasiado piola',
-		rating: 5,
-		productId: 12,
-		userId: Math.floor(Math.random()*5)+2
-	}, {
-		title: 'Bien',
-		content: 'Bueno',
-		rating: 3,
-		productId: 11,
-		userId: Math.floor(Math.random()*5)+2
-	}, {
-		title: 'Rico',
-		content: 'Sin comentarios',
-		rating: 3,
-		productId: 10,
-		userId: Math.floor(Math.random()*5)+2
-	},
-
-]
 
 
 
@@ -453,22 +308,20 @@ const categories = [
 
 ]
 
+const userCreate = (array => array.map(user => User.create(user)))
+const reviewCreate = (array => array.map(review => Review.create(review)))
 
 let _user = null;
 let _products = null;
 let _reviews = null;
 
-Promise.all([productBulkCreate, userBulkCreate])
-	.then(([products, user, reviews]) => {
+Promise.all([productBulkCreate, userCreate(usuarios)])
+	.then(([products, user]) => {
 		products.forEach(logProduct)
 		//logUser(user)
 
 		_user = user;
 		_products = products;
-		_reviews = reviews
-	})
-	.then(()=> {
-		return Review.bulkCreate(reviews)
 	})
 	.then(()=> {
 		Promise.all(categories.map(category => {
